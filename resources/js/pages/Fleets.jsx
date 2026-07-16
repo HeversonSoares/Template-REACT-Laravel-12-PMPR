@@ -65,6 +65,7 @@ export default function Fleets() {
     const [alerts, setAlerts] = useState(MOCK_ALERTS);
     const [search, setSearch] = useState('');
     const [isRefreshing, setIsRefreshing] = useState(false);
+    const [selectedTab, setSelectedTab] = useState('vehicles');
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -171,15 +172,33 @@ export default function Fleets() {
                         <NavigationMenu>
                             <NavigationMenuList className="flex gap-1">
                                 <NavigationMenuItem>
-                                    <Link to="/" className={`${navigationMenuTriggerStyle()} bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all rounded-md h-9 text-xs sm:text-sm`}>
-                                        Hub
-                                    </Link>
+                                    <button
+                                        type="button"
+                                        onClick={() => setSelectedTab('vehicles')}
+                                        className={`${navigationMenuTriggerStyle()} bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all rounded-md h-9 text-xs sm:text-sm ${selectedTab === 'vehicles' ? 'bg-slate-100 text-slate-900 font-semibold' : ''}`}
+                                    >
+                                        Veículos Integrados ({vehicles.length})
+                                    </button>
                                 </NavigationMenuItem>
-                                <span className="text-slate-350 self-center">/</span>
+
                                 <NavigationMenuItem>
-                                    <span className={`${navigationMenuTriggerStyle()} bg-slate-100 text-slate-900 font-semibold rounded-md h-9 text-xs sm:text-sm cursor-default hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100`}>
-                                        Frotas
-                                    </span>
+                                    <button
+                                        type="button"
+                                        onClick={() => setSelectedTab('alerts')}
+                                        className={`${navigationMenuTriggerStyle()} bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all rounded-md h-9 text-xs sm:text-sm ${selectedTab === 'alerts' ? 'bg-slate-100 text-slate-900 font-semibold' : ''}`}
+                                    >
+                                        Alertas de Telemetria ({alerts.length})
+                                    </button>
+                                </NavigationMenuItem>
+
+                                <NavigationMenuItem>
+                                    <button
+                                        type="button"
+                                        onClick={() => setSelectedTab('settings')}
+                                        className={`${navigationMenuTriggerStyle()} bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all rounded-md h-9 text-xs sm:text-sm ${selectedTab === 'settings' ? 'bg-slate-100 text-slate-900 font-semibold' : ''}`}
+                                    >
+                                        Configuração de GPS
+                                    </button>
                                 </NavigationMenuItem>
                             </NavigationMenuList>
                         </NavigationMenu>
@@ -187,18 +206,7 @@ export default function Fleets() {
                 </div>
 
                 {/* Tabs */}
-                <Tabs defaultValue="vehicles" className="space-y-6">
-                    <TabsList className="bg-white border border-slate-200 p-1 rounded-xl shadow-sm">
-                        <TabsTrigger value="vehicles" className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white rounded-lg px-4 py-2 text-xs sm:text-sm text-slate-600">
-                            Veículos Integrados ({vehicles.length})
-                        </TabsTrigger>
-                        <TabsTrigger value="alerts" className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white rounded-lg px-4 py-2 text-xs sm:text-sm text-slate-600">
-                            Alertas de Telemetria ({alerts.length})
-                        </TabsTrigger>
-                        <TabsTrigger value="settings" className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white rounded-lg px-4 py-2 text-xs sm:text-sm text-slate-600">
-                            Configuração de GPS
-                        </TabsTrigger>
-                    </TabsList>
+                <Tabs value={selectedTab} onValueChange={setSelectedTab} className="space-y-6">
 
                     {/* VEHICLES TAB */}
                     <TabsContent value="vehicles" className="space-y-4 outline-none">

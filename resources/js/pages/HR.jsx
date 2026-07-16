@@ -65,6 +65,7 @@ export default function HR() {
     const [searchTerm, setSearchTerm] = useState('');
     const [syncingAll, setSyncingAll] = useState(false);
     const [syncStatus, setSyncStatus] = useState({});
+    const [selectedTab, setSelectedTab] = useState('employees');
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -176,15 +177,33 @@ export default function HR() {
                         <NavigationMenu>
                             <NavigationMenuList className="flex gap-1">
                                 <NavigationMenuItem>
-                                    <Link to="/" className={`${navigationMenuTriggerStyle()} bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all rounded-md h-9 text-xs sm:text-sm`}>
-                                        Hub
-                                    </Link>
+                                    <button
+                                        type="button"
+                                        onClick={() => setSelectedTab('employees')}
+                                        className={`${navigationMenuTriggerStyle()} bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all rounded-md h-9 text-xs sm:text-sm ${selectedTab === 'employees' ? 'bg-slate-100 text-slate-900 font-semibold' : ''}`}
+                                    >
+                                        Funcionários Sincronizados
+                                    </button>
                                 </NavigationMenuItem>
-                                <span className="text-slate-350 self-center">/</span>
+
                                 <NavigationMenuItem>
-                                    <span className={`${navigationMenuTriggerStyle()} bg-slate-100 text-slate-900 font-semibold rounded-md h-9 text-xs sm:text-sm cursor-default hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100`}>
-                                        RH
-                                    </span>
+                                    <button
+                                        type="button"
+                                        onClick={() => setSelectedTab('mapping')}
+                                        className={`${navigationMenuTriggerStyle()} bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all rounded-md h-9 text-xs sm:text-sm ${selectedTab === 'mapping' ? 'bg-slate-100 text-slate-900 font-semibold' : ''}`}
+                                    >
+                                        Mapeamento de Campos
+                                    </button>
+                                </NavigationMenuItem>
+
+                                <NavigationMenuItem>
+                                    <button
+                                        type="button"
+                                        onClick={() => setSelectedTab('config')}
+                                        className={`${navigationMenuTriggerStyle()} bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all rounded-md h-9 text-xs sm:text-sm ${selectedTab === 'config' ? 'bg-slate-100 text-slate-900 font-semibold' : ''}`}
+                                    >
+                                        Parâmetros de Conexão
+                                    </button>
                                 </NavigationMenuItem>
                             </NavigationMenuList>
                         </NavigationMenu>
@@ -192,18 +211,7 @@ export default function HR() {
                 </div>
 
                 {/* Tabs for different sections */}
-                <Tabs defaultValue="employees" className="space-y-6">
-                    <TabsList className="bg-white border border-slate-200 p-1 rounded-xl shadow-sm">
-                        <TabsTrigger value="employees" className="data-[state=active]:bg-emerald-650 data-[state=active]:bg-emerald-600 data-[state=active]:text-white rounded-lg px-4 py-2 text-xs sm:text-sm text-slate-600">
-                            Funcionários Sincronizados
-                        </TabsTrigger>
-                        <TabsTrigger value="mapping" className="data-[state=active]:bg-emerald-650 data-[state=active]:bg-emerald-600 data-[state=active]:text-white rounded-lg px-4 py-2 text-xs sm:text-sm text-slate-600">
-                            Mapeamento de Campos
-                        </TabsTrigger>
-                        <TabsTrigger value="config" className="data-[state=active]:bg-emerald-650 data-[state=active]:bg-emerald-600 data-[state=active]:text-white rounded-lg px-4 py-2 text-xs sm:text-sm text-slate-600">
-                            Parâmetros de Conexão
-                        </TabsTrigger>
-                    </TabsList>
+                <Tabs value={selectedTab} onValueChange={setSelectedTab} className="space-y-6">
 
                     {/* EMPLOYEES TAB */}
                     <TabsContent value="employees" className="space-y-4 outline-none">
