@@ -217,14 +217,14 @@ export default function Dashboard() {
             <div className="w-full p-6 space-y-8">
                 <div className="space-y-4">
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                        <div>
+                        <div className="space-y-0.5">
                             <div className="flex items-center gap-2.5">
                                 <Layers className="h-6 w-6 text-slate-700 shrink-0" />
-                                <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+                                <h2 className="text-2xl font-bold tracking-tight text-slate-900">
                                     Hub de Módulos Externos
-                                </h1>
+                                </h2>
                             </div>
-                            <p className="text-slate-500 mt-1">
+                            <p className="text-sm text-slate-500">
                                 Gerencie conexões, sincronização e integridade dos sistemas conectados ao core.
                             </p>
                         </div>
@@ -468,9 +468,9 @@ export default function Dashboard() {
                 {/* Module Sync Logs Table */}
                 <div className="bg-white border border-slate-250 rounded-2xl p-6 shadow-sm space-y-4">
                     <div className="flex items-center justify-between">
-                        <div>
-                            <h2 className="text-xl font-bold text-slate-900">Log Global de Integração</h2>
-                            <p className="text-slate-500 text-sm mt-0.5">Últimos eventos transmitidos pelo Gateway central.</p>
+                        <div className="space-y-0.5">
+                            <h3 className="text-lg font-semibold text-slate-900">Log Global de Integração</h3>
+                            <p className="text-sm text-slate-500">Últimos eventos transmitidos pelo Gateway central.</p>
                         </div>
                         <Button variant="outline" size="sm" className="border-slate-200 hover:bg-slate-50 gap-1 text-xs">
                             <RefreshCw className="h-3.5 w-3.5" /> Atualizar

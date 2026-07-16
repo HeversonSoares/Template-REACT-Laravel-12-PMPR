@@ -146,12 +146,12 @@ export default function Fleets() {
                 {/* Header */}
                 <div className="space-y-4">
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                        <div>
+                        <div className="space-y-0.5">
                             <div className="flex items-center gap-2.5">
                                 <Truck className="h-6 w-6 text-slate-700 shrink-0" />
-                                <h1 className="text-2xl font-bold tracking-tight text-slate-900">Controle de Frotas Externo</h1>
+                                <h2 className="text-2xl font-bold tracking-tight text-slate-900">Controle de Frotas Externo</h2>
                             </div>
-                            <p className="text-slate-500 text-sm mt-1">
+                            <p className="text-sm text-slate-500">
                                 Gerenciamento de veículos, telemetria em tempo real e agendamento de manutenções via webhook.
                             </p>
                         </div>

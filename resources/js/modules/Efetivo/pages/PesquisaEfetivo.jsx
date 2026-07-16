@@ -19,20 +19,10 @@ export default function PesquisaEfetivo() {
         <EfetivoMenu />
         
         <div className="space-y-6 mt-6">
-          <h1 className="text-3xl font-bold">Pesquisa de Efetivo</h1>
       
-      <div className="bg-amber-100 border-l-4 border-amber-500 text-amber-700 p-4 rounded-r-md">
-        <p className="font-semibold">Atenção:</p>
-        <p className="text-sm">
-          Os registros exibidos incluem policiais inativos e históricos de policiais já desvinculados 
-          (reserva, demissão, exclusão ou outros motivos). Também podem aparecer policiais atualmente ativos que, 
-          em algum momento, tiveram quebra de vínculo registrada no passado. Não exibe registros de exclusão caso ocorreu na inatividade.
-        </p>
-      </div>
-
       <Card>
         <CardHeader>
-          <CardTitle>Filtros de Pesquisa</CardTitle>
+          <CardTitle className="text-lg">Filtros de Pesquisa</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Seção Principal */}

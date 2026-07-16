@@ -15,6 +15,10 @@ import Register from './modules/Auth/pages/Register';
 import Fleets from './modules/Fleets/pages/Fleets';
 import Settings from './modules/Settings/pages/Settings';
 import Templates from './modules/Template/pages/TemplateIndex';
+import TemplateDashboard from './modules/Template/pages/TemplateDashboard';
+import TemplateTables from './modules/Template/pages/TemplateTables';
+import TemplateForms from './modules/Template/pages/TemplateForms';
+import TemplateDesign from './modules/Template/pages/TemplateDesign';
 import PesquisaEfetivo from './modules/Efetivo/pages/PesquisaEfetivo';
 import EfetivoSincronizado from './modules/Efetivo/pages/EfetivoSincronizado';
 import MapeamentoCampos from './modules/Efetivo/pages/MapeamentoCampos';
@@ -43,6 +47,10 @@ function App() {
                 
                 <Route path="/fleets" element={<Fleets />} />
                 <Route path="/templates" element={<Templates />} />
+                <Route path="/templates/dashboard" element={<TemplateDashboard />} />
+                <Route path="/templates/tables" element={<TemplateTables />} />
+                <Route path="/templates/forms" element={<TemplateForms />} />
+                <Route path="/templates/design" element={<TemplateDesign />} />
                 <Route path="/settings" element={<Settings />} />
             </Routes>
         </BrowserRouter>
