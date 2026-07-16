@@ -154,10 +154,10 @@ export default function HR() {
                         <div>
                             <div className="flex items-center gap-2.5">
                                 <Users className="h-6 w-6 text-slate-700 shrink-0" />
-                                <h1 className="text-2xl font-bold tracking-tight text-slate-900">Integração RH (Recursos Humanos)</h1>
+                                <h1 className="text-2xl font-bold tracking-tight text-slate-900">Efetivo</h1>
                             </div>
                             <p className="text-slate-500 text-sm mt-1">
-                                Módulo de conexão com a plataforma externa de RH corporativo.
+                                Módulo de conexão com a plataforma externa.
                             </p>
                         </div>
                         <Button 
@@ -182,7 +182,7 @@ export default function HR() {
                                         onClick={() => setSelectedTab('employees')}
                                         className={`${navigationMenuTriggerStyle()} bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all rounded-md h-9 text-xs sm:text-sm ${selectedTab === 'employees' ? 'bg-slate-100 text-slate-900 font-semibold' : ''}`}
                                     >
-                                        Funcionários Sincronizados
+                                        Efetivo Sincronizado
                                     </button>
                                 </NavigationMenuItem>
 
@@ -218,16 +218,16 @@ export default function HR() {
                         <Card className="bg-white border-slate-250 shadow-sm">
                             <CardHeader className="pb-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                                 <div>
-                                    <CardTitle className="text-slate-900">Colaboradores Importados</CardTitle>
+                                    <CardTitle className="text-slate-900">Efetivo Importado</CardTitle>
                                     <CardDescription className="text-slate-500">
-                                        Lista de perfis importados e vinculados entre o ERP central e o software de RH.
+                                        Lista de perfis importados e vinculados.
                                     </CardDescription>
                                 </div>
                                 <div className="flex items-center bg-white border border-slate-200 rounded-xl px-3 py-1.5 w-full sm:w-64">
                                     <Search className="h-4 w-4 text-slate-400 mr-2" />
                                     <input 
                                         type="text" 
-                                        placeholder="Buscar colaborador..."
+                                        placeholder="Buscar..."
                                         value={searchTerm}
                                         onChange={e => setSearchTerm(e.target.value)}
                                         className="bg-transparent border-0 outline-none text-xs text-slate-800 placeholder-slate-400 w-full"
