@@ -10,7 +10,7 @@ import Register from './pages/Register';
 import HR from './pages/HR';
 import Fleets from './pages/Fleets';
 import Settings from './pages/Settings';
-import Templates from './pages/Templates';
+import Templates from './modules/Template/pages/TemplateIndex';
 
 function App() {
     return (
