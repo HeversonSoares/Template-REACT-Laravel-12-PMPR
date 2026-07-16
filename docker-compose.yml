@@ -1,0 +1,35 @@
+services:
+  app:
+    build: .
+    container_name: template_react_app
+    volumes:
+      - .:/var/www
+    working_dir: /var/www
+    command: >
+      sh -c "
+      composer install &&
+      npm install &&
+      php artisan key:generate &&
+      php artisan migrate --force &&
+      php artisan serve --host=0.0.0.0 --port=8000
+      "
+    ports:
+      - "28432:8000"
+      - "5173:5173"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: template_react_db
+    environment:
+      POSTGRES_DB: template_react
+      POSTGRES_USER: template_react
+      POSTGRES_PASSWORD: template_react
+    ports:
+      - "25432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
