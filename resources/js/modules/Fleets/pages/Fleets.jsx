@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Layout from '../components/Layout';
+import Layout from '@/components/Layout';
 import { 
     Card, 
     CardContent, 
@@ -7,9 +7,9 @@ import {
     CardHeader, 
     CardTitle, 
     CardFooter 
-} from '../components/ui/card';
-import { Button } from '../components/ui/button';
-import { Badge } from '../components/ui/badge';
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { 
     Table, 
     TableBody, 
@@ -17,12 +17,12 @@ import {
     TableHead, 
     TableHeader, 
     TableRow 
-} from '../components/ui/table';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
-import { Input } from '../components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
-import { Switch } from '../components/ui/switch';
-import { Skeleton } from '../components/ui/skeleton';
+} from '@/components/ui/table';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
+import { Skeleton } from '@/components/ui/skeleton';
 import { 
     Truck, 
     Search, 
@@ -43,7 +43,7 @@ import {
     NavigationMenuItem,
     NavigationMenuLink,
     navigationMenuTriggerStyle,
-} from '../components/ui/navigation-menu';
+} from '@/components/ui/navigation-menu';
 
 const MOCK_VEHICLES = [
     { id: '1', plate: 'BRA-2E19', model: 'Chevrolet S10 (PMPR)', driver: 'Sgt. Rodrigues Santos', fuel: '85%', nextMaint: '20/08/2026', status: 'in_use' },

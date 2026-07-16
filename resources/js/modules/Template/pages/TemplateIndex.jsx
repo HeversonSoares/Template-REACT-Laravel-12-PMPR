@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Layout from '../../../components/Layout';
+import Layout from '@/components/Layout';
 import { 
     Card, 
     CardContent, 
@@ -7,9 +7,9 @@ import {
     CardHeader, 
     CardTitle, 
     CardFooter 
-} from '../../../components/ui/card';
-import { Button } from '../../../components/ui/button';
-import { Badge } from '../../../components/ui/badge';
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { 
     Table, 
     TableBody, 
@@ -17,12 +17,12 @@ import {
     TableHead, 
     TableHeader, 
     TableRow 
-} from '../../../components/ui/table';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui/tabs';
-import { Input } from '../../../components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../components/ui/select';
-import { Switch } from '../../../components/ui/switch';
-import { Skeleton } from '../../../components/ui/skeleton';
+} from '@/components/ui/table';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
+import { Skeleton } from '@/components/ui/skeleton';
 import { 
     Dialog,
     DialogContent,
@@ -31,7 +31,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from '../../../components/ui/dialog';
+} from '@/components/ui/dialog';
 import { Link } from 'react-router-dom';
 import {
     NavigationMenu,
@@ -41,7 +41,7 @@ import {
     NavigationMenuTrigger,
     NavigationMenuContent,
     navigationMenuTriggerStyle,
-} from '../../../components/ui/navigation-menu';
+} from '@/components/ui/navigation-menu';
 import { 
     LayoutDashboard, 
     Table as TableIcon, 
@@ -61,9 +61,9 @@ import {
     LayoutTemplate
 } from 'lucide-react';
 
-import { SearchableSelect } from '../../../components/ui/searchable-select';
-import { CustomCheckbox } from '../../../components/ui/custom-checkbox';
-import { MultiSelect } from '../../../components/ui/multi-select';
+import { SearchableSelect } from '@/components/ui/searchable-select';
+import { CustomCheckbox } from '@/components/ui/custom-checkbox';
+import { MultiSelect } from '@/components/ui/multi-select';
 
 
 export default function Templates() {

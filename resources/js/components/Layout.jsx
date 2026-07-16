@@ -27,7 +27,7 @@ export default function Layout({ children }) {
 
     const navItems = [
         { path: '/', name: 'Hub', icon: Layers },
-        { path: '/hr', name: 'Efetivo', icon: Users },
+        { path: '/efetivo', name: 'Efetivo', icon: Users },
         { path: '/fleets', name: 'Frotas', icon: Truck },
         { path: '/templates', name: 'Modelos', icon: BookOpen },
         { path: '/settings', name: 'Configurações', icon: Settings },

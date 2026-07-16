@@ -4,22 +4,43 @@ import './bootstrap';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import HR from './pages/HR';
-import Fleets from './pages/Fleets';
-import Settings from './pages/Settings';
+// ==============================================================================
+// IMPORTAÇÃO DE MÓDULOS (ARQUITETURA MODULAR)
+// Aqui nós importamos as páginas (componentes) de dentro dos seus respectivos módulos.
+// Sempre que criar um novo módulo em "resources/js/modules/", importe a página principal dele aqui.
+// ==============================================================================
+import Dashboard from './modules/Dashboard/pages/Dashboard';
+import Login from './modules/Auth/pages/Login';
+import Register from './modules/Auth/pages/Register';
+import Fleets from './modules/Fleets/pages/Fleets';
+import Settings from './modules/Settings/pages/Settings';
 import Templates from './modules/Template/pages/TemplateIndex';
+import PesquisaEfetivo from './modules/Efetivo/pages/PesquisaEfetivo';
+import EfetivoSincronizado from './modules/Efetivo/pages/EfetivoSincronizado';
+import MapeamentoCampos from './modules/Efetivo/pages/MapeamentoCampos';
+import ParametrosConexao from './modules/Efetivo/pages/ParametrosConexao';
 
 function App() {
     return (
+        // O BrowserRouter envolve a aplicação para permitir a navegação sem recarregar a página (Single Page Application).
         <BrowserRouter>
+            {/* O componente Routes agrupa todas as rotas da nossa aplicação */}
             <Routes>
+                {/* 
+                  Como registrar uma nova rota:
+                  1. 'path' é a URL que o usuário vai acessar no navegador (ex: www.site.com/minha-rota).
+                  2. 'element' é o Componente (importado lá em cima) que será renderizado na tela.
+                */}
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/hr" element={<HR />} />
+                
+                {/* Módulos do Sistema */}
+                <Route path="/efetivo" element={<PesquisaEfetivo />} />
+                <Route path="/efetivo/sincronizado" element={<EfetivoSincronizado />} />
+                <Route path="/efetivo/mapeamento" element={<MapeamentoCampos />} />
+                <Route path="/efetivo/parametros" element={<ParametrosConexao />} />
+                
                 <Route path="/fleets" element={<Fleets />} />
                 <Route path="/templates" element={<Templates />} />
                 <Route path="/settings" element={<Settings />} />

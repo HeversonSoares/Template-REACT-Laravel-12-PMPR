@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Layout from '../components/Layout';
+import Layout from '@/components/Layout';
 import { 
     Card, 
     CardContent, 
@@ -7,13 +7,13 @@ import {
     CardHeader, 
     CardTitle, 
     CardFooter 
-} from '../components/ui/card';
-import { Button } from '../components/ui/button';
-import { Badge } from '../components/ui/badge';
-import { Input } from '../components/ui/input';
-import { Switch } from '../components/ui/switch';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
-import { Skeleton } from '../components/ui/skeleton';
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Switch } from '@/components/ui/switch';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Skeleton } from '@/components/ui/skeleton';
 import { 
     Key, 
     Server, 
@@ -33,7 +33,7 @@ import {
     NavigationMenuItem,
     NavigationMenuLink,
     navigationMenuTriggerStyle,
-} from '../components/ui/navigation-menu';
+} from '@/components/ui/navigation-menu';
 
 const MOCK_API_KEYS = [
     { id: 'k1', name: 'Integração de RH Produção', prefix: 'tok_live_rh_••••', created: '10/06/2026', status: 'active' },

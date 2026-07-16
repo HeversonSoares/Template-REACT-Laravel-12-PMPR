@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import Layout from '../components/Layout';
+import Layout from '@/components/Layout';
 import { 
     Card, 
     CardContent, 
@@ -8,9 +8,9 @@ import {
     CardFooter, 
     CardHeader, 
     CardTitle 
-} from '../components/ui/card';
-import { Button } from '../components/ui/button';
-import { Badge } from '../components/ui/badge';
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { 
     Table, 
     TableBody, 
@@ -18,8 +18,8 @@ import {
     TableHead, 
     TableHeader, 
     TableRow 
-} from '../components/ui/table';
-import { Switch } from '../components/ui/switch';
+} from '@/components/ui/table';
+import { Switch } from '@/components/ui/switch';
 import { 
     Dialog, 
     DialogContent, 
@@ -28,17 +28,17 @@ import {
     DialogHeader, 
     DialogTitle, 
     DialogTrigger 
-} from '../components/ui/dialog';
-import { Input } from '../components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
-import { Skeleton } from '../components/ui/skeleton';
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Skeleton } from '@/components/ui/skeleton';
 import {
     NavigationMenu,
     NavigationMenuList,
     NavigationMenuItem,
     NavigationMenuLink,
     navigationMenuTriggerStyle,
-} from '../components/ui/navigation-menu';
+} from '@/components/ui/navigation-menu';
 import { 
     Layers, 
     Activity, 
@@ -62,7 +62,7 @@ const INITIAL_MODULES = [
         lastSync: 'Há 10 minutos',
         health: 'good',
         errors: 0,
-        route: '/hr'
+        route: '/efetivo'
     },
     {
         id: 'fleets',
