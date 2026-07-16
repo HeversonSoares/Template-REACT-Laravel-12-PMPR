@@ -125,31 +125,39 @@ export default function Settings() {
         <Layout>
             <div className="w-full p-6 space-y-8">
                 {/* Header */}
-                <div>
-                    <div className="flex items-center gap-2.5">
-                        <SettingsIcon className="h-6 w-6 text-slate-700 shrink-0" />
-                        <h1 className="text-2xl font-bold tracking-tight text-slate-900">Configurações Gerais</h1>
+                <div className="space-y-4">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div>
+                            <div className="flex items-center gap-2.5">
+                                <SettingsIcon className="h-6 w-6 text-slate-700 shrink-0" />
+                                <h1 className="text-2xl font-bold tracking-tight text-slate-900">Configurações Gerais</h1>
+                            </div>
+                            <p className="text-slate-500 text-sm mt-1">
+                                Gerencie chaves de API, webhooks e parâmetros globais do Gateway de Integração.
+                            </p>
+                        </div>
                     </div>
-                    <p className="text-slate-500 text-sm mt-1">
-                        Gerencie chaves de API, webhooks e parâmetros globais do Gateway de Integração.
-                    </p>
-                    <hr className="my-3 border-slate-200" />
-                    {/* Navigation Menu (replacing Breadcrumb) */}
-                    <NavigationMenu>
-                        <NavigationMenuList>
-                            <NavigationMenuItem>
-                                <Link to="/" className={navigationMenuTriggerStyle()}>
-                                    Hub
-                                </Link>
-                            </NavigationMenuItem>
-                            <span className="text-slate-450 text-slate-300">/</span>
-                            <NavigationMenuItem>
-                                <span className={`${navigationMenuTriggerStyle()} text-slate-500 cursor-default hover:bg-transparent hover:text-slate-500 focus:bg-transparent`}>
-                                    Configurações
-                                </span>
-                            </NavigationMenuItem>
-                        </NavigationMenuList>
-                    </NavigationMenu>
+
+                    <hr className="border-slate-200" />
+
+                    <div className="flex items-center justify-between">
+                        {/* Navigation Menu */}
+                        <NavigationMenu>
+                            <NavigationMenuList className="flex gap-1">
+                                <NavigationMenuItem>
+                                    <Link to="/" className={`${navigationMenuTriggerStyle()} bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all rounded-md h-9 text-xs sm:text-sm`}>
+                                        Hub
+                                    </Link>
+                                </NavigationMenuItem>
+                                <span className="text-slate-350 self-center">/</span>
+                                <NavigationMenuItem>
+                                    <span className={`${navigationMenuTriggerStyle()} bg-slate-100 text-slate-900 font-semibold rounded-md h-9 text-xs sm:text-sm cursor-default hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100`}>
+                                        Configurações
+                                    </span>
+                                </NavigationMenuItem>
+                            </NavigationMenuList>
+                        </NavigationMenu>
+                    </div>
                 </div>
 
                 {/* API Keys Card */}

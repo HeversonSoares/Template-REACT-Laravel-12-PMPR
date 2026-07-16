@@ -215,98 +215,102 @@ export default function Dashboard() {
     return (
         <Layout>
             <div className="w-full p-6 space-y-8">
-                {/* Header Section */}
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                    <div className="flex-1">
-                        <div className="flex items-center gap-2.5">
-                            <Layers className="h-6 w-6 text-slate-700 shrink-0" />
-                            <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-                                Hub de Módulos Externos
-                            </h1>
+                <div className="space-y-4">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div>
+                            <div className="flex items-center gap-2.5">
+                                <Layers className="h-6 w-6 text-slate-700 shrink-0" />
+                                <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+                                    Hub de Módulos Externos
+                                </h1>
+                            </div>
+                            <p className="text-slate-500 mt-1">
+                                Gerencie conexões, sincronização e integridade dos sistemas conectados ao core.
+                            </p>
                         </div>
-                        <p className="text-slate-500 mt-1">
-                            Gerencie conexões, sincronização e integridade dos sistemas conectados ao core.
-                        </p>
-                        <hr className="my-3 border-slate-200" />
-                        {/* Navigation Menu (replacing Breadcrumb) */}
+                        <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
+                            <DialogTrigger asChild>
+                                <Button className="bg-amber-550 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl gap-2 shadow">
+                                    <Plus className="h-4 w-4" /> Novo Módulo
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent className="bg-white border border-slate-200 text-slate-905 sm:max-w-[425px]">
+                                <form onSubmit={handleAddModule}>
+                                    <DialogHeader>
+                                        <DialogTitle className="text-xl font-bold text-slate-900">Adicionar Módulo Externo</DialogTitle>
+                                        <DialogDescription className="text-slate-500">
+                                            Cadastre uma nova integração externa. Você precisará configurar as credenciais depois.
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <div className="grid gap-4 py-4">
+                                        <div className="space-y-2">
+                                            <label htmlFor="name" className="text-sm font-medium text-slate-700">Nome do Módulo</label>
+                                            <Input 
+                                                id="name" 
+                                                value={newModuleName}
+                                                onChange={e => setNewModuleName(e.target.value)}
+                                                placeholder="Ex: CRM Salesforce" 
+                                                className="bg-white border-slate-200 text-slate-900 focus-visible:ring-emerald-500"
+                                                required
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label htmlFor="description" className="text-sm font-medium text-slate-700">Descrição</label>
+                                            <Input 
+                                                id="description" 
+                                                value={newModuleDesc}
+                                                onChange={e => setNewModuleDesc(e.target.value)}
+                                                placeholder="Ex: Integração de contatos e leads" 
+                                                className="bg-white border-slate-200 text-slate-900 focus-visible:ring-emerald-500"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label htmlFor="type" className="text-sm font-medium text-slate-700">Tipo de Integração</label>
+                                            <Select value={newModuleType} onValueChange={setNewModuleType}>
+                                                <SelectTrigger className="bg-white border-slate-200 text-slate-800">
+                                                    <SelectValue placeholder="Selecione o protocolo" />
+                                                </SelectTrigger>
+                                                <SelectContent className="bg-white border-slate-200 text-slate-800">
+                                                    <SelectItem value="REST API">REST API</SelectItem>
+                                                    <SelectItem value="GraphQL">GraphQL</SelectItem>
+                                                    <SelectItem value="Webhooks">Webhooks</SelectItem>
+                                                    <SelectItem value="SOAP XML">SOAP XML / gRPC</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                    </div>
+                                    <DialogFooter>
+                                        <Button 
+                                            type="button" 
+                                            variant="ghost" 
+                                            onClick={() => setIsAddOpen(false)}
+                                            className="text-slate-500 hover:text-slate-800 hover:bg-slate-100"
+                                        >
+                                            Cancelar
+                                        </Button>
+                                        <Button type="submit" className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold">
+                                            Cadastrar
+                                        </Button>
+                                    </DialogFooter>
+                                </form>
+                            </DialogContent>
+                        </Dialog>
+                    </div>
+
+                    <hr className="border-slate-200" />
+
+                    <div className="flex items-center justify-between">
+                        {/* Navigation Menu */}
                         <NavigationMenu>
-                            <NavigationMenuList>
+                            <NavigationMenuList className="flex gap-1">
                                 <NavigationMenuItem>
-                                    <Link to="/" className={navigationMenuTriggerStyle()}>
+                                    <span className={`${navigationMenuTriggerStyle()} bg-slate-100 text-slate-900 font-semibold rounded-md h-9 text-xs sm:text-sm cursor-default hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100`}>
                                         Hub
-                                    </Link>
+                                    </span>
                                 </NavigationMenuItem>
                             </NavigationMenuList>
                         </NavigationMenu>
                     </div>
-
-                    <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
-                        <DialogTrigger asChild>
-                            <Button className="bg-amber-505 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl gap-2 shadow">
-                                <Plus className="h-4 w-4" /> Novo Módulo
-                            </Button>
-                        </DialogTrigger>
-                        <DialogContent className="bg-white border border-slate-200 text-slate-905 sm:max-w-[425px]">
-                            <form onSubmit={handleAddModule}>
-                                <DialogHeader>
-                                    <DialogTitle className="text-xl font-bold text-slate-900">Adicionar Módulo Externo</DialogTitle>
-                                    <DialogDescription className="text-slate-500">
-                                        Cadastre uma nova integração externa. Você precisará configurar as credenciais depois.
-                                    </DialogDescription>
-                                </DialogHeader>
-                                <div className="grid gap-4 py-4">
-                                    <div className="space-y-2">
-                                        <label htmlFor="name" className="text-sm font-medium text-slate-700">Nome do Módulo</label>
-                                        <Input 
-                                            id="name" 
-                                            value={newModuleName}
-                                            onChange={e => setNewModuleName(e.target.value)}
-                                            placeholder="Ex: CRM Salesforce" 
-                                            className="bg-white border-slate-200 text-slate-900 focus-visible:ring-emerald-500"
-                                            required
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label htmlFor="description" className="text-sm font-medium text-slate-700">Descrição</label>
-                                        <Input 
-                                            id="description" 
-                                            value={newModuleDesc}
-                                            onChange={e => setNewModuleDesc(e.target.value)}
-                                            placeholder="Ex: Integração de contatos e leads" 
-                                            className="bg-white border-slate-200 text-slate-900 focus-visible:ring-emerald-500"
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label htmlFor="type" className="text-sm font-medium text-slate-700">Tipo de Integração</label>
-                                        <Select value={newModuleType} onValueChange={setNewModuleType}>
-                                            <SelectTrigger className="bg-white border-slate-200 text-slate-800">
-                                                <SelectValue placeholder="Selecione o protocolo" />
-                                            </SelectTrigger>
-                                            <SelectContent className="bg-white border-slate-200 text-slate-800">
-                                                <SelectItem value="REST API">REST API</SelectItem>
-                                                <SelectItem value="GraphQL">GraphQL</SelectItem>
-                                                <SelectItem value="Webhooks">Webhooks</SelectItem>
-                                                <SelectItem value="SOAP XML">SOAP XML / gRPC</SelectItem>
-                                            </SelectContent>
-                                        </Select>
-                                    </div>
-                                </div>
-                                <DialogFooter>
-                                    <Button 
-                                        type="button" 
-                                        variant="ghost" 
-                                        onClick={() => setIsAddOpen(false)}
-                                        className="text-slate-500 hover:text-slate-800 hover:bg-slate-100"
-                                    >
-                                        Cancelar
-                                    </Button>
-                                    <Button type="submit" className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold">
-                                        Cadastrar
-                                    </Button>
-                                </DialogFooter>
-                            </form>
-                        </DialogContent>
-                    </Dialog>
                 </div>
 
                 {/* Stats Cards */}

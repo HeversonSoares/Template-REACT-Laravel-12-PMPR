@@ -148,8 +148,8 @@ export default function HR() {
         <Layout>
             <div className="w-full p-6 space-y-6">
                 {/* Header */}
-                <div className="flex flex-col gap-2">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div className="space-y-4">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                         <div>
                             <div className="flex items-center gap-2.5">
                                 <Users className="h-6 w-6 text-slate-700 shrink-0" />
@@ -158,23 +158,6 @@ export default function HR() {
                             <p className="text-slate-500 text-sm mt-1">
                                 Módulo de conexão com a plataforma externa de RH corporativo.
                             </p>
-                            <hr className="my-3 border-slate-200" />
-                            {/* Navigation Menu (replacing Breadcrumb) */}
-                            <NavigationMenu>
-                                <NavigationMenuList>
-                                    <NavigationMenuItem>
-                                        <Link to="/" className={navigationMenuTriggerStyle()}>
-                                            Hub
-                                        </Link>
-                                    </NavigationMenuItem>
-                                    <span className="text-slate-450 text-slate-300">/</span>
-                                    <NavigationMenuItem>
-                                        <span className={`${navigationMenuTriggerStyle()} text-slate-500 cursor-default hover:bg-transparent hover:text-slate-500 focus:bg-transparent`}>
-                                            RH
-                                        </span>
-                                    </NavigationMenuItem>
-                                </NavigationMenuList>
-                            </NavigationMenu>
                         </div>
                         <Button 
                             onClick={triggerSyncAll}
@@ -184,6 +167,27 @@ export default function HR() {
                             <RefreshCw className={`h-4 w-4 ${syncingAll ? 'animate-spin' : ''}`} /> 
                             {syncingAll ? 'Sincronizando...' : 'Sincronizar Tudo'}
                         </Button>
+                    </div>
+
+                    <hr className="border-slate-200" />
+
+                    <div className="flex items-center justify-between">
+                        {/* Navigation Menu */}
+                        <NavigationMenu>
+                            <NavigationMenuList className="flex gap-1">
+                                <NavigationMenuItem>
+                                    <Link to="/" className={`${navigationMenuTriggerStyle()} bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all rounded-md h-9 text-xs sm:text-sm`}>
+                                        Hub
+                                    </Link>
+                                </NavigationMenuItem>
+                                <span className="text-slate-350 self-center">/</span>
+                                <NavigationMenuItem>
+                                    <span className={`${navigationMenuTriggerStyle()} bg-slate-100 text-slate-900 font-semibold rounded-md h-9 text-xs sm:text-sm cursor-default hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100`}>
+                                        RH
+                                    </span>
+                                </NavigationMenuItem>
+                            </NavigationMenuList>
+                        </NavigationMenu>
                     </div>
                 </div>
 
