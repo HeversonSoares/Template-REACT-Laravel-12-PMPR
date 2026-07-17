@@ -27,6 +27,7 @@ export default function Layout({ children }) {
     const navigate = useNavigate();
     const [isCollapsed, setIsCollapsed] = React.useState(false);
     const [isDark, setIsDark] = React.useState(false);
+    const [isMobileOpen, setIsMobileOpen] = React.useState(false);
 
     React.useEffect(() => {
         const root = window.document.documentElement;
@@ -38,6 +39,11 @@ export default function Layout({ children }) {
             setIsDark(false);
         }
     }, []);
+
+    // Close mobile menu on route change
+    React.useEffect(() => {
+        setIsMobileOpen(false);
+    }, [location.pathname]);
 
     const toggleTheme = () => {
         const root = window.document.documentElement;
@@ -52,6 +58,14 @@ export default function Layout({ children }) {
         }
     };
 
+    const handleMenuClick = () => {
+        if (window.innerWidth < 768) {
+            setIsMobileOpen(!isMobileOpen);
+        } else {
+            setIsCollapsed(!isCollapsed);
+        }
+    };
+
     const navItems = [
         { path: '/', name: 'Hub', icon: Layers },
         { path: '/efetivo', name: 'Efetivo', icon: Users },
@@ -61,23 +75,33 @@ export default function Layout({ children }) {
     ];
 
     return (
-        <div className="min-h-screen bg-background text-foreground font-sans flex overflow-hidden">
+        <div className="min-h-screen bg-background text-foreground font-sans flex overflow-hidden relative">
+            {/* Mobile Sidebar Overlay */}
+            {isMobileOpen && (
+                <div 
+                    className="fixed inset-0 bg-black/55 z-40 md:hidden backdrop-blur-sm transition-opacity duration-300"
+                    onClick={() => setIsMobileOpen(false)}
+                />
+            )}
+
             {/* Narrow/Wide Dark Sidebar */}
-            <aside className={`bg-sidebar flex flex-col items-center py-4 justify-between shrink-0 z-20 border-r border-sidebar-border transition-all duration-350 ease-in-out ${isCollapsed ? 'w-16' : 'w-60'}`}>
+            <aside className={`bg-sidebar flex flex-col items-center py-4 justify-between shrink-0 border-r border-sidebar-border transition-all duration-300 ease-in-out
+                fixed md:relative inset-y-0 left-0 z-50
+                ${isMobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+                ${isCollapsed ? 'md:w-16' : 'md:w-60'} w-64`}
+            >
                 {/* Top Icons */}
                 <div className="flex flex-col items-center gap-4 w-full">
                     {/* Green & Gold Emblem Mock */}
-                    <div className={`flex items-center gap-3 w-full px-3.5 mb-2 ${isCollapsed ? 'justify-center' : 'justify-start'}`}>
+                    <div className={`flex items-center gap-3 w-full px-3.5 mb-2 justify-start ${isCollapsed ? 'md:justify-center' : 'md:justify-start'}`}>
                         <img 
                             src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Logo_PMPR_2.svg" 
                             alt="Logo PMPR" 
                             className="h-9 w-9 object-contain shrink-0"
                         />
-                        {!isCollapsed && (
-                            <span className="font-bold text-sidebar-primary-foreground text-[13px] tracking-wide uppercase truncate transition-all duration-200">
-                                SGA PMPR
-                            </span>
-                        )}
+                        <span className={`font-bold text-sidebar-primary-foreground text-[13px] tracking-wide uppercase truncate transition-all duration-200 ${isCollapsed ? 'md:hidden' : 'block'}`}>
+                            SGA PMPR
+                        </span>
                     </div>
 
                     <div className="flex flex-col gap-1 w-full px-2.5">
@@ -89,8 +113,8 @@ export default function Layout({ children }) {
                                     key={item.path}
                                     to={item.path}
                                     title={isCollapsed ? item.name : undefined}
-                                    className={`h-11 flex items-center rounded-xl transition-all w-full ${
-                                        isCollapsed ? 'justify-center' : 'justify-start px-3.5'
+                                    className={`h-11 flex items-center rounded-xl transition-all w-full justify-start px-3.5 ${
+                                        isCollapsed ? 'md:justify-center md:px-0' : 'md:justify-start md:px-3.5'
                                     } ${
                                         isActive 
                                         ? 'bg-sidebar-accent text-sidebar-accent-foreground font-semibold' 
@@ -98,11 +122,9 @@ export default function Layout({ children }) {
                                     }`}
                                 >
                                     <Icon className="h-5 w-5 shrink-0" />
-                                    {!isCollapsed && (
-                                        <span className="ml-3 text-[13px] font-medium whitespace-nowrap truncate transition-all duration-200">
-                                            {item.name}
-                                        </span>
-                                    )}
+                                    <span className={`ml-3 text-[13px] font-medium whitespace-nowrap truncate transition-all duration-200 ${isCollapsed ? 'md:hidden' : 'block'}`}>
+                                        {item.name}
+                                    </span>
                                 </Link>
                             );
                         })}
@@ -114,16 +136,14 @@ export default function Layout({ children }) {
                     <button 
                         onClick={() => navigate('/login')}
                         title={isCollapsed ? "Sair" : undefined}
-                        className={`h-11 flex items-center rounded-xl text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-destructive transition-all w-full ${
-                            isCollapsed ? 'justify-center' : 'justify-start px-3.5'
+                        className={`h-11 flex items-center rounded-xl text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-destructive transition-all w-full justify-start px-3.5 ${
+                            isCollapsed ? 'md:justify-center md:px-0' : 'md:justify-start md:px-3.5'
                         }`}
                     >
                         <LogOut className="h-5 w-5 shrink-0" />
-                        {!isCollapsed && (
-                            <span className="ml-3 text-[13px] font-medium whitespace-nowrap truncate">
-                                Sair
-                            </span>
-                        )}
+                        <span className={`ml-3 text-[13px] font-medium whitespace-nowrap truncate transition-all duration-200 ${isCollapsed ? 'md:hidden' : 'block'}`}>
+                            Sair
+                        </span>
                     </button>
                 </div>
             </aside>
@@ -137,7 +157,7 @@ export default function Layout({ children }) {
                             variant="ghost" 
                             size="icon" 
                             className="h-9 w-9 text-muted-foreground hover:bg-accent hover:text-accent-foreground shrink-0"
-                            onClick={() => setIsCollapsed(!isCollapsed)}
+                            onClick={handleMenuClick}
                         >
                             <Menu className="h-5 w-5" />
                         </Button>
@@ -155,7 +175,7 @@ export default function Layout({ children }) {
                             {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
                         </Button>
 
-                        <Button variant="outline" size="icon" className="h-9 w-9 rounded-full border border-border hover:bg-accent hover:text-accent-foreground text-muted-foreground shadow-none">
+                        <Button variant="outline" size="icon" className="h-9 w-9 rounded-full border border-border hover:bg-accent hover:text-accent-foreground text-muted-foreground shadow-none hidden sm:inline-flex">
                             <UtensilsCrossed className="h-4 w-4" />
                         </Button>
 
@@ -168,11 +188,11 @@ export default function Layout({ children }) {
                             </Button>
                         </div>
 
-                        <Button variant="outline" size="icon" className="h-9 w-9 rounded-full border border-border hover:bg-accent hover:text-accent-foreground text-muted-foreground shadow-none">
+                        <Button variant="outline" size="icon" className="h-9 w-9 rounded-full border border-border hover:bg-accent hover:text-accent-foreground text-muted-foreground shadow-none hidden sm:inline-flex">
                             <Mail className="h-4 w-4" />
                         </Button>
 
-                        <Button variant="outline" size="icon" className="h-9 w-9 rounded-full border border-border hover:bg-accent hover:text-accent-foreground text-muted-foreground shadow-none">
+                        <Button variant="outline" size="icon" className="h-9 w-9 rounded-full border border-border hover:bg-accent hover:text-accent-foreground text-muted-foreground shadow-none hidden sm:inline-flex">
                             <BookOpen className="h-4 w-4" />
                         </Button>
 
