@@ -1,8 +1,19 @@
+// Core do React para definição de componentes e gerenciamento de estado local (ex: controle de abertura de diálogos)
 import React, { useState } from 'react';
+
+// React Router Dom: Link para navegação SPA (Single Page Application) e useLocation para detectar a rota ativa na barra de endereços
 import { Link, useLocation } from 'react-router-dom';
+
+// Componente Button customizado do Shadcn UI para botões estilizados de ações e gatilhos
 import { Button } from '@/components/ui/button';
+
+// Componente Input customizado do Shadcn UI para capturar a entrada de dados textuais de forma padronizada
 import { Input } from '@/components/ui/input';
+
+// Componentes de Seleção (Dropdown) do Shadcn UI para caixas de seleção estilizadas de opções
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+
+// Componentes do Dialog (Modal) do Shadcn UI para caixas de diálogo sobrepostas e formulários modais de cadastro
 import { 
     Dialog,
     DialogContent,
@@ -12,6 +23,8 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog';
+
+// Componentes de Menu de Navegação do Shadcn UI que estruturam as abas horizontais e suportam submenus suspensos
 import {
     NavigationMenu,
     NavigationMenuList,
@@ -20,6 +33,8 @@ import {
     NavigationMenuContent,
     navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+
+// Ícones vetoriais da biblioteca lucide-react para enriquecimento visual do cabeçalho e botões
 import { 
     LayoutTemplate,
     ExternalLink,
