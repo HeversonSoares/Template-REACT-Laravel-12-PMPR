@@ -156,7 +156,7 @@ export default function TemplateDesign() {
                                                         Buscar
                                                     </MenubarSubTrigger>
                                                     <MenubarSubContent>
-                                                        <MenubarItem className="cursor-pointer">Buscar na Web</MenubarItem>
+                                                        <MenubarItem className="cursor-pointer bg-accent text-accent-foreground font-semibold">Buscar na Web (Ativo)</MenubarItem>
                                                         <MenubarSeparator />
                                                         <MenubarItem className="cursor-pointer">Buscar...</MenubarItem>
                                                         <MenubarItem className="cursor-pointer">Buscar Próximo</MenubarItem>
@@ -238,7 +238,9 @@ import { ChevronDown } from 'lucide-react';
       <MenubarSub>
         <MenubarSubTrigger>Buscar</MenubarSubTrigger>
         <MenubarSubContent>
-          <MenubarItem>Buscar na Web</MenubarItem>
+          <MenubarItem className="bg-accent text-accent-foreground font-semibold">
+            Buscar na Web (Ativo)
+          </MenubarItem>
           <MenubarSeparator />
           <MenubarItem>Buscar...</MenubarItem>
           <MenubarItem>Buscar Próximo</MenubarItem>
