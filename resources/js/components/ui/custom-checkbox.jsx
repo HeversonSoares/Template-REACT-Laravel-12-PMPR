@@ -13,11 +13,11 @@ export function CustomCheckbox({ id, label, description, checked, onChange }) {
                 />
             </div>
             <div className="grid gap-0.5 leading-none">
-                <label htmlFor={id} className="text-sm font-semibold text-slate-700 cursor-pointer">
+                <label htmlFor={id} className="text-sm font-semibold text-foreground cursor-pointer">
                     {label}
                 </label>
                 {description && (
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-muted-foreground">
                         {description}
                     </p>
                 )}

@@ -22,11 +22,11 @@ export function MultiSelect({ options, placeholder, selectedValues = [], onChang
         <div className="relative w-full">
             <div
                 onClick={() => setOpen(!open)}
-                className="flex min-h-[38px] w-full items-center justify-between rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm shadow-sm cursor-pointer"
+                className="flex min-h-[38px] w-full items-center justify-between rounded-md border border bg-card px-3 py-1.5 text-sm shadow-sm cursor-pointer"
             >
                 <div className="flex flex-wrap gap-1">
                     {selectedValues.length === 0 ? (
-                        <span className="text-slate-400">{placeholder}</span>
+                        <span className="text-muted-foreground">{placeholder}</span>
                     ) : (
                         selectedValues.map(val => {
                             const opt = options.find(o => o.value === val);
@@ -51,9 +51,9 @@ export function MultiSelect({ options, placeholder, selectedValues = [], onChang
             {open && (
                 <>
                     <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-                    <div className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border border-slate-100 bg-white p-1 text-slate-900 shadow-md">
+                    <div className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border border bg-card p-1 text-foreground shadow-md">
                         <div className="flex items-center border-b px-2 pb-1 mb-1">
-                            <Search className="h-3.5 w-3.5 mr-2 text-slate-400 shrink-0" />
+                            <Search className="h-3.5 w-3.5 mr-2 text-muted-foreground shrink-0" />
                             <input
                                 type="text"
                                 placeholder="Buscar..."
@@ -63,7 +63,7 @@ export function MultiSelect({ options, placeholder, selectedValues = [], onChang
                             />
                         </div>
                         {filtered.length === 0 ? (
-                            <div className="py-2 px-2 text-xs text-slate-500">Nenhum item encontrado.</div>
+                            <div className="py-2 px-2 text-xs text-muted-foreground">Nenhum item encontrado.</div>
                         ) : (
                             filtered.map(opt => {
                                 const isSelected = selectedValues.includes(opt.value);

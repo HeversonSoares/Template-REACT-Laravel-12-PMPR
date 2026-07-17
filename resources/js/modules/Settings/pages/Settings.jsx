@@ -129,16 +129,16 @@ export default function Settings() {
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                         <div className="space-y-0.5">
                             <div className="flex items-center gap-2.5">
-                                <SettingsIcon className="h-6 w-6 text-slate-700 shrink-0" />
-                                <h2 className="text-2xl font-bold tracking-tight text-slate-900">Configurações Gerais</h2>
+                                <SettingsIcon className="h-6 w-6 text-foreground shrink-0" />
+                                <h2 className="text-2xl font-bold tracking-tight text-foreground">Configurações Gerais</h2>
                             </div>
-                            <p className="text-sm text-slate-500">
+                            <p className="text-sm text-muted-foreground">
                                 Gerencie chaves de API, webhooks e parâmetros globais do Gateway de Integração.
                             </p>
                         </div>
                     </div>
 
-                    <hr className="border-slate-200" />
+                    <hr className="border" />
 
                     <div className="flex items-center justify-between overflow-x-auto pb-2 w-full">
                         {/* Navigation Menu */}
@@ -161,12 +161,12 @@ export default function Settings() {
                 </div>
 
                 {/* API Keys Card */}
-                <Card className="bg-white border-slate-250 shadow-sm">
+                <Card className="bg-card border shadow-sm">
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-2 text-slate-900">
+                        <CardTitle className="flex items-center gap-2 text-foreground">
                             <Key className="h-5 w-5 text-emerald-600" /> Chaves de Acesso da API (Tokens)
                         </CardTitle>
-                        <CardDescription className="text-slate-500">
+                        <CardDescription className="text-muted-foreground">
                             Tokens utilizados por sistemas externos para autenticar no Gateway BFF.
                         </CardDescription>
                     </CardHeader>
@@ -177,7 +177,7 @@ export default function Settings() {
                                 placeholder="Nome para identificação do Token (ex: ERP Produção)"
                                 value={newKeyName}
                                 onChange={e => setNewKeyName(e.target.value)}
-                                className="bg-white border-slate-200 focus-visible:ring-emerald-500 text-sm"
+                                className="bg-card border focus-visible:ring-emerald-500 text-sm"
                             />
                             <Button type="submit" className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold gap-1 shrink-0 text-xs sm:text-sm">
                                 <Plus className="h-4 w-4" /> Gerar Token
@@ -189,8 +189,8 @@ export default function Settings() {
                                 <p className="text-xs text-emerald-700 font-bold flex items-center gap-1.5">
                                     <CheckCircle className="h-4 w-4" /> Token gerado com sucesso! Copie agora, pois ele não será exibido novamente:
                                 </p>
-                                <div className="flex bg-slate-50 rounded-lg p-2.5 items-center justify-between border border-slate-200">
-                                    <code className="text-xs text-slate-800 font-mono select-all truncate mr-4">
+                                <div className="flex bg-muted/50 rounded-lg p-2.5 items-center justify-between border border">
+                                    <code className="text-xs text-foreground font-mono select-all truncate mr-4">
                                         {newKeyCreated}
                                     </code>
                                     <Button 
@@ -212,10 +212,10 @@ export default function Settings() {
                         {/* Keys List */}
                         <div className="space-y-3">
                             {apiKeys.map((key) => (
-                                <div key={key.id} className="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
+                                <div key={key.id} className="flex items-center justify-between p-3.5 bg-muted/50 border border rounded-xl">
                                     <div className="space-y-1">
-                                        <p className="text-sm font-semibold text-slate-800">{key.name}</p>
-                                        <div className="flex items-center gap-3 text-xs text-slate-500">
+                                        <p className="text-sm font-semibold text-foreground">{key.name}</p>
+                                        <div className="flex items-center gap-3 text-xs text-muted-foreground">
                                             <span className="font-mono">{key.prefix}</span>
                                             <span>Criado em: {key.created}</span>
                                         </div>
@@ -235,7 +235,7 @@ export default function Settings() {
                                             variant="ghost" 
                                             size="icon"
                                             onClick={() => handleCopy(key.id)}
-                                            className="h-8 w-8 text-slate-550 hover:text-slate-800 hover:bg-slate-100"
+                                            className="h-8 w-8 text-slate-550 hover:text-foreground hover:bg-slate-100"
                                             title="Copiar Prefixo"
                                         >
                                             {copiedId === key.id ? <Check className="h-4 w-4 text-emerald-650" /> : <Copy className="h-4 w-4" />}
@@ -244,7 +244,7 @@ export default function Settings() {
                                             variant="ghost" 
                                             size="icon"
                                             onClick={() => handleDeleteKey(key.id)}
-                                            className="h-8 w-8 text-slate-500 hover:text-rose-600 hover:bg-slate-100"
+                                            className="h-8 w-8 text-muted-foreground hover:text-rose-600 hover:bg-slate-100"
                                             title="Excluir Token"
                                         >
                                             <Trash2 className="h-4 w-4" />
@@ -258,23 +258,23 @@ export default function Settings() {
 
                 {/* Gateway & Timeout Settings */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Card className="bg-white border-slate-250 shadow-sm">
+                    <Card className="bg-card border shadow-sm">
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-2 text-slate-900">
+                            <CardTitle className="flex items-center gap-2 text-foreground">
                                 <Server className="h-5 w-5 text-emerald-600" /> Parâmetros de Conexão
                             </CardTitle>
-                            <CardDescription className="text-slate-500">
+                            <CardDescription className="text-muted-foreground">
                                 Ajustes de comunicação HTTP e persistência.
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <div className="space-y-2">
-                                <label className="text-sm font-semibold text-slate-700">Timeout da Requisição (segundos)</label>
+                                <label className="text-sm font-semibold text-foreground">Timeout da Requisição (segundos)</label>
                                 <Select defaultValue="30">
-                                    <SelectTrigger className="bg-white border-slate-200 text-slate-800">
+                                    <SelectTrigger className="bg-card border text-foreground">
                                         <SelectValue placeholder="Timeout" />
                                     </SelectTrigger>
-                                    <SelectContent className="bg-white border-slate-200 text-slate-800">
+                                    <SelectContent className="bg-card border text-foreground">
                                         <SelectItem value="10">10 segundos (Rápido)</SelectItem>
                                         <SelectItem value="30">30 segundos (Padrão)</SelectItem>
                                         <SelectItem value="60">60 segundos (Lento / ERPs legados)</SelectItem>
@@ -283,12 +283,12 @@ export default function Settings() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="text-sm font-semibold text-slate-700">Nível de Log (BFF Core)</label>
+                                <label className="text-sm font-semibold text-foreground">Nível de Log (BFF Core)</label>
                                 <Select defaultValue="info">
-                                    <SelectTrigger className="bg-white border-slate-200 text-slate-800">
+                                    <SelectTrigger className="bg-card border text-foreground">
                                         <SelectValue placeholder="Nível de log" />
                                     </SelectTrigger>
-                                    <SelectContent className="bg-white border-slate-200 text-slate-800">
+                                    <SelectContent className="bg-card border text-foreground">
                                         <SelectItem value="debug">DEBUG (Rastreamento completo)</SelectItem>
                                         <SelectItem value="info">INFO (Produção padrão)</SelectItem>
                                         <SelectItem value="warn">WARN & ERROR (Apenas erros)</SelectItem>
@@ -296,47 +296,47 @@ export default function Settings() {
                                 </Select>
                             </div>
                         </CardContent>
-                        <CardFooter className="border-t border-slate-150 pt-4 flex justify-end">
+                        <CardFooter className="border-t border pt-4 flex justify-end">
                             <Button className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs">Salvar Ajustes</Button>
                         </CardFooter>
                     </Card>
 
-                    <Card className="bg-white border-slate-250 shadow-sm">
+                    <Card className="bg-card border shadow-sm">
                         <CardHeader>
-                            <CardTitle className="flex items-center gap-2 text-slate-900">
+                            <CardTitle className="flex items-center gap-2 text-foreground">
                                 <Bell className="h-5 w-5 text-emerald-600" /> Notificação de Falhas
                             </CardTitle>
-                            <CardDescription className="text-slate-500">
+                            <CardDescription className="text-muted-foreground">
                                 Notifique o time em tempo real quando as integrações falharem.
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <div className="flex items-center justify-between py-1">
                                 <div>
-                                    <p className="text-sm font-semibold text-slate-850 text-slate-800">Alertas por E-mail</p>
-                                    <p className="text-xs text-slate-500">Envio para administradores.</p>
+                                    <p className="text-sm font-semibold text-slate-850 text-foreground">Alertas por E-mail</p>
+                                    <p className="text-xs text-muted-foreground">Envio para administradores.</p>
                                 </div>
                                 <Switch defaultChecked className="data-[state=checked]:bg-emerald-600" />
                             </div>
 
                             <div className="flex items-center justify-between py-1">
                                 <div>
-                                    <p className="text-sm font-semibold text-slate-850 text-slate-800">Webhook Slack / Discord</p>
-                                    <p className="text-xs text-slate-500">Envio em canais de DevOps.</p>
+                                    <p className="text-sm font-semibold text-slate-850 text-foreground">Webhook Slack / Discord</p>
+                                    <p className="text-xs text-muted-foreground">Envio em canais de DevOps.</p>
                                 </div>
                                 <Switch defaultChecked className="data-[state=checked]:bg-emerald-600" />
                             </div>
 
                             <div className="space-y-2">
-                                <label className="text-xs font-semibold text-slate-500">Webhook URL</label>
+                                <label className="text-xs font-semibold text-muted-foreground">Webhook URL</label>
                                 <Input 
                                     placeholder="https://hooks.slack.com/services/..." 
                                     defaultValue=""
-                                    className="bg-white border-slate-200 text-slate-700 focus-visible:ring-emerald-500 text-xs"
+                                    className="bg-card border text-foreground focus-visible:ring-emerald-500 text-xs"
                                 />
                             </div>
                         </CardContent>
-                        <CardFooter className="border-t border-slate-150 pt-4 flex justify-end">
+                        <CardFooter className="border-t border pt-4 flex justify-end">
                             <Button className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs">Salvar Notificações</Button>
                         </CardFooter>
                     </Card>

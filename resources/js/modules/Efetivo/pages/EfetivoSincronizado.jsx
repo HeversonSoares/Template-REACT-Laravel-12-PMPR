@@ -106,46 +106,46 @@ export default function EfetivoSincronizado() {
             <div className="w-full p-6">
                 <EfetivoMenu onSyncAll={triggerSyncAll} isSyncing={syncingAll} />
 
-                <Card className="bg-white border-slate-250 shadow-sm mt-6">
+                <Card className="bg-card border shadow-sm mt-6">
                     <CardHeader className="pb-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div>
-                            <CardTitle className="text-slate-900">Efetivo Importado</CardTitle>
-                            <CardDescription className="text-slate-500">
+                            <CardTitle className="text-foreground">Efetivo Importado</CardTitle>
+                            <CardDescription className="text-muted-foreground">
                                 Lista de perfis importados e vinculados.
                             </CardDescription>
                         </div>
-                        <div className="flex items-center bg-white border border-slate-200 rounded-xl px-3 py-1.5 w-full sm:w-64">
-                            <Search className="h-4 w-4 text-slate-400 mr-2" />
+                        <div className="flex items-center bg-card border border rounded-xl px-3 py-1.5 w-full sm:w-64">
+                            <Search className="h-4 w-4 text-muted-foreground mr-2" />
                             <input 
                                 type="text" 
                                 placeholder="Buscar..."
                                 value={searchTerm}
                                 onChange={e => setSearchTerm(e.target.value)}
-                                className="bg-transparent border-0 outline-none text-xs text-slate-800 placeholder-slate-400 w-full"
+                                className="bg-transparent border-0 outline-none text-xs text-foreground placeholder-slate-400 w-full"
                             />
                         </div>
                     </CardHeader>
                     <CardContent>
-                        <div className="overflow-x-auto rounded-lg border border-slate-200">
+                        <div className="overflow-x-auto rounded-lg border border">
                             <Table>
-                                <TableHeader className="bg-slate-50">
-                                    <TableRow className="hover:bg-slate-50 border-slate-200">
-                                        <TableHead className="text-slate-500 font-semibold">ID Externo</TableHead>
-                                        <TableHead className="text-slate-500 font-semibold">Nome</TableHead>
-                                        <TableHead className="text-slate-500 font-semibold">Cargo</TableHead>
-                                        <TableHead className="text-slate-500 font-semibold">E-mail</TableHead>
-                                        <TableHead className="text-slate-500 font-semibold">Status</TableHead>
-                                        <TableHead className="text-slate-500 font-semibold">Última Sincronização</TableHead>
-                                        <TableHead className="text-slate-500 w-[100px] text-right font-semibold">Ação</TableHead>
+                                <TableHeader className="bg-muted/50">
+                                    <TableRow className="hover:bg-muted/50 border">
+                                        <TableHead className="text-muted-foreground font-semibold">ID Externo</TableHead>
+                                        <TableHead className="text-muted-foreground font-semibold">Nome</TableHead>
+                                        <TableHead className="text-muted-foreground font-semibold">Cargo</TableHead>
+                                        <TableHead className="text-muted-foreground font-semibold">E-mail</TableHead>
+                                        <TableHead className="text-muted-foreground font-semibold">Status</TableHead>
+                                        <TableHead className="text-muted-foreground font-semibold">Última Sincronização</TableHead>
+                                        <TableHead className="text-muted-foreground w-[100px] text-right font-semibold">Ação</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {filteredEmployees.map((emp) => (
-                                        <TableRow key={emp.id} className="hover:bg-slate-50/50 border-slate-200">
+                                        <TableRow key={emp.id} className="hover:bg-muted/50/50 border">
                                             <TableCell className="font-mono text-xs text-emerald-600 font-semibold">{emp.extId}</TableCell>
-                                            <TableCell className="font-semibold text-slate-800">{emp.name}</TableCell>
-                                            <TableCell className="text-slate-600">{emp.role}</TableCell>
-                                            <TableCell className="text-slate-500 text-xs">{emp.email}</TableCell>
+                                            <TableCell className="font-semibold text-foreground">{emp.name}</TableCell>
+                                            <TableCell className="text-muted-foreground">{emp.role}</TableCell>
+                                            <TableCell className="text-muted-foreground text-xs">{emp.email}</TableCell>
                                             <TableCell>
                                                 {emp.status === 'synchronized' && (
                                                     <Badge className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px]">
@@ -163,14 +163,14 @@ export default function EfetivoSincronizado() {
                                                     </Badge>
                                                 )}
                                             </TableCell>
-                                            <TableCell className="text-slate-500 text-xs">{emp.lastUpdate}</TableCell>
+                                            <TableCell className="text-muted-foreground text-xs">{emp.lastUpdate}</TableCell>
                                             <TableCell className="text-right">
                                                 <Button 
                                                     variant="ghost" 
                                                     size="sm"
                                                     disabled={syncStatus[emp.id] === 'syncing'}
                                                     onClick={() => triggerSyncSingle(emp.id)}
-                                                    className="h-8 w-8 p-0 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg"
+                                                    className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground hover:bg-slate-100 rounded-lg"
                                                 >
                                                     {syncStatus[emp.id] === 'done' ? (
                                                         <Check className="h-4 w-4 text-emerald-650" />

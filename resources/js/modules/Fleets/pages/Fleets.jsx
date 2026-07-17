@@ -148,10 +148,10 @@ export default function Fleets() {
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                         <div className="space-y-0.5">
                             <div className="flex items-center gap-2.5">
-                                <Truck className="h-6 w-6 text-slate-700 shrink-0" />
-                                <h2 className="text-2xl font-bold tracking-tight text-slate-900">Controle de Frotas Externo</h2>
+                                <Truck className="h-6 w-6 text-foreground shrink-0" />
+                                <h2 className="text-2xl font-bold tracking-tight text-foreground">Controle de Frotas Externo</h2>
                             </div>
-                            <p className="text-sm text-slate-500">
+                            <p className="text-sm text-muted-foreground">
                                 Gerenciamento de veículos, telemetria em tempo real e agendamento de manutenções via webhook.
                             </p>
                         </div>
@@ -165,7 +165,7 @@ export default function Fleets() {
                         </Button>
                     </div>
 
-                    <hr className="border-slate-200" />
+                    <hr className="border" />
 
                     <div className="flex items-center justify-between overflow-x-auto pb-2 w-full">
                         {/* Navigation Menu */}
@@ -210,57 +210,57 @@ export default function Fleets() {
 
                     {/* VEHICLES TAB */}
                     <TabsContent value="vehicles" className="space-y-4 outline-none">
-                        <Card className="bg-white border-slate-250 shadow-sm">
+                        <Card className="bg-card border shadow-sm">
                             <CardHeader className="pb-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                                 <div>
-                                    <CardTitle className="text-slate-900">Frota de Veículos</CardTitle>
-                                    <CardDescription className="text-slate-500">
+                                    <CardTitle className="text-foreground">Frota de Veículos</CardTitle>
+                                    <CardDescription className="text-muted-foreground">
                                         Veículos sincronizados com o provedor de telemetria externo.
                                     </CardDescription>
                                 </div>
-                                <div className="flex items-center bg-white border border-slate-200 rounded-xl px-3 py-1.5 w-full sm:w-64">
-                                    <Search className="h-4 w-4 text-slate-400 mr-2" />
+                                <div className="flex items-center bg-card border border rounded-xl px-3 py-1.5 w-full sm:w-64">
+                                    <Search className="h-4 w-4 text-muted-foreground mr-2" />
                                     <input 
                                         type="text" 
                                         placeholder="Buscar placa, modelo, motorista..."
                                         value={search}
                                         onChange={e => setSearch(e.target.value)}
-                                        className="bg-transparent border-0 outline-none text-xs text-slate-800 placeholder-slate-400 w-full"
+                                        className="bg-transparent border-0 outline-none text-xs text-foreground placeholder-slate-400 w-full"
                                     />
                                 </div>
                             </CardHeader>
                             <CardContent>
-                                <div className="overflow-x-auto rounded-lg border border-slate-200">
+                                <div className="overflow-x-auto rounded-lg border border">
                                     <Table>
-                                        <TableHeader className="bg-slate-50">
-                                            <TableRow className="hover:bg-slate-50 border-slate-200">
-                                                <TableHead className="text-slate-500 font-semibold">Placa</TableHead>
-                                                <TableHead className="text-slate-500 font-semibold">Modelo</TableHead>
-                                                <TableHead className="text-slate-500 font-semibold">Motorista</TableHead>
-                                                <TableHead className="text-slate-500 font-semibold">Combustível</TableHead>
-                                                <TableHead className="text-slate-500 font-semibold">Próx. Manutenção</TableHead>
-                                                <TableHead className="text-slate-500 font-semibold">Status</TableHead>
-                                                <TableHead className="text-slate-500 w-[100px] text-right font-semibold">Rastrear</TableHead>
+                                        <TableHeader className="bg-muted/50">
+                                            <TableRow className="hover:bg-muted/50 border">
+                                                <TableHead className="text-muted-foreground font-semibold">Placa</TableHead>
+                                                <TableHead className="text-muted-foreground font-semibold">Modelo</TableHead>
+                                                <TableHead className="text-muted-foreground font-semibold">Motorista</TableHead>
+                                                <TableHead className="text-muted-foreground font-semibold">Combustível</TableHead>
+                                                <TableHead className="text-muted-foreground font-semibold">Próx. Manutenção</TableHead>
+                                                <TableHead className="text-muted-foreground font-semibold">Status</TableHead>
+                                                <TableHead className="text-muted-foreground w-[100px] text-right font-semibold">Rastrear</TableHead>
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
                                             {filteredVehicles.map((v) => (
-                                                <TableRow key={v.id} className="hover:bg-slate-50/50 border-slate-200">
-                                                    <TableCell className="font-mono font-bold text-slate-700">{v.plate}</TableCell>
-                                                    <TableCell className="font-semibold text-slate-850 text-slate-800">{v.model}</TableCell>
-                                                    <TableCell className="text-slate-600">{v.driver}</TableCell>
+                                                <TableRow key={v.id} className="hover:bg-muted/50/50 border">
+                                                    <TableCell className="font-mono font-bold text-foreground">{v.plate}</TableCell>
+                                                    <TableCell className="font-semibold text-slate-850 text-foreground">{v.model}</TableCell>
+                                                    <TableCell className="text-muted-foreground">{v.driver}</TableCell>
                                                     <TableCell>
                                                         <div className="flex items-center gap-1.5">
-                                                            <Fuel className="h-3.5 w-3.5 text-slate-400" />
+                                                            <Fuel className="h-3.5 w-3.5 text-muted-foreground" />
                                                             <span className="text-xs font-mono">{v.fuel}</span>
                                                         </div>
                                                     </TableCell>
                                                     <TableCell className="text-xs text-slate-605">
-                                                        <div className="flex items-center gap-1.5 text-slate-500">
+                                                        <div className="flex items-center gap-1.5 text-muted-foreground">
                                                             {v.nextMaint === 'Em Manutenção' ? (
                                                                 <Wrench className="h-3.5 w-3.5 text-amber-500" />
                                                             ) : (
-                                                                <Calendar className="h-3.5 w-3.5 text-slate-400" />
+                                                                <Calendar className="h-3.5 w-3.5 text-muted-foreground" />
                                                             )}
                                                             <span className={v.nextMaint === 'Em Manutenção' ? 'text-amber-600 font-bold' : ''}>
                                                                 {v.nextMaint}
@@ -300,28 +300,28 @@ export default function Fleets() {
 
                     {/* ALERTS TAB */}
                     <TabsContent value="alerts" className="space-y-4 outline-none">
-                        <Card className="bg-white border-slate-250 shadow-sm">
+                        <Card className="bg-card border shadow-sm">
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2 text-rose-600">
                                     <AlertOctagon className="h-5 w-5 text-rose-500" /> Ocorrências Recentes do GPS
                                 </CardTitle>
-                                <CardDescription className="text-slate-500">
+                                <CardDescription className="text-muted-foreground">
                                     Eventos críticos enviados via Webhook em tempo real a partir dos rastreadores de bordo.
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
                                 <div className="space-y-3">
                                     {alerts.map((alert) => (
-                                        <div key={alert.id} className="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-4 justify-between">
+                                        <div key={alert.id} className="bg-muted/50 p-4 rounded-xl border border flex items-start gap-4 justify-between">
                                             <div className="space-y-1">
                                                 <div className="flex items-center gap-2">
-                                                    <Badge className="font-mono text-[10px] bg-white text-slate-700 border-slate-200">
+                                                    <Badge className="font-mono text-[10px] bg-card text-foreground border">
                                                         {alert.plate}
                                                     </Badge>
-                                                    <span className="text-sm font-bold text-slate-800">{alert.event}</span>
-                                                    <span className="text-slate-500 text-xs font-mono">• {alert.time}</span>
+                                                    <span className="text-sm font-bold text-foreground">{alert.event}</span>
+                                                    <span className="text-muted-foreground text-xs font-mono">• {alert.time}</span>
                                                 </div>
-                                                <p className="text-xs text-slate-600">{alert.detail}</p>
+                                                <p className="text-xs text-muted-foreground">{alert.detail}</p>
                                             </div>
                                             <div>
                                                 {alert.severity === 'high' && (
@@ -335,7 +335,7 @@ export default function Fleets() {
                                                     </Badge>
                                                 )}
                                                 {alert.severity === 'low' && (
-                                                    <Badge className="bg-slate-100 text-slate-600 border border-slate-200 text-[10px]">
+                                                    <Badge className="bg-slate-100 text-muted-foreground border border text-[10px]">
                                                         Informação
                                                     </Badge>
                                                 )}
@@ -350,21 +350,21 @@ export default function Fleets() {
                     {/* GPS SETTINGS TAB */}
                     <TabsContent value="settings" className="space-y-4 outline-none">
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                            <Card className="bg-white border-slate-250 shadow-sm lg:col-span-2">
+                            <Card className="bg-card border shadow-sm lg:col-span-2">
                                 <CardHeader>
-                                    <CardTitle className="text-slate-900">Configurações de Telemetria & GPS</CardTitle>
-                                    <CardDescription className="text-slate-500">
+                                    <CardTitle className="text-foreground">Configurações de Telemetria & GPS</CardTitle>
+                                    <CardDescription className="text-muted-foreground">
                                         Selecione o provedor de hardware e configure o endpoint para recepção de logs.
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     <div className="space-y-2">
-                                        <label className="text-sm font-semibold text-slate-700">Provedor Homologado</label>
+                                        <label className="text-sm font-semibold text-foreground">Provedor Homologado</label>
                                         <Select defaultValue="sascar">
-                                            <SelectTrigger className="bg-white border-slate-200 text-slate-800">
+                                            <SelectTrigger className="bg-card border text-foreground">
                                                 <SelectValue placeholder="Selecione o provedor" />
                                             </SelectTrigger>
-                                            <SelectContent className="bg-white border-slate-200 text-slate-800">
+                                            <SelectContent className="bg-card border text-foreground">
                                                 <SelectItem value="sascar">Sascar Telematics</SelectItem>
                                                 <SelectItem value="graber">Graber Rastreamento</SelectItem>
                                                 <SelectItem value="ituran">Ituran Fleet</SelectItem>
@@ -374,58 +374,58 @@ export default function Fleets() {
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label className="text-sm font-semibold text-slate-700">Webhook Endpoint URL (Recebimento)</label>
+                                        <label className="text-sm font-semibold text-foreground">Webhook Endpoint URL (Recebimento)</label>
                                         <Input 
                                             defaultValue="https://gateway.empresa.com/api/v1/webhooks/telemetry" 
                                             disabled
-                                            className="bg-slate-50 border-slate-200 text-slate-400 font-mono text-xs cursor-not-allowed"
+                                            className="bg-muted/50 border text-muted-foreground font-mono text-xs cursor-not-allowed"
                                         />
-                                        <p className="text-[10px] text-slate-500">Esta URL recebe as notificações push do provedor de GPS e as processa no BFF.</p>
+                                        <p className="text-[10px] text-muted-foreground">Esta URL recebe as notificações push do provedor de GPS e as processa no BFF.</p>
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label className="text-sm font-semibold text-slate-700">Chave de Assinatura Webhook (HMAC Secret)</label>
+                                        <label className="text-sm font-semibold text-foreground">Chave de Assinatura Webhook (HMAC Secret)</label>
                                         <Input 
                                             type="password" 
                                             value="whsec_T1l2e3m4e5t6r7i8a9F0r1o2t3a4s" 
                                             disabled
-                                            className="bg-slate-50 border-slate-200 text-slate-400 font-mono text-xs"
+                                            className="bg-muted/50 border text-muted-foreground font-mono text-xs"
                                         />
                                     </div>
                                 </CardContent>
-                                <CardFooter className="border-t border-slate-150 pt-4 flex justify-end gap-2">
+                                <CardFooter className="border-t border pt-4 flex justify-end gap-2">
                                     <Button className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs">Salvar Configuração</Button>
                                 </CardFooter>
                             </Card>
 
-                            <Card className="bg-white border-slate-250 shadow-sm">
+                            <Card className="bg-card border shadow-sm">
                                 <CardHeader>
-                                    <CardTitle className="flex items-center gap-2 text-slate-900">
+                                    <CardTitle className="flex items-center gap-2 text-foreground">
                                         <Compass className="h-5 w-5 text-emerald-650 text-emerald-600" /> Coleta de Telemetria
                                     </CardTitle>
-                                    <CardDescription className="text-slate-500">
+                                    <CardDescription className="text-muted-foreground">
                                         Status de recepção dos eventos por satélite.
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent className="space-y-4 text-xs text-slate-650">
-                                    <div className="flex justify-between border-b border-slate-100 pb-2">
-                                        <span className="text-slate-500">Webhooks recebidos hoje:</span>
-                                        <span className="text-slate-800 font-bold font-mono">14,204</span>
+                                    <div className="flex justify-between border-b border pb-2">
+                                        <span className="text-muted-foreground">Webhooks recebidos hoje:</span>
+                                        <span className="text-foreground font-bold font-mono">14,204</span>
                                     </div>
-                                    <div className="flex justify-between border-b border-slate-100 pb-2">
-                                        <span className="text-slate-500">Taxa de descarte:</span>
-                                        <span className="text-slate-800 font-bold font-mono">0.05%</span>
+                                    <div className="flex justify-between border-b border pb-2">
+                                        <span className="text-muted-foreground">Taxa de descarte:</span>
+                                        <span className="text-foreground font-bold font-mono">0.05%</span>
                                     </div>
-                                    <div className="flex justify-between border-b border-slate-100 pb-2">
-                                        <span className="text-slate-500">Último recebido:</span>
+                                    <div className="flex justify-between border-b border pb-2">
+                                        <span className="text-muted-foreground">Último recebido:</span>
                                         <span className="text-emerald-600 font-bold">12s atrás</span>
                                     </div>
                                     
                                     <div className="space-y-2 pt-2">
-                                        <p className="font-semibold text-slate-700">Status do Envio das Notificações:</p>
+                                        <p className="font-semibold text-foreground">Status do Envio das Notificações:</p>
                                         <div className="flex items-center gap-2">
                                             <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
-                                            <span className="text-[11px] text-slate-500">Telegram/Slack Alerts ON</span>
+                                            <span className="text-[11px] text-muted-foreground">Telegram/Slack Alerts ON</span>
                                         </div>
                                     </div>
                                 </CardContent>
