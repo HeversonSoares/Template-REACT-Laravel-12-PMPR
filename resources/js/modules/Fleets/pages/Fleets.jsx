@@ -167,7 +167,7 @@ export default function Fleets() {
 
                     <hr className="border-slate-200" />
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between overflow-x-auto pb-2 w-full">
                         {/* Navigation Menu */}
                         <NavigationMenu>
                             <NavigationMenuList className="flex gap-1">

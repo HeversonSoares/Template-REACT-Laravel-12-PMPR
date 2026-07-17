@@ -91,7 +91,7 @@ export default function TemplateMenu() {
 
             <hr className="border-slate-200" />
 
-            <div className="flex items-center justify-between bg-white border border-slate-200 rounded-xl p-2 shadow-sm">
+            <div className="flex items-center justify-between pb-2">
                 <NavigationMenu>
                     <NavigationMenuList className="flex gap-1">
                         <NavigationMenuItem>
