@@ -97,7 +97,7 @@ export default function TemplateMenu() {
                         <NavigationMenuItem>
                             <Link
                                 to="/templates"
-                                className={`${navigationMenuTriggerStyle()} text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates') ? 'bg-accent text-accent-foreground font-semibold' : 'bg-transparent'}`}
+                                className={`${navigationMenuTriggerStyle()} text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates') ? 'bg-slate-100 dark:bg-slate-800 text-foreground font-semibold' : 'bg-transparent'}`}
                             >
                                 Visão Geral
                             </Link>
@@ -106,14 +106,14 @@ export default function TemplateMenu() {
                         <NavigationMenuItem>
                             <Link
                                 to="/templates/dashboard"
-                                className={`${navigationMenuTriggerStyle()} text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates/dashboard') ? 'bg-accent text-accent-foreground font-semibold' : 'bg-transparent'}`}
+                                className={`${navigationMenuTriggerStyle()} text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates/dashboard') ? 'bg-slate-100 dark:bg-slate-800 text-foreground font-semibold' : 'bg-transparent'}`}
                             >
                                 Dashboard
                             </Link>
                         </NavigationMenuItem>
 
                         <NavigationMenuItem>
-                            <NavigationMenuTrigger className={`${navigationMenuTriggerStyle()} text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates/tables') ? 'bg-accent text-accent-foreground font-semibold' : 'bg-transparent'}`}>
+                            <NavigationMenuTrigger className={`${navigationMenuTriggerStyle()} text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates/tables') ? 'bg-slate-100 dark:bg-slate-800 text-foreground font-semibold' : 'bg-transparent'}`}>
                                 Tabelas
                             </NavigationMenuTrigger>
                             <NavigationMenuContent>
@@ -141,7 +141,7 @@ export default function TemplateMenu() {
                         <NavigationMenuItem>
                             <Link
                                 to="/templates/forms"
-                                className={`${navigationMenuTriggerStyle()} text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates/forms') ? 'bg-accent text-accent-foreground font-semibold' : 'bg-transparent'}`}
+                                className={`${navigationMenuTriggerStyle()} text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates/forms') ? 'bg-slate-100 dark:bg-slate-800 text-foreground font-semibold' : 'bg-transparent'}`}
                             >
                                 Formulários
                             </Link>
@@ -150,7 +150,7 @@ export default function TemplateMenu() {
                         <NavigationMenuItem>
                             <Link
                                 to="/templates/design"
-                                className={`${navigationMenuTriggerStyle()} text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates/design') ? 'bg-accent text-accent-foreground font-semibold' : 'bg-transparent'}`}
+                                className={`${navigationMenuTriggerStyle()} text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates/design') ? 'bg-slate-100 dark:bg-slate-800 text-foreground font-semibold' : 'bg-transparent'}`}
                             >
                                 Design UI UX
                             </Link>
