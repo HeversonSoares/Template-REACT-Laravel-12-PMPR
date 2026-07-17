@@ -37,10 +37,10 @@ export default function TemplateMenu() {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div className="space-y-0.5">
                     <div className="flex items-center gap-2.5">
-                        <LayoutTemplate className="h-6 w-6 text-slate-700 shrink-0" />
-                        <h2 className="text-2xl font-bold tracking-tight text-slate-900">Templates de Dashboard</h2>
+                        <LayoutTemplate className="h-6 w-6 text-muted-foreground shrink-0" />
+                        <h2 className="text-2xl font-bold tracking-tight text-foreground">Templates de Dashboard</h2>
                     </div>
-                    <p className="text-sm text-slate-500">Exemplos práticos e prontos de componentes usando a biblioteca shadcn/ui.</p>
+                    <p className="text-sm text-muted-foreground">Exemplos práticos e prontos de componentes usando a biblioteca shadcn/ui.</p>
                 </div>
                 <div className="flex items-center gap-2">
                     <Button variant="outline" size="sm" onClick={() => window.open('https://ui.shadcn.com/', '_blank')} className="flex items-center gap-1.5 shadow-sm text-xs font-semibold">
@@ -48,14 +48,14 @@ export default function TemplateMenu() {
                     </Button>
                     <Dialog open={isOpenDialog} onOpenChange={setIsOpenDialog}>
                         <DialogTrigger asChild>
-                            <Button size="sm" className="bg-amber-600 hover:bg-amber-700 text-white flex items-center gap-1.5 shadow-sm text-xs font-semibold">
+                            <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground flex items-center gap-1.5 shadow-sm text-xs font-semibold">
                                 <Plus className="h-4 w-4" /> Novo Template
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="bg-white border border-slate-200 text-slate-905 sm:max-w-[425px]">
+                        <DialogContent className="bg-background border border-border text-foreground sm:max-w-[425px]">
                             <DialogHeader>
-                                <DialogTitle className="text-xl font-bold text-slate-900">Adicionar Componente</DialogTitle>
-                                <DialogDescription>
+                                <DialogTitle className="text-xl font-bold text-foreground">Adicionar Componente</DialogTitle>
+                                <DialogDescription className="text-muted-foreground">
                                     Preencha as informações básicas para adicionar um novo componente à lista.
                                 </DialogDescription>
                             </DialogHeader>
@@ -82,14 +82,14 @@ export default function TemplateMenu() {
                             </div>
                             <DialogFooter>
                                 <Button variant="outline" onClick={() => setIsOpenDialog(false)}>Cancelar</Button>
-                                <Button onClick={() => setIsOpenDialog(false)} className="bg-slate-900 text-white hover:bg-slate-800">Salvar</Button>
+                                <Button onClick={() => setIsOpenDialog(false)} className="bg-primary text-primary-foreground hover:bg-primary/90">Salvar</Button>
                             </DialogFooter>
                         </DialogContent>
                     </Dialog>
                 </div>
             </div>
 
-            <hr className="border-slate-200" />
+            <hr className="border-border" />
 
             <div className="flex items-center justify-between pb-2">
                 <NavigationMenu>
@@ -97,7 +97,7 @@ export default function TemplateMenu() {
                         <NavigationMenuItem>
                             <Link
                                 to="/templates"
-                                className={`${navigationMenuTriggerStyle()} bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates') ? 'bg-slate-100 text-slate-900 font-semibold' : ''}`}
+                                className={`${navigationMenuTriggerStyle()} bg-transparent text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates') ? 'bg-accent text-accent-foreground font-semibold' : ''}`}
                             >
                                 Visão Geral
                             </Link>
@@ -106,27 +106,27 @@ export default function TemplateMenu() {
                         <NavigationMenuItem>
                             <Link
                                 to="/templates/dashboard"
-                                className={`${navigationMenuTriggerStyle()} bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates/dashboard') ? 'bg-slate-100 text-slate-900 font-semibold' : ''}`}
+                                className={`${navigationMenuTriggerStyle()} bg-transparent text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates/dashboard') ? 'bg-accent text-accent-foreground font-semibold' : ''}`}
                             >
                                 Dashboard
                             </Link>
                         </NavigationMenuItem>
 
                         <NavigationMenuItem>
-                            <NavigationMenuTrigger className={`${navigationMenuTriggerStyle()} bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates/tables') ? 'bg-slate-100 text-slate-900 font-semibold' : ''}`}>
+                            <NavigationMenuTrigger className={`${navigationMenuTriggerStyle()} bg-transparent text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates/tables') ? 'bg-accent text-accent-foreground font-semibold' : ''}`}>
                                 Tabelas
                             </NavigationMenuTrigger>
                             <NavigationMenuContent>
-                                <div className="min-w-[200px] p-2 bg-white border border-slate-200 rounded-xl shadow-lg flex flex-col gap-1 z-50">
+                                <div className="min-w-[200px] p-2 bg-popover border border-border rounded-xl shadow-lg flex flex-col gap-1 z-50">
                                     <Link
                                         to="/templates/tables"
-                                        className="w-full text-left px-3 py-2 text-xs sm:text-sm rounded-lg transition-colors text-slate-650 hover:bg-slate-50 hover:text-slate-900 font-medium"
+                                        className="w-full text-left px-3 py-2 text-xs sm:text-sm rounded-lg transition-colors text-muted-foreground hover:bg-muted hover:text-foreground font-medium"
                                     >
                                         Tabela 1: Gestão de Frotas
                                     </Link>
                                     <Link
                                         to="/templates/tables"
-                                        className="w-full text-left px-3 py-2 text-xs sm:text-sm rounded-lg transition-colors text-slate-650 hover:bg-slate-50 hover:text-slate-900 font-medium"
+                                        className="w-full text-left px-3 py-2 text-xs sm:text-sm rounded-lg transition-colors text-muted-foreground hover:bg-muted hover:text-foreground font-medium"
                                     >
                                         Tabela 2: Resumo de Chamados
                                     </Link>
@@ -137,7 +137,7 @@ export default function TemplateMenu() {
                         <NavigationMenuItem>
                             <Link
                                 to="/templates/forms"
-                                className={`${navigationMenuTriggerStyle()} bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates/forms') ? 'bg-slate-100 text-slate-900 font-semibold' : ''}`}
+                                className={`${navigationMenuTriggerStyle()} bg-transparent text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates/forms') ? 'bg-accent text-accent-foreground font-semibold' : ''}`}
                             >
                                 Formulários
                             </Link>
@@ -146,7 +146,7 @@ export default function TemplateMenu() {
                         <NavigationMenuItem>
                             <Link
                                 to="/templates/design"
-                                className={`${navigationMenuTriggerStyle()} bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates/design') ? 'bg-slate-100 text-slate-900 font-semibold' : ''}`}
+                                className={`${navigationMenuTriggerStyle()} bg-transparent text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all rounded-md h-9 text-xs sm:text-sm ${isActive('/templates/design') ? 'bg-accent text-accent-foreground font-semibold' : ''}`}
                             >
                                 Design UI UX
                             </Link>

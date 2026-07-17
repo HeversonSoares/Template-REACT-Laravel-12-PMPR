@@ -62,7 +62,7 @@ export default function TemplateForms() {
                         <form onSubmit={handleFormSubmit}>
                             <CardContent className="space-y-4">
                                 <div className="space-y-2">
-                                    <label htmlFor="projectName" className="text-sm font-semibold text-slate-700">Nome do Projeto</label>
+                                    <label htmlFor="projectName" className="text-sm font-semibold text-foreground">Nome do Projeto</label>
                                     <Input 
                                         id="projectName" 
                                         placeholder="Ex: Sistema de Escalas" 
@@ -74,7 +74,7 @@ export default function TemplateForms() {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <label className="text-sm font-semibold text-slate-700">Categoria</label>
+                                        <label className="text-sm font-semibold text-foreground">Categoria</label>
                                         <Select 
                                             value={formState.category} 
                                             onValueChange={(val) => setFormState({...formState, category: val})}
@@ -91,7 +91,7 @@ export default function TemplateForms() {
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label className="text-sm font-semibold text-slate-700">Visibilidade</label>
+                                        <label className="text-sm font-semibold text-foreground">Visibilidade</label>
                                         <Select 
                                             value={formState.visibility} 
                                             onValueChange={(val) => setFormState({...formState, visibility: val})}
@@ -108,10 +108,10 @@ export default function TemplateForms() {
                                 </div>
 
                                 <div className="space-y-3 pt-2">
-                                    <div className="flex items-center justify-between p-2 border rounded-lg bg-slate-50/50">
+                                    <div className="flex items-center justify-between p-2 border rounded-lg bg-muted/50">
                                         <div className="space-y-0.5">
-                                            <label className="text-xs font-semibold text-slate-800" htmlFor="notify-switch">Notificações por E-mail</label>
-                                            <p className="text-[10px] text-slate-500">Enviar status automático das viaturas.</p>
+                                            <label className="text-xs font-semibold text-foreground" htmlFor="notify-switch">Notificações por E-mail</label>
+                                            <p className="text-[10px] text-muted-foreground">Enviar status automático das viaturas.</p>
                                         </div>
                                         <Switch 
                                             id="notify-switch"
@@ -142,18 +142,18 @@ export default function TemplateForms() {
                             <CardContent className="space-y-4">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <label htmlFor="fullName" className="text-sm font-semibold text-slate-700">Nome Completo</label>
+                                        <label htmlFor="fullName" className="text-sm font-semibold text-foreground">Nome Completo</label>
                                         <Input id="fullName" placeholder="Ex: Roberto Silva" required />
                                     </div>
                                     <div className="space-y-2">
-                                        <label htmlFor="userEmail" className="text-sm font-semibold text-slate-700">E-mail Corporativo</label>
+                                        <label htmlFor="userEmail" className="text-sm font-semibold text-foreground">E-mail Corporativo</label>
                                         <Input id="userEmail" type="email" placeholder="nome@pm.pr.gov.br" required />
                                     </div>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <label className="text-sm font-semibold text-slate-700">Função / Cargo</label>
+                                        <label className="text-sm font-semibold text-foreground">Função / Cargo</label>
                                         <Select defaultValue="operador">
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Selecione..." />
@@ -167,15 +167,15 @@ export default function TemplateForms() {
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label htmlFor="userPhone" className="text-sm font-semibold text-slate-700">Telefone / Ramal</label>
+                                        <label htmlFor="userPhone" className="text-sm font-semibold text-foreground">Telefone / Ramal</label>
                                         <Input id="userPhone" placeholder="(41) 99999-9999" />
                                     </div>
                                 </div>
 
-                                <div className="flex items-center justify-between p-2 border rounded-lg bg-slate-50/50">
+                                <div className="flex items-center justify-between p-2 border rounded-lg bg-muted/50">
                                     <div className="space-y-0.5">
-                                        <label className="text-xs font-semibold text-slate-800" htmlFor="user-active">Usuário Ativo</label>
-                                        <p className="text-[10px] text-slate-500">Permitir login imediatamente após o cadastro.</p>
+                                        <label className="text-xs font-semibold text-foreground" htmlFor="user-active">Usuário Ativo</label>
+                                        <p className="text-[10px] text-muted-foreground">Permitir login imediatamente após o cadastro.</p>
                                     </div>
                                     <Switch id="user-active" defaultChecked />
                                 </div>
@@ -199,13 +199,13 @@ export default function TemplateForms() {
                         <form onSubmit={(e) => { e.preventDefault(); alert('Chamado aberto com sucesso (Mock)'); }}>
                             <CardContent className="space-y-4">
                                 <div className="space-y-2">
-                                    <label htmlFor="issueTitle" className="text-sm font-semibold text-slate-700">Título do Incidente</label>
+                                    <label htmlFor="issueTitle" className="text-sm font-semibold text-foreground">Título do Incidente</label>
                                     <Input id="issueTitle" placeholder="Ex: Pneu furado / Falha no rastreador" required />
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <label className="text-sm font-semibold text-slate-700">Equipamento Relacionado</label>
+                                        <label className="text-sm font-semibold text-foreground">Equipamento Relacionado</label>
                                         <Select defaultValue="viatura">
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Selecione..." />
@@ -219,7 +219,7 @@ export default function TemplateForms() {
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label className="text-sm font-semibold text-slate-700">Nível de Urgência</label>
+                                        <label className="text-sm font-semibold text-foreground">Nível de Urgência</label>
                                         <Select defaultValue="media">
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Selecione..." />
@@ -234,11 +234,11 @@ export default function TemplateForms() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label htmlFor="issueDesc" className="text-sm font-semibold text-slate-700">Descrição Detalhada</label>
+                                    <label htmlFor="issueDesc" className="text-sm font-semibold text-foreground">Descrição Detalhada</label>
                                     <textarea 
                                         id="issueDesc" 
                                         rows="3" 
-                                        className="flex w-full rounded-md border border-slate-200 bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-amber-500 disabled:cursor-not-allowed disabled:opacity-50"
+                                        className="flex w-full rounded-md border border-border bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-amber-500 disabled:cursor-not-allowed disabled:opacity-50"
                                         placeholder="Descreva as especificidades do problema ocorrido..."
                                         required
                                     ></textarea>
@@ -260,25 +260,25 @@ export default function TemplateForms() {
                         <form onSubmit={(e) => { e.preventDefault(); alert('Chave de API salva com sucesso (Mock)'); }}>
                             <CardContent className="space-y-4">
                                 <div className="space-y-2">
-                                    <label htmlFor="apiKey" className="text-sm font-semibold text-slate-700">Chave da API Secreta</label>
+                                    <label htmlFor="apiKey" className="text-sm font-semibold text-foreground">Chave da API Secreta</label>
                                     <div className="relative">
                                         <Input id="apiKey" type="password" value="••••••••••••••••••••••••••••••••••••••••" readOnly />
-                                        <Button type="button" variant="link" className="absolute right-0 top-0 h-full px-3 text-xs text-amber-600 hover:text-amber-700 font-semibold" onClick={() => alert('Chave copiada!')}>
+                                        <Button type="button" variant="link" className="absolute right-0 top-0 h-full px-3 text-xs text-destructive hover:text-destructive font-semibold" onClick={() => alert('Chave copiada!')}>
                                             Copiar
                                         </Button>
                                     </div>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label htmlFor="webhookUrl" className="text-sm font-semibold text-slate-700">URL do Webhook de Destino</label>
+                                    <label htmlFor="webhookUrl" className="text-sm font-semibold text-foreground">URL do Webhook de Destino</label>
                                     <Input id="webhookUrl" placeholder="https://api.seusistema.com/v1/webhooks" type="url" />
                                 </div>
 
                                 <div className="space-y-3 pt-2">
-                                    <div className="flex items-center justify-between p-2 border rounded-lg bg-slate-50/50">
+                                    <div className="flex items-center justify-between p-2 border rounded-lg bg-muted/50">
                                         <div className="space-y-0.5">
-                                            <label className="text-xs font-semibold text-slate-800" htmlFor="debug-logs">Logs Detalhados</label>
-                                            <p className="text-[10px] text-slate-500">Rastrear requisições em ambiente de testes.</p>
+                                            <label className="text-xs font-semibold text-foreground" htmlFor="debug-logs">Logs Detalhados</label>
+                                            <p className="text-[10px] text-muted-foreground">Rastrear requisições em ambiente de testes.</p>
                                         </div>
                                         <Switch id="debug-logs" />
                                     </div>
@@ -303,7 +303,7 @@ export default function TemplateForms() {
                             <CardContent className="space-y-6">
                                 {/* Searchable Select (Select2 style) */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-semibold text-slate-700">Selecione a Unidade Militar (Searchable Dropdown)</label>
+                                    <label className="text-sm font-semibold text-foreground">Selecione a Unidade Militar (Searchable Dropdown)</label>
                                     <SearchableSelect 
                                         placeholder="Pesquise por batalhão ou cidade..."
                                         options={[
@@ -316,12 +316,12 @@ export default function TemplateForms() {
                                         value={advancedForm.policeUnit}
                                         onChange={(val) => setAdvancedForm({...advancedForm, policeUnit: val})}
                                     />
-                                    <p className="text-[11px] text-slate-400">Filtra dinamicamente as opções enquanto você digita.</p>
+                                    <p className="text-[11px] text-muted-foreground">Filtra dinamicamente as opções enquanto você digita.</p>
                                 </div>
 
                                 {/* Multi-Select Dropdown */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-semibold text-slate-700">Permissões Especiais (Multi-Select)</label>
+                                    <label className="text-sm font-semibold text-foreground">Permissões Especiais (Multi-Select)</label>
                                     <MultiSelect 
                                         placeholder="Selecione as permissões de acesso..."
                                         options={[
@@ -334,14 +334,14 @@ export default function TemplateForms() {
                                         selectedValues={advancedForm.permissions}
                                         onChange={(vals) => setAdvancedForm({...advancedForm, permissions: vals})}
                                     />
-                                    <p className="text-[11px] text-slate-400">Permite escolher múltiplos itens e exibe como tags removíveis.</p>
+                                    <p className="text-[11px] text-muted-foreground">Permite escolher múltiplos itens e exibe como tags removíveis.</p>
                                 </div>
 
-                                <hr className="border-slate-100" />
+                                <hr className="border-border" />
 
                                 {/* Custom Checkboxes */}
                                 <div className="space-y-4">
-                                    <label className="text-sm font-bold text-slate-800">Controles de Segurança e Privacidade</label>
+                                    <label className="text-sm font-bold text-foreground">Controles de Segurança e Privacidade</label>
                                     
                                     <CustomCheckbox 
                                         id="terms"

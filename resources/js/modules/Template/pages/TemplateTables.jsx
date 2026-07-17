@@ -36,7 +36,7 @@ export default function TemplateTables() {
                         </div>
                         <div className="flex items-center gap-2 w-full md:w-auto">
                             <div className="relative flex-1 md:flex-initial">
-                                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-400" />
+                                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                                 <Input placeholder="Buscar dispositivo..." className="pl-9 h-9 w-full md:w-64" />
                             </div>
                             <Button variant="outline" size="sm" className="h-9 flex items-center gap-1">
@@ -58,7 +58,7 @@ export default function TemplateTables() {
                             </TableHeader>
                             <TableBody>
                                 <TableRow>
-                                    <TableCell className="font-semibold text-slate-800">VTR-0041</TableCell>
+                                    <TableCell className="font-semibold text-foreground">VTR-0041</TableCell>
                                     <TableCell>Chevrolet S10 - PMPR - PM-8831</TableCell>
                                     <TableCell>Sgt. Rodrigues Santos</TableCell>
                                     <TableCell>
@@ -66,21 +66,21 @@ export default function TemplateTables() {
                                     </TableCell>
                                     <TableCell>
                                         <div className="flex items-center gap-2">
-                                            <div className="w-16 bg-slate-100 rounded-full h-2 overflow-hidden">
+                                            <div className="w-16 bg-muted rounded-full h-2 overflow-hidden">
                                                 <div className="bg-emerald-500 h-2" style={{ width: '85%' }}></div>
                                             </div>
-                                            <span className="text-xs text-slate-600 font-medium">85%</span>
+                                            <span className="text-xs text-muted-foreground font-medium">85%</span>
                                         </div>
                                     </TableCell>
                                     <TableCell className="text-right">
-                                        <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-500 hover:text-slate-700">
+                                        <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
                                             <MoreHorizontal className="h-4 w-4" />
                                         </Button>
                                     </TableCell>
                                 </TableRow>
 
                                 <TableRow>
-                                    <TableCell className="font-semibold text-slate-800">VTR-0912</TableCell>
+                                    <TableCell className="font-semibold text-foreground">VTR-0912</TableCell>
                                     <TableCell>Toyota Hilux - PMPR - PM-4012</TableCell>
                                     <TableCell>Sd. Ana Oliveira</TableCell>
                                     <TableCell>
@@ -88,43 +88,43 @@ export default function TemplateTables() {
                                     </TableCell>
                                     <TableCell>
                                         <div className="flex items-center gap-2">
-                                            <div className="w-16 bg-slate-100 rounded-full h-2 overflow-hidden">
+                                            <div className="w-16 bg-muted rounded-full h-2 overflow-hidden">
                                                 <div className="bg-amber-500 h-2" style={{ width: '42%' }}></div>
                                             </div>
-                                            <span className="text-xs text-slate-600 font-medium">42%</span>
+                                            <span className="text-xs text-muted-foreground font-medium">42%</span>
                                         </div>
                                     </TableCell>
                                     <TableCell className="text-right">
-                                        <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-500 hover:text-slate-700">
+                                        <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
                                             <MoreHorizontal className="h-4 w-4" />
                                         </Button>
                                     </TableCell>
                                 </TableRow>
 
                                 <TableRow>
-                                    <TableCell className="font-semibold text-slate-800">VTR-0023</TableCell>
+                                    <TableCell className="font-semibold text-foreground">VTR-0023</TableCell>
                                     <TableCell>Renault Duster - PMPR - PM-0112</TableCell>
                                     <TableCell>Nenhum (Reserva)</TableCell>
                                     <TableCell>
-                                        <Badge className="bg-slate-200 text-slate-700 hover:bg-slate-300 border-none shadow-none">Disponível</Badge>
+                                        <Badge className="bg-slate-200 text-foreground hover:bg-slate-300 border-none shadow-none">Disponível</Badge>
                                     </TableCell>
                                     <TableCell>
                                         <div className="flex items-center gap-2">
-                                            <div className="w-16 bg-slate-100 rounded-full h-2 overflow-hidden">
+                                            <div className="w-16 bg-muted rounded-full h-2 overflow-hidden">
                                                 <div className="bg-emerald-500 h-2" style={{ width: '90%' }}></div>
                                             </div>
-                                            <span className="text-xs text-slate-600 font-medium">90%</span>
+                                            <span className="text-xs text-muted-foreground font-medium">90%</span>
                                         </div>
                                     </TableCell>
                                     <TableCell className="text-right">
-                                        <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-500 hover:text-slate-700">
+                                        <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
                                             <MoreHorizontal className="h-4 w-4" />
                                         </Button>
                                     </TableCell>
                                 </TableRow>
 
                                 <TableRow>
-                                    <TableCell className="font-semibold text-slate-800">VTR-1188</TableCell>
+                                    <TableCell className="font-semibold text-foreground">VTR-1188</TableCell>
                                     <TableCell>Fiat Cronos - PMPR - PM-2041</TableCell>
                                     <TableCell>Cabo Mendes</TableCell>
                                     <TableCell>
@@ -132,14 +132,14 @@ export default function TemplateTables() {
                                     </TableCell>
                                     <TableCell>
                                         <div className="flex items-center gap-2">
-                                            <div className="w-16 bg-slate-100 rounded-full h-2 overflow-hidden">
+                                            <div className="w-16 bg-muted rounded-full h-2 overflow-hidden">
                                                 <div className="bg-rose-500 h-2" style={{ width: '12%' }}></div>
                                             </div>
-                                            <span className="text-xs text-slate-600 font-medium">12%</span>
+                                            <span className="text-xs text-muted-foreground font-medium">12%</span>
                                         </div>
                                     </TableCell>
                                     <TableCell className="text-right">
-                                        <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-500 hover:text-slate-700">
+                                        <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
                                             <MoreHorizontal className="h-4 w-4" />
                                         </Button>
                                     </TableCell>
@@ -148,7 +148,7 @@ export default function TemplateTables() {
                         </Table>
                     </CardContent>
                     <CardFooter className="flex justify-between items-center py-4 border-t">
-                        <span className="text-xs text-slate-500">Exibindo 4 de 12 veículos</span>
+                        <span className="text-xs text-muted-foreground">Exibindo 4 de 12 veículos</span>
                         <div className="flex gap-2">
                             <Button variant="outline" size="sm" disabled className="h-8 text-xs font-semibold">Anterior</Button>
                             <Button variant="outline" size="sm" className="h-8 text-xs font-semibold">Próximo</Button>

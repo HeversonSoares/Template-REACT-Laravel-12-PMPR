@@ -20,29 +20,29 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans">
+        <div className="min-h-screen bg-background text-foreground flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="flex justify-center">
-                    <div className="bg-indigo-500/10 p-3 rounded-2xl border border-indigo-500/20 shadow-lg">
-                        <Shield className="h-10 w-10 text-indigo-400" />
+                    <div className="bg-primary/10 p-3 rounded-2xl border border-primary/20 shadow-lg">
+                        <Shield className="h-10 w-10 text-primary" />
                     </div>
                 </div>
-                <h2 className="mt-6 text-center text-3xl font-extrabold tracking-tight bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent">
+                <h2 className="mt-6 text-center text-3xl font-extrabold tracking-tight bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
                     Acesse sua conta
                 </h2>
-                <p className="mt-2 text-center text-sm text-slate-400">
+                <p className="mt-2 text-center text-sm text-muted-foreground">
                     Ou{' '}
-                    <Link to="/register" className="font-semibold text-indigo-400 hover:text-indigo-300 transition-colors">
+                    <Link to="/register" className="font-semibold text-primary hover:text-primary/80 transition-colors">
                         crie uma nova conta gratuita
                     </Link>
                 </p>
             </div>
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                <div className="bg-slate-900 border border-slate-800 py-8 px-4 shadow-xl rounded-2xl sm:px-10">
+                <div className="bg-card border border-border py-8 px-4 shadow-xl rounded-2xl sm:px-10">
                     <form className="space-y-6" onSubmit={handleSubmit}>
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-slate-300">
+                            <label htmlFor="email" className="block text-sm font-medium text-card-foreground">
                                 Endereço de E-mail
                             </label>
                             <div className="mt-1">
@@ -53,14 +53,14 @@ export default function Login() {
                                     required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="appearance-none block w-full px-3 py-2 border border-slate-700 rounded-lg bg-slate-950 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-all"
+                                    className="appearance-none block w-full px-3 py-2 border border-input rounded-lg bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring sm:text-sm transition-all"
                                     placeholder="seu-email@exemplo.com"
                                 />
                             </div>
                         </div>
 
                         <div>
-                            <label htmlFor="password" className="block text-sm font-medium text-slate-300">
+                            <label htmlFor="password" className="block text-sm font-medium text-card-foreground">
                                 Senha
                             </label>
                             <div className="mt-1 relative">
@@ -71,13 +71,13 @@ export default function Login() {
                                     required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="appearance-none block w-full px-3 py-2 pr-10 border border-slate-700 rounded-lg bg-slate-950 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-all"
+                                    className="appearance-none block w-full px-3 py-2 pr-10 border border-input rounded-lg bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring sm:text-sm transition-all"
                                     placeholder="••••••••"
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-200 transition-colors"
+                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-muted-foreground hover:text-foreground transition-colors"
                                 >
                                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                                 </button>
@@ -90,15 +90,15 @@ export default function Login() {
                                     id="remember-me"
                                     name="remember-me"
                                     type="checkbox"
-                                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-700 rounded bg-slate-950"
+                                    className="h-4 w-4 text-primary focus:ring-ring border-input rounded bg-background"
                                 />
-                                <label htmlFor="remember-me" className="ml-2 block text-sm text-slate-400">
+                                <label htmlFor="remember-me" className="ml-2 block text-sm text-muted-foreground">
                                     Lembrar-me
                                 </label>
                             </div>
 
                             <div className="text-sm">
-                                <a href="#" className="font-semibold text-indigo-400 hover:text-indigo-300 transition-colors">
+                                <a href="#" className="font-semibold text-primary hover:text-primary/80 transition-colors">
                                     Esqueceu sua senha?
                                 </a>
                             </div>
@@ -108,7 +108,7 @@ export default function Login() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-semibold text-primary-foreground bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ring transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {loading ? 'Entrando...' : 'Entrar'}
                             </button>
