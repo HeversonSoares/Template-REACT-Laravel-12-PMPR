@@ -120,10 +120,10 @@ export default function TemplateMenu() {
                                 <div className="min-w-[200px] p-2 bg-popover border border-border rounded-xl shadow-lg flex flex-col gap-1 z-50">
                                     <Link
                                         to="/templates/tables"
-                                        className={`w-full text-left px-3 py-2 text-xs sm:text-sm rounded-lg transition-colors font-medium ${
+                                        className={`w-full text-left px-3 py-2 text-xs sm:text-sm rounded-lg transition-colors ${
                                             isActive('/templates/tables')
-                                                ? 'bg-accent text-accent-foreground font-semibold'
-                                                : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                                                ? 'bg-primary/10 text-primary font-bold'
+                                                : 'text-muted-foreground hover:bg-muted hover:text-foreground font-medium'
                                         }`}
                                     >
                                         Tabela 1: Gestão de Frotas
