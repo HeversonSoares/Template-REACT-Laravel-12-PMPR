@@ -17,6 +17,7 @@ import Settings from './modules/Settings/pages/Settings';
 import Templates from './modules/Template/pages/TemplateIndex';
 import TemplateDashboard from './modules/Template/pages/TemplateDashboard';
 import TemplateTables from './modules/Template/pages/TemplateTables';
+import TemplateTablesResumo from './modules/Template/pages/TemplateTablesResumo';
 import TemplateForms from './modules/Template/pages/TemplateForms';
 import TemplateDesign from './modules/Template/pages/TemplateDesign';
 import PesquisaEfetivo from './modules/Efetivo/pages/PesquisaEfetivo';
@@ -49,6 +50,7 @@ function App() {
                 <Route path="/templates" element={<Templates />} />
                 <Route path="/templates/dashboard" element={<TemplateDashboard />} />
                 <Route path="/templates/tables" element={<TemplateTables />} />
+                <Route path="/templates/tables-resumo" element={<TemplateTablesResumo />} />
                 <Route path="/templates/forms" element={<TemplateForms />} />
                 <Route path="/templates/design" element={<TemplateDesign />} />
                 <Route path="/settings" element={<Settings />} />

@@ -31,7 +31,11 @@ import {
 import {
     LayoutTemplate,
     ExternalLink,
-    Plus
+    Plus,
+    LayoutDashboard,
+    Table,
+    TableProperties,
+    ClipboardList
 } from 'lucide-react';
 
 export default function TemplateMenu() {
@@ -39,22 +43,22 @@ export default function TemplateMenu() {
 
     const navItems = [
         { to: '/templates', label: 'Visão Geral', end: true },
-        { to: '/templates/dashboard', label: 'Dashboard' },
+        { to: '/templates/design', label: 'Design UI UX' },
         {
-            label: 'Tabelas',
+            label: 'Templates',
             items: [
-                { to: '/templates/tables', label: 'Tabela 1: Gestão de Frotas' },
-                { to: '/templates/tables-resumo', label: 'Tabela 2: Resumo de Chamados' }
+                { to: '/templates/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+                { to: '/templates/tables', label: 'Tabela 1: Gestão de Frotas', icon: Table },
+                { to: '/templates/tables-resumo', label: 'Tabela 2: Resumo de Chamados', icon: TableProperties },
+                { to: '/templates/forms', label: 'Formulários', icon: ClipboardList }
             ]
-        },
-        { to: '/templates/forms', label: 'Formulários' },
-        { to: '/templates/design', label: 'Design UI UX' }
+        }
     ];
 
     return (
         <ModuleHeader
-            title="Templates de Dashboard"
-            description="Exemplos práticos e prontos de componentes usando a biblioteca shadcn/ui."
+            title="Padrões de Desenvolvimento"
+            description="Diretrizes, componentes padronizados e exemplos práticos de interface usando a biblioteca shadcn/ui."
             icon={LayoutTemplate}
             navItems={navItems}
         >
