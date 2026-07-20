@@ -20,6 +20,8 @@ import TemplateTables from './modules/Template/pages/TemplateTables';
 import TemplateTablesResumo from './modules/Template/pages/TemplateTablesResumo';
 import TemplateForms from './modules/Template/pages/TemplateForms';
 import TemplateDesign from './modules/Template/pages/TemplateDesign';
+import TemplateBlank from './modules/Template/pages/TemplateBlank';
+import TemplateKanban from './modules/Template/pages/TemplateKanban';
 import PesquisaEfetivo from './modules/Efetivo/pages/PesquisaEfetivo';
 import EfetivoSincronizado from './modules/Efetivo/pages/EfetivoSincronizado';
 import MapeamentoCampos from './modules/Efetivo/pages/MapeamentoCampos';
@@ -53,6 +55,8 @@ function App() {
                 <Route path="/templates/tables-resumo" element={<TemplateTablesResumo />} />
                 <Route path="/templates/forms" element={<TemplateForms />} />
                 <Route path="/templates/design" element={<TemplateDesign />} />
+                <Route path="/templates/blank" element={<TemplateBlank />} />
+                <Route path="/templates/kanban" element={<TemplateKanban />} />
                 <Route path="/settings" element={<Settings />} />
             </Routes>
         </BrowserRouter>

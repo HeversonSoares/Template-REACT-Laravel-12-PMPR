@@ -35,7 +35,9 @@ import {
     LayoutDashboard,
     Table,
     TableProperties,
-    ClipboardList
+    ClipboardList,
+    FileCode,
+    KanbanSquare
 } from 'lucide-react';
 
 export default function TemplateMenu() {
@@ -47,10 +49,12 @@ export default function TemplateMenu() {
         {
             label: 'Templates',
             items: [
-                { to: '/templates/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-                { to: '/templates/tables', label: 'Tabela 1: Gestão de Frotas', icon: Table },
+                { to: '/templates/blank',         label: 'Template em Branco',           icon: FileCode },
+                { to: '/templates/dashboard',     label: 'Dashboard',                    icon: LayoutDashboard },
+                { to: '/templates/kanban',        label: 'Kanban Board',                 icon: KanbanSquare },
+                { to: '/templates/tables',        label: 'Tabela 1: Gestão de Frotas',   icon: Table },
                 { to: '/templates/tables-resumo', label: 'Tabela 2: Resumo de Chamados', icon: TableProperties },
-                { to: '/templates/forms', label: 'Formulários', icon: ClipboardList }
+                { to: '/templates/forms',         label: 'Formulários',                  icon: ClipboardList },
             ]
         }
     ];
