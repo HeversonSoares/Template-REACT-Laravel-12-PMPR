@@ -18,7 +18,8 @@ import {
     FileText,
     LayoutTemplate,
     Moon,
-    Sun
+    Sun,
+    LayoutGrid
 } from 'lucide-react';
 import { Button } from './ui/button';
 
@@ -67,6 +68,7 @@ export default function Layout({ children }) {
     };
 
     const navItems = [
+        { path: '/area-de-trabalho', name: 'Área de Trabalho', icon: LayoutGrid },
         { path: '/', name: 'Hub', icon: Layers },
         { path: '/efetivo', name: 'Efetivo', icon: Users },
         { path: '/fleets', name: 'Frotas', icon: Truck },

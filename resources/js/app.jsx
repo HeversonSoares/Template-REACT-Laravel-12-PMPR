@@ -26,6 +26,7 @@ import PesquisaEfetivo from './modules/Efetivo/pages/PesquisaEfetivo';
 import EfetivoSincronizado from './modules/Efetivo/pages/EfetivoSincronizado';
 import MapeamentoCampos from './modules/Efetivo/pages/MapeamentoCampos';
 import ParametrosConexao from './modules/Efetivo/pages/ParametrosConexao';
+import AreaDeTrabalho from './modules/AreaDeTrabalho/pages/AreaDeTrabalho';
 
 function App() {
     return (
@@ -39,6 +40,7 @@ function App() {
                   2. 'element' é o Componente (importado lá em cima) que será renderizado na tela.
                 */}
                 <Route path="/" element={<Dashboard />} />
+                <Route path="/area-de-trabalho" element={<AreaDeTrabalho />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 

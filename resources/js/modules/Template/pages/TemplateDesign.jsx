@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '@/components/Layout';
 import TemplateMenu from '../components/TemplateMenu';
 import PageHeader from '@/components/PageHeader';
@@ -25,8 +25,20 @@ import {
     MenubarSubContent,
     MenubarSubTrigger,
 } from '@/components/ui/menubar';
+import { SwitchAlert } from '@/components/SwitchAlert';
 
 export default function TemplateDesign() {
+    const [alertState, setAlertState] = useState({
+        open: false,
+        type: 'info',
+        title: '',
+        message: ''
+    });
+
+    const showAlert = (type, title, message) => {
+        setAlertState({ open: true, type, title, message });
+    };
+
     return (
         <Layout>
             <div className="p-6 space-y-6 w-full">
@@ -926,6 +938,94 @@ import { Plus, Save, Trash2, RefreshCw } from 'lucide-react';
                                 <strong>Padrão do projeto:</strong> use <code className="font-mono">ActionButton</code> em vez de <code className="font-mono">Button</code> nos <code className="font-mono">*Menu.jsx</code>.
                                 Sempre passe <code className="font-mono">responsive</code> para que os botões do cabeçalho se adaptem automaticamente ao espaço disponível.
                                 O ícone deve ser sempre o primeiro argumento (<code className="font-mono">icon</code>) — nunca adicione o ícone dentro de <code className="font-mono">children</code> manualmente.
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    {/* SwitchAlert Documentation */}
+                    <Card className="p-6 space-y-4 md:col-span-2">
+                        <CardHeader className="p-0">
+                            <CardTitle className="text-lg font-semibold">Alertas (SwitchAlert)</CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-0 space-y-4">
+                            <p className="text-muted-foreground text-sm">
+                                Para exibir feedback ou confirmações visuais, utilize o componente <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">SwitchAlert</code> (estilo SweetAlert).
+                            </p>
+
+                            <div className="bg-muted p-4 rounded-xl border border-border space-y-4">
+                                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Demonstração Interativa:</span>
+                                <div className="flex flex-wrap gap-4">
+                                    <Button 
+                                        className="bg-green-600 hover:bg-green-700 text-white"
+                                        onClick={() => showAlert('success', 'Tudo certo!', 'O registro foi salvo com sucesso.')}
+                                    >
+                                        Alerta de Sucesso
+                                    </Button>
+
+                                    <Button 
+                                        variant="destructive"
+                                        onClick={() => showAlert('error', 'Ops, ocorreu um erro', 'Não foi possível conectar ao servidor.')}
+                                    >
+                                        Alerta de Erro
+                                    </Button>
+
+                                    <Button 
+                                        variant="outline" 
+                                        className="border-yellow-500 text-yellow-600 hover:bg-yellow-50"
+                                        onClick={() => showAlert('confirm', 'Tem certeza?', 'Essa ação não poderá ser desfeita.')}
+                                    >
+                                        Alerta de Confirmação
+                                    </Button>
+
+                                    <Button 
+                                        className="bg-blue-600 hover:bg-blue-700 text-white"
+                                        onClick={() => showAlert('info', 'Aviso', 'O sistema passará por manutenção.')}
+                                    >
+                                        Alerta de Informação
+                                    </Button>
+                                </div>
+                            </div>
+                            
+                            <SwitchAlert
+                                open={alertState.open}
+                                onOpenChange={(open) => setAlertState(prev => ({ ...prev, open }))}
+                                type={alertState.type}
+                                title={alertState.title}
+                                message={alertState.message}
+                                onConfirm={() => setAlertState(prev => ({ ...prev, open: false }))}
+                            />
+
+                            <div className="space-y-1.5">
+                                <span className="text-xs font-semibold text-foreground">Como usar no seu componente:</span>
+                                <pre className="bg-slate-900 text-slate-100 text-xs p-3 rounded-lg overflow-x-auto">
+{`import { SwitchAlert } from '@/components/SwitchAlert';
+import { useState } from 'react';
+
+export default function MeuComponente() {
+  const [alertState, setAlertState] = useState({ open: false, type: 'info', title: '', message: '' });
+
+  const showAlert = (type, title, message) => {
+    setAlertState({ open: true, type, title, message });
+  };
+
+  return (
+    <>
+      <Button onClick={() => showAlert('success', 'Sucesso!', 'Ação executada com sucesso.')}>
+        Mostrar Alerta
+      </Button>
+
+      <SwitchAlert
+        open={alertState.open}
+        onOpenChange={(open) => setAlertState(prev => ({ ...prev, open }))}
+        type={alertState.type}
+        title={alertState.title}
+        message={alertState.message}
+        onConfirm={() => setAlertState(prev => ({ ...prev, open: false }))}
+      />
+    </>
+  );
+}`}
+                                </pre>
                             </div>
                         </CardContent>
                     </Card>
