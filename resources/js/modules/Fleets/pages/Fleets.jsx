@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '@/components/Layout';
+import PageHeader from '@/components/PageHeader';
 import { 
     Card, 
     CardContent, 
@@ -145,16 +146,11 @@ export default function Fleets() {
             <div className="w-full p-6 space-y-6">
                 {/* Header */}
                 <div className="space-y-4">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                        <div className="space-y-0.5">
-                            <div className="flex items-center gap-2.5">
-                                <Truck className="h-6 w-6 text-foreground shrink-0" />
-                                <h2 className="text-2xl font-bold tracking-tight text-foreground">Controle de Frotas Externo</h2>
-                            </div>
-                            <p className="text-sm text-muted-foreground">
-                                Gerenciamento de veículos, telemetria em tempo real e agendamento de manutenções via webhook.
-                            </p>
-                        </div>
+                    <PageHeader
+                        title="Controle de Frotas Externo"
+                        description="Gerenciamento de veículos, telemetria em tempo real e agendamento de manutenções via webhook."
+                        icon={Truck}
+                    >
                         <Button 
                             onClick={triggerRefresh}
                             disabled={isRefreshing}
@@ -163,7 +159,7 @@ export default function Fleets() {
                             <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} /> 
                             {isRefreshing ? 'Atualizando...' : 'Atualizar Telemetria'}
                         </Button>
-                    </div>
+                    </PageHeader>
 
                     <hr className="border" />
 

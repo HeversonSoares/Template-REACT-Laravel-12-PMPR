@@ -1,7 +1,7 @@
 import React from 'react';
 import ModuleHeader from '@/components/ModuleHeader';
-import { Button } from '@/components/ui/button';
-import { Users, RefreshCw } from 'lucide-react';
+import ActionButton from '@/components/ui/action-button';
+import { RefreshCw, Users } from 'lucide-react';
 
 export default function EfetivoMenu({ onSyncAll, isSyncing }) {
     const navItems = [
@@ -19,14 +19,15 @@ export default function EfetivoMenu({ onSyncAll, isSyncing }) {
             navItems={navItems}
         >
             {onSyncAll && (
-                <Button
-                    onClick={onSyncAll}
+                <ActionButton
+                    icon={RefreshCw}
+                    label={isSyncing ? 'Sincronizando...' : 'Sincronizar Tudo'}
+                    variant="success"
                     disabled={isSyncing}
-                    className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl gap-2 shadow"
-                >
-                    <RefreshCw className={`h-4 w-4 ${isSyncing ? 'animate-spin' : ''}`} />
-                    {isSyncing ? 'Sincronizando...' : 'Sincronizar Tudo'}
-                </Button>
+                    onClick={onSyncAll}
+                    responsive
+                    className={isSyncing ? '[&_svg]:animate-spin' : ''}
+                />
             )}
         </ModuleHeader>
     );

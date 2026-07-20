@@ -4,6 +4,9 @@ import React, { useState } from 'react';
 // Componente de cabeçalho completo de módulo (PageHeader + hr + ModuleNavigation em um só)
 import ModuleHeader from '@/components/ModuleHeader';
 
+// ActionButton — botão de ação padronizado do projeto (ícone à esquerda, com modo compacto/responsivo)
+import ActionButton from '@/components/ui/action-button';
+
 // Componente Button customizado do Shadcn UI para botões estilizados de ações e gatilhos
 import { Button } from '@/components/ui/button';
 
@@ -55,14 +58,23 @@ export default function TemplateMenu() {
             icon={LayoutTemplate}
             navItems={navItems}
         >
-            <Button variant="outline" size="sm" onClick={() => window.open('https://ui.shadcn.com/', '_blank')} className="flex items-center gap-1.5 shadow-sm text-xs font-semibold">
-                Shadcn Docs <ExternalLink className="h-3.5 w-3.5" />
-            </Button>
+            <ActionButton
+                icon={ExternalLink}
+                label="Shadcn Docs"
+                variant="outline"
+                onClick={() => window.open('https://ui.shadcn.com/', '_blank')}
+                responsive
+            />
             <Dialog open={isOpenDialog} onOpenChange={setIsOpenDialog}>
                 <DialogTrigger asChild>
-                    <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground flex items-center gap-1.5 shadow-sm text-xs font-semibold">
-                        <Plus className="h-4 w-4" /> Novo Template
-                    </Button>
+                    <span>
+                        <ActionButton
+                            icon={Plus}
+                            label="Novo Template"
+                            variant="default"
+                            responsive
+                        />
+                    </span>
                 </DialogTrigger>
                 <DialogContent className="bg-background border border-border text-foreground sm:max-w-[425px]">
                     <DialogHeader>
@@ -94,7 +106,7 @@ export default function TemplateMenu() {
                     </div>
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setIsOpenDialog(false)}>Cancelar</Button>
-                        <Button onClick={() => setIsOpenDialog(false)} className="bg-primary text-primary-foreground hover:bg-primary/90">Salvar</Button>
+                        <Button variant="success" onClick={() => setIsOpenDialog(false)}>Salvar</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
+import PageHeader from '@/components/PageHeader';
 import { 
     Card, 
     CardContent, 
@@ -216,18 +217,11 @@ export default function Dashboard() {
         <Layout>
             <div className="w-full p-6 space-y-8">
                 <div className="space-y-4">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                        <div className="space-y-0.5">
-                            <div className="flex items-center gap-2.5">
-                                <Layers className="h-6 w-6 text-muted-foreground shrink-0" />
-                                <h2 className="text-2xl font-bold tracking-tight text-foreground">
-                                    Hub de Módulos Externos
-                                </h2>
-                            </div>
-                            <p className="text-sm text-muted-foreground">
-                                Gerencie conexões, sincronização e integridade dos sistemas conectados ao core.
-                            </p>
-                        </div>
+                    <PageHeader
+                        title="Hub de Módulos Externos"
+                        description="Gerencie conexões, sincronização e integridade dos sistemas conectados ao core."
+                        icon={Layers}
+                    >
                         <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
                             <DialogTrigger asChild>
                                 <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl gap-2 shadow">
@@ -295,14 +289,14 @@ export default function Dashboard() {
                                 </form>
                             </DialogContent>
                         </Dialog>
-                    </div>
+                    </PageHeader>
 
                     <hr className="border-border" />
 
-                    <div className="flex items-center justify-between overflow-x-auto pb-2 w-full">
+                    <div className="flex items-center justify-between pb-2 w-full relative z-20">
                         {/* Navigation Menu */}
-                        <NavigationMenu>
-                            <NavigationMenuList className="flex gap-1">
+                        <NavigationMenu className="relative z-30">
+                            <NavigationMenuList className="flex gap-1 flex-wrap">
                                 <NavigationMenuItem>
                                     <span className={`${navigationMenuTriggerStyle()} bg-accent text-accent-foreground font-semibold rounded-md h-9 text-xs sm:text-sm cursor-default hover:bg-accent hover:text-accent-foreground focus:bg-accent`}>
                                         Hub

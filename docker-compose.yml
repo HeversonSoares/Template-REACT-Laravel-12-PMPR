@@ -2,6 +2,7 @@ services:
   app:
     build: .
     container_name: template_react_app
+    restart: unless-stopped
     volumes:
       - .:/var/www
     working_dir: /var/www
@@ -22,6 +23,7 @@ services:
   db:
     image: postgres:15
     container_name: template_react_db
+    restart: unless-stopped
     environment:
       POSTGRES_DB: template_react
       POSTGRES_USER: template_react

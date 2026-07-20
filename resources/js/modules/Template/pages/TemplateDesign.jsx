@@ -4,7 +4,9 @@ import TemplateMenu from '../components/TemplateMenu';
 import PageHeader from '@/components/PageHeader';
 import ModuleHeader from '@/components/ModuleHeader';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { LayoutTemplate, ChevronDown, Users, FileText } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import ActionButton from '@/components/ui/action-button';
+import { LayoutTemplate, ChevronDown, Users, FileText, Plus, Trash2, Settings, Download, Save, RefreshCw, Filter, Eye, Pencil } from 'lucide-react';
 import {
     NavigationMenu,
     NavigationMenuList,
@@ -544,6 +546,386 @@ import { ChevronDown } from 'lucide-react';
 </p>`}
                                     </pre>
                                 </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    {/* ── Botões ──────────────────────────────────── */}
+                    <Card className="p-6 space-y-4 md:col-span-2">
+                        <CardHeader className="p-0">
+                            <CardTitle className="text-lg font-semibold">Botões (Button)</CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-0 space-y-6">
+                            <p className="text-muted-foreground text-sm">
+                                O componente <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">Button</code> é o padrão de ação em todas as views.
+                                Ele suporta múltiplas <strong>variantes</strong> de estilo e <strong>tamanhos</strong>, além de aceitar ícones do Lucide React.
+                                Importe sempre de <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">@/components/ui/button</code>.
+                            </p>
+
+                            {/* Tabela de Props */}
+                            <div className="overflow-x-auto rounded-lg border border-border">
+                                <table className="w-full text-xs">
+                                    <thead>
+                                        <tr className="bg-muted/60 border-b border-border">
+                                            <th className="text-left px-3 py-2 font-semibold text-foreground">Prop</th>
+                                            <th className="text-left px-3 py-2 font-semibold text-foreground">Tipo</th>
+                                            <th className="text-left px-3 py-2 font-semibold text-foreground">Padrão</th>
+                                            <th className="text-left px-3 py-2 font-semibold text-foreground">Descrição</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-border">
+                                        <tr><td className="px-3 py-2 font-mono text-primary">variant</td><td className="px-3 py-2 text-muted-foreground">string</td><td className="px-3 py-2 text-muted-foreground">"default"</td><td className="px-3 py-2 text-muted-foreground">Estilo visual: default · destructive · outline · secondary · ghost · link</td></tr>
+                                        <tr><td className="px-3 py-2 font-mono text-primary">size</td><td className="px-3 py-2 text-muted-foreground">string</td><td className="px-3 py-2 text-muted-foreground">"default"</td><td className="px-3 py-2 text-muted-foreground">Tamanho: default · sm · lg · icon</td></tr>
+                                        <tr><td className="px-3 py-2 font-mono text-primary">asChild</td><td className="px-3 py-2 text-muted-foreground">boolean</td><td className="px-3 py-2 text-muted-foreground">false</td><td className="px-3 py-2 text-muted-foreground">Renderiza como filho (ex: Link do React Router)</td></tr>
+                                        <tr><td className="px-3 py-2 font-mono text-primary">disabled</td><td className="px-3 py-2 text-muted-foreground">boolean</td><td className="px-3 py-2 text-muted-foreground">false</td><td className="px-3 py-2 text-muted-foreground">Desabilita o botão (opacidade + sem clique)</td></tr>
+                                        <tr><td className="px-3 py-2 font-mono text-primary">onClick</td><td className="px-3 py-2 text-muted-foreground">function</td><td className="px-3 py-2 text-muted-foreground">—</td><td className="px-3 py-2 text-muted-foreground">Handler de clique</td></tr>
+                                        <tr><td className="px-3 py-2 font-mono text-primary">className</td><td className="px-3 py-2 text-muted-foreground">string</td><td className="px-3 py-2 text-muted-foreground">—</td><td className="px-3 py-2 text-muted-foreground">Classes CSS extras</td></tr>
+                                        <tr><td className="px-3 py-2 font-mono text-primary">children</td><td className="px-3 py-2 text-muted-foreground">ReactNode</td><td className="px-3 py-2 text-muted-foreground">—</td><td className="px-3 py-2 text-muted-foreground">Conteúdo do botão (texto, ícone, ou ambos)</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div className="grid gap-6 md:grid-cols-2">
+                                {/* Variantes Visuais */}
+                                <div className="space-y-3">
+                                    <span className="text-xs font-semibold text-foreground">Variantes de Estilo:</span>
+                                    <div className="bg-muted p-4 rounded-xl border border-border space-y-3">
+                                        <div className="flex flex-wrap gap-2 items-center">
+                                            <Button variant="default">Default</Button>
+                                            <Button variant="secondary">Secondary</Button>
+                                            <Button variant="outline">Outline</Button>
+                                            <Button variant="destructive">Destructive</Button>
+                                            <Button variant="ghost">Ghost</Button>
+                                            <Button variant="link">Link</Button>
+                                        </div>
+                                    </div>
+                                    <pre className="bg-slate-900 text-slate-100 text-xs p-3 rounded-lg overflow-x-auto">
+{`import { Button } from '@/components/ui/button';
+
+<Button>Default</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="destructive">Destructive</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="link">Link</Button>`}
+                                    </pre>
+                                </div>
+
+                                {/* Tamanhos */}
+                                <div className="space-y-3">
+                                    <span className="text-xs font-semibold text-foreground">Tamanhos:</span>
+                                    <div className="bg-muted p-4 rounded-xl border border-border space-y-3">
+                                        <div className="flex flex-wrap gap-2 items-center">
+                                            <Button size="lg">Large</Button>
+                                            <Button size="default">Default</Button>
+                                            <Button size="sm">Small</Button>
+                                            <Button size="icon"><Settings /></Button>
+                                        </div>
+                                    </div>
+                                    <pre className="bg-slate-900 text-slate-100 text-xs p-3 rounded-lg overflow-x-auto">
+{`<Button size="lg">Large</Button>
+<Button size="default">Default</Button>
+<Button size="sm">Small</Button>
+
+{/* Botão somente ícone: */}
+<Button size="icon">
+  <Settings />
+</Button>`}
+                                    </pre>
+                                </div>
+                            </div>
+
+                            {/* Botões com Ícones */}
+                            <div className="space-y-3">
+                                <span className="text-xs font-semibold text-foreground">Botões com Ícones (padrão recomendado para ações):</span>
+                                <div className="bg-muted p-4 rounded-xl border border-border">
+                                    <div className="flex flex-wrap gap-2 items-center">
+                                        <Button><Plus /> Nova Ação</Button>
+                                        <Button variant="outline"><Download /> Exportar</Button>
+                                        <Button variant="secondary"><Settings /> Configurações</Button>
+                                        <Button variant="destructive"><Trash2 /> Excluir</Button>
+                                        <Button variant="ghost" size="icon"><Settings /></Button>
+                                        <Button disabled><Plus /> Desabilitado</Button>
+                                    </div>
+                                </div>
+                                <pre className="bg-slate-900 text-slate-100 text-xs p-3 rounded-lg overflow-x-auto">
+{`import { Button } from '@/components/ui/button';
+import { Plus, Download, Settings, Trash2 } from 'lucide-react';
+
+{/* Ação principal da view — sempre "default" */}
+<Button><Plus /> Nova Ação</Button>
+
+{/* Ações secundárias */}
+<Button variant="outline"><Download /> Exportar</Button>
+<Button variant="secondary"><Settings /> Configurações</Button>
+
+{/* Ação destrutiva — exclusões e confirmações críticas */}
+<Button variant="destructive"><Trash2 /> Excluir</Button>
+
+{/* Ícone isolado — para barras de ferramentas e tabelas */}
+<Button variant="ghost" size="icon"><Settings /></Button>
+
+{/* Desabilitado — quando a ação não está disponível */}
+<Button disabled><Plus /> Desabilitado</Button>`}
+                                </pre>
+                            </div>
+
+                            {/* Como usar nas views */}
+                            <div className="grid gap-6 md:grid-cols-2">
+                                <div className="space-y-2">
+                                    <span className="text-xs font-semibold text-foreground">Como usar no PageHeader (ação principal da view):</span>
+                                    <pre className="bg-slate-900 text-slate-100 text-xs p-3 rounded-lg overflow-x-auto">
+{`import { Button } from '@/components/ui/button';
+import PageHeader from '@/components/PageHeader';
+import { Plus, Users } from 'lucide-react';
+
+<PageHeader
+  title="Usuários"
+  description="Gestão de usuários do sistema."
+  icon={Users}
+>
+  {/* Botão principal da view — fica à direita do header */}
+  <Button>
+    <Plus /> Novo Usuário
+  </Button>
+</PageHeader>`}
+                                    </pre>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <span className="text-xs font-semibold text-foreground">Múltiplos botões no header (mais de uma ação):</span>
+                                    <pre className="bg-slate-900 text-slate-100 text-xs p-3 rounded-lg overflow-x-auto">
+{`import { Button } from '@/components/ui/button';
+import PageHeader from '@/components/PageHeader';
+import { Plus, Download, Users } from 'lucide-react';
+
+<PageHeader title="Relatórios" icon={Users}>
+  {/* Agrupe em um div com gap para múltiplos botões */}
+  <div className="flex gap-2">
+    <Button variant="outline">
+      <Download /> Exportar
+    </Button>
+    <Button>
+      <Plus /> Novo Relatório
+    </Button>
+  </div>
+</PageHeader>`}
+                                    </pre>
+                                </div>
+                            </div>
+
+                            <div className="p-3 rounded-lg bg-primary/5 border border-primary/20 text-xs text-primary">
+                                <strong>Padrão do projeto:</strong> use sempre <code className="font-mono">variant="default"</code> para a ação principal da view (criar, salvar),{' '}
+                                <code className="font-mono">variant="outline"</code> para ações secundárias (exportar, filtrar) e{' '}
+                                <code className="font-mono">variant="destructive"</code> exclusivamente para exclusões e ações irreversíveis.
+                                Ícones devem ser importados do <code className="font-mono">lucide-react</code>.
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    {/* ── Padrão de Cores por Intenção ───────────────── */}
+                    <Card className="p-6 space-y-4 md:col-span-2">
+                        <CardHeader className="p-0">
+                            <CardTitle className="text-lg font-semibold">Padrão de Cores por Intenção</CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-0 space-y-4">
+                            <p className="text-muted-foreground text-sm">
+                                Cada tipo de ação tem uma cor semântica definida. Seguir esse padrão garante que o usuário entenda imediatamente a natureza de cada botão.
+                            </p>
+
+                            {/* Tabela semântica */}
+                            <div className="overflow-x-auto rounded-lg border border-border">
+                                <table className="w-full text-xs">
+                                    <thead>
+                                        <tr className="bg-muted/60 border-b border-border">
+                                            <th className="text-left px-3 py-2 font-semibold text-foreground">Intenção</th>
+                                            <th className="text-left px-3 py-2 font-semibold text-foreground">Variant</th>
+                                            <th className="text-left px-3 py-2 font-semibold text-foreground">Cor</th>
+                                            <th className="text-left px-3 py-2 font-semibold text-foreground">Exemplos de Uso</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-border">
+                                        <tr>
+                                            <td className="px-3 py-2 font-medium text-foreground">Ação Principal</td>
+                                            <td className="px-3 py-2 font-mono text-primary">default</td>
+                                            <td className="px-3 py-2"><span className="inline-block px-2 py-0.5 rounded bg-primary text-primary-foreground text-[10px] font-semibold">Azul/Brand</span></td>
+                                            <td className="px-3 py-2 text-muted-foreground">Criar novo registro, abrir formulário</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-3 py-2 font-medium text-foreground">Salvar / Confirmar</td>
+                                            <td className="px-3 py-2 font-mono text-primary">success</td>
+                                            <td className="px-3 py-2"><span className="inline-block px-2 py-0.5 rounded bg-emerald-600 text-white text-[10px] font-semibold">Verde</span></td>
+                                            <td className="px-3 py-2 text-muted-foreground">Salvar formulário, confirmar ação, sincronizar</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-3 py-2 font-medium text-foreground">Excluir / Irreversível</td>
+                                            <td className="px-3 py-2 font-mono text-primary">destructive</td>
+                                            <td className="px-3 py-2"><span className="inline-block px-2 py-0.5 rounded bg-destructive text-destructive-foreground text-[10px] font-semibold">Vermelho</span></td>
+                                            <td className="px-3 py-2 text-muted-foreground">Excluir registro, apagar dados, ação irreversível</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-3 py-2 font-medium text-foreground">Ação Secundária</td>
+                                            <td className="px-3 py-2 font-mono text-primary">outline</td>
+                                            <td className="px-3 py-2"><span className="inline-block px-2 py-0.5 rounded border border-input bg-background text-foreground text-[10px] font-semibold">Neutro</span></td>
+                                            <td className="px-3 py-2 text-muted-foreground">Exportar, filtrar, cancelar, voltar, links externos</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-3 py-2 font-medium text-foreground">Ação Contextual</td>
+                                            <td className="px-3 py-2 font-mono text-primary">secondary</td>
+                                            <td className="px-3 py-2"><span className="inline-block px-2 py-0.5 rounded bg-secondary text-secondary-foreground text-[10px] font-semibold">Cinza</span></td>
+                                            <td className="px-3 py-2 text-muted-foreground">Configurações, alternativas, sem hierarquia clara</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-3 py-2 font-medium text-foreground">Ícone Isolado</td>
+                                            <td className="px-3 py-2 font-mono text-primary">ghost size="icon"</td>
+                                            <td className="px-3 py-2"><span className="inline-block px-2 py-0.5 rounded text-foreground text-[10px] font-semibold bg-accent">Transparente</span></td>
+                                            <td className="px-3 py-2 text-muted-foreground">Tabelas (ver, editar), barras de ferramentas</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {/* Exemplos visuais */}
+                            <div className="bg-muted p-4 rounded-xl border border-border space-y-3">
+                                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Exemplos Visuais:</span>
+                                <div className="flex flex-wrap gap-3 items-end">
+                                    <ActionButton icon={Plus} label="Novo Registro" variant="default" />
+                                    <ActionButton icon={Save} label="Salvar" variant="success" />
+                                    <ActionButton icon={Trash2} label="Excluir" variant="destructive" />
+                                    <ActionButton icon={Download} label="Exportar" variant="outline" />
+                                    <ActionButton icon={Settings} label="Configurações" variant="secondary" />
+                                    <div className="flex flex-col items-center gap-0.5">
+                                        <Button variant="ghost" size="icon" className="h-8 w-8"><Eye className="h-4 w-4" /></Button>
+                                        <span className="text-[10px] text-muted-foreground font-medium leading-none">Ver</span>
+                                    </div>
+                                    <div className="flex flex-col items-center gap-0.5">
+                                        <Button variant="ghost" size="icon" className="h-8 w-8"><Pencil className="h-4 w-4" /></Button>
+                                        <span className="text-[10px] text-muted-foreground font-medium leading-none">Editar</span>
+                                    </div>
+                                    <div className="flex flex-col items-center gap-0.5">
+                                        <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"><Trash2 className="h-4 w-4" /></Button>
+                                        <span className="text-[10px] text-muted-foreground font-medium leading-none">Excluir</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <pre className="bg-slate-900 text-slate-100 text-xs p-3 rounded-lg overflow-x-auto">
+{`import ActionButton from '@/components/ui/action-button';
+import { Plus, Save, Trash2, Download, Settings } from 'lucide-react';
+
+{/* ✅ Criar/Abrir — ação principal da view */}
+<ActionButton icon={Plus} label="Novo Registro" variant="default" />
+
+{/* ✅ Salvar/Confirmar/Sincronizar — sempre verde */}
+<ActionButton icon={Save} label="Salvar" variant="success" />
+
+{/* ✅ Excluir/Apagar — sempre vermelho */}
+<ActionButton icon={Trash2} label="Excluir" variant="destructive" />
+
+{/* ✅ Ações secundárias — outline */}
+<ActionButton icon={Download} label="Exportar" variant="outline" />
+
+{/* ✅ Ícone isolado em tabelas (ghost) */}
+<Button variant="ghost" size="icon"><Eye /></Button>
+<Button variant="ghost" size="icon" className="text-destructive hover:bg-destructive/10"><Trash2 /></Button>`}
+                            </pre>
+                        </CardContent>
+                    </Card>
+
+                    {/* ── ActionButton ─────────────────────────────── */}
+                    <Card className="p-6 space-y-4 md:col-span-2">
+                        <CardHeader className="p-0">
+                            <CardTitle className="text-lg font-semibold">ActionButton — Botão Responsivo Padronizado</CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-0 space-y-4">
+                            <p className="text-muted-foreground text-sm">
+                                O <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">ActionButton</code> é o componente padrão para botões de ação nos <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">*Menu.jsx</code> e em telas onde o espaço pode ser limitado.
+                                Garante que o ícone fique sempre à esquerda do label, e colapsa automaticamente para ícone + label abaixo quando o espaço não permite texto.
+                            </p>
+
+                            {/* Tabela de Props */}
+                            <div className="overflow-x-auto rounded-lg border border-border">
+                                <table className="w-full text-xs">
+                                    <thead>
+                                        <tr className="bg-muted/60 border-b border-border">
+                                            <th className="text-left px-3 py-2 font-semibold text-foreground">Prop</th>
+                                            <th className="text-left px-3 py-2 font-semibold text-foreground">Tipo</th>
+                                            <th className="text-left px-3 py-2 font-semibold text-foreground">Padrão</th>
+                                            <th className="text-left px-3 py-2 font-semibold text-foreground">Descrição</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-border">
+                                        <tr><td className="px-3 py-2 font-mono text-primary">icon</td><td className="px-3 py-2 text-muted-foreground">LucideIcon</td><td className="px-3 py-2 text-muted-foreground">—</td><td className="px-3 py-2 text-muted-foreground">Ícone exibido sempre à esquerda do label</td></tr>
+                                        <tr><td className="px-3 py-2 font-mono text-primary">label</td><td className="px-3 py-2 text-muted-foreground">string</td><td className="px-3 py-2 text-muted-foreground">—</td><td className="px-3 py-2 text-muted-foreground">Texto do botão (obrigatório)</td></tr>
+                                        <tr><td className="px-3 py-2 font-mono text-primary">variant</td><td className="px-3 py-2 text-muted-foreground">string</td><td className="px-3 py-2 text-muted-foreground">"default"</td><td className="px-3 py-2 text-muted-foreground">Variante visual: default · success · destructive · outline · secondary · ghost</td></tr>
+                                        <tr><td className="px-3 py-2 font-mono text-primary">size</td><td className="px-3 py-2 text-muted-foreground">string</td><td className="px-3 py-2 text-muted-foreground">"sm"</td><td className="px-3 py-2 text-muted-foreground">Tamanho: default · sm · lg</td></tr>
+                                        <tr><td className="px-3 py-2 font-mono text-primary">responsive</td><td className="px-3 py-2 text-muted-foreground">boolean</td><td className="px-3 py-2 text-muted-foreground">false</td><td className="px-3 py-2 text-muted-foreground">Colapsa automaticamente para ícone + label abaixo em telas {'<'} md</td></tr>
+                                        <tr><td className="px-3 py-2 font-mono text-primary">compact</td><td className="px-3 py-2 text-muted-foreground">boolean</td><td className="px-3 py-2 text-muted-foreground">false</td><td className="px-3 py-2 text-muted-foreground">Força modo compacto (ícone + label abaixo) independente do tamanho da tela</td></tr>
+                                        <tr><td className="px-3 py-2 font-mono text-primary">disabled</td><td className="px-3 py-2 text-muted-foreground">boolean</td><td className="px-3 py-2 text-muted-foreground">false</td><td className="px-3 py-2 text-muted-foreground">Desabilita o botão</td></tr>
+                                        <tr><td className="px-3 py-2 font-mono text-primary">onClick</td><td className="px-3 py-2 text-muted-foreground">function</td><td className="px-3 py-2 text-muted-foreground">—</td><td className="px-3 py-2 text-muted-foreground">Handler de clique</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div className="grid gap-6 md:grid-cols-3">
+                                {/* Normal */}
+                                <div className="space-y-2">
+                                    <span className="text-xs font-semibold text-foreground">Modo Normal (padrão):</span>
+                                    <div className="bg-muted p-4 rounded-xl border border-border flex flex-wrap gap-2">
+                                        <ActionButton icon={Plus} label="Novo" variant="default" />
+                                        <ActionButton icon={Save} label="Salvar" variant="success" />
+                                        <ActionButton icon={Download} label="Exportar" variant="outline" />
+                                    </div>
+                                </div>
+
+                                {/* Compacto */}
+                                <div className="space-y-2">
+                                    <span className="text-xs font-semibold text-foreground">Modo Compacto (<code className="font-mono">compact</code>):</span>
+                                    <div className="bg-muted p-4 rounded-xl border border-border flex flex-wrap gap-4 items-end">
+                                        <ActionButton icon={Plus} label="Novo" variant="default" compact />
+                                        <ActionButton icon={Save} label="Salvar" variant="success" compact />
+                                        <ActionButton icon={Trash2} label="Excluir" variant="destructive" compact />
+                                        <ActionButton icon={Download} label="Exportar" variant="outline" compact />
+                                    </div>
+                                </div>
+
+                                {/* Responsivo */}
+                                <div className="space-y-2">
+                                    <span className="text-xs font-semibold text-foreground">Modo Responsivo (<code className="font-mono">responsive</code>):</span>
+                                    <div className="bg-muted p-4 rounded-xl border border-border">
+                                        <p className="text-xs text-muted-foreground mb-2">Em telas {'≥'} md: ícone + label. Em telas {'<'} md: ícone + label abaixo.</p>
+                                        <div className="flex flex-wrap gap-2">
+                                            <ActionButton icon={RefreshCw} label="Sincronizar" variant="success" responsive />
+                                            <ActionButton icon={Filter} label="Filtrar" variant="outline" responsive />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <pre className="bg-slate-900 text-slate-100 text-xs p-3 rounded-lg overflow-x-auto">
+{`import ActionButton from '@/components/ui/action-button';
+import { Plus, Save, Trash2, RefreshCw } from 'lucide-react';
+
+{/* Modo normal — ícone à esquerda, label à direita */}
+<ActionButton icon={Plus} label="Novo Registro" variant="default" />
+
+{/* Modo compacto — ícone + label abaixo (para espaços restritos) */}
+<ActionButton icon={Save} label="Salvar" variant="success" compact />
+
+{/* Modo responsivo — normal em md+, compacto em telas menores */}
+<ActionButton icon={RefreshCw} label="Sincronizar" variant="success" responsive />
+
+{/* No *Menu.jsx — use sempre responsive para os botões do cabeçalho */}
+<ModuleHeader title="Meu Módulo" icon={Users} navItems={navItems}>
+  <ActionButton icon={Plus} label="Novo" variant="default" responsive />
+  <ActionButton icon={Download} label="Exportar" variant="outline" responsive />
+</ModuleHeader>`}
+                            </pre>
+
+                            <div className="p-3 rounded-lg bg-primary/5 border border-primary/20 text-xs text-primary">
+                                <strong>Padrão do projeto:</strong> use <code className="font-mono">ActionButton</code> em vez de <code className="font-mono">Button</code> nos <code className="font-mono">*Menu.jsx</code>.
+                                Sempre passe <code className="font-mono">responsive</code> para que os botões do cabeçalho se adaptem automaticamente ao espaço disponível.
+                                O ícone deve ser sempre o primeiro argumento (<code className="font-mono">icon</code>) — nunca adicione o ícone dentro de <code className="font-mono">children</code> manualmente.
                             </div>
                         </CardContent>
                     </Card>

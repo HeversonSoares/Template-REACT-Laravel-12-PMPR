@@ -19,9 +19,9 @@ export default function ModuleNavigation({ items, className }) {
     };
 
     return (
-        <div className={cn("flex items-center justify-between pb-2 overflow-x-auto w-full", className)}>
-            <NavigationMenu>
-                <NavigationMenuList className="flex gap-1">
+        <div className={cn("flex items-center justify-between pb-2 w-full relative z-20", className)}>
+            <NavigationMenu className="relative z-30">
+                <NavigationMenuList className="flex gap-1 flex-wrap">
                     {items.map((item) => {
                         // Standard Link Tab
                         if (item.to) {

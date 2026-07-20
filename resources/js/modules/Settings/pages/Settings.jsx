@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Layout from '@/components/Layout';
+import PageHeader from '@/components/PageHeader';
 import { 
     Card, 
     CardContent, 
@@ -126,19 +127,13 @@ export default function Settings() {
             <div className="w-full p-6 space-y-8">
                 {/* Header */}
                 <div className="space-y-4">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                        <div className="space-y-0.5">
-                            <div className="flex items-center gap-2.5">
-                                <SettingsIcon className="h-6 w-6 text-foreground shrink-0" />
-                                <h2 className="text-2xl font-bold tracking-tight text-foreground">Configurações Gerais</h2>
-                            </div>
-                            <p className="text-sm text-muted-foreground">
-                                Gerencie chaves de API, webhooks e parâmetros globais do Gateway de Integração.
-                            </p>
-                        </div>
-                    </div>
+                    <PageHeader
+                        title="Configurações Gerais"
+                        description="Gerencie chaves de API, webhooks e parâmetros globais do Gateway de Integração."
+                        icon={SettingsIcon}
+                    />
 
-                    <hr className="border" />
+                    <hr className="border-border" />
 
                     <div className="flex items-center justify-between overflow-x-auto pb-2 w-full">
                         {/* Navigation Menu */}

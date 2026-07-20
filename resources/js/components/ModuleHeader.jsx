@@ -53,7 +53,7 @@ export default function ModuleHeader({
     children,
 }) {
     return (
-        <div className={cn('space-y-4', className)}>
+        <div className={cn('space-y-4 relative z-20', className)}>
             <PageHeader
                 title={title}
                 description={description}
