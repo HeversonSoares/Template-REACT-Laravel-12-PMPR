@@ -27,6 +27,7 @@ import EfetivoSincronizado from './modules/Efetivo/pages/EfetivoSincronizado';
 import MapeamentoCampos from './modules/Efetivo/pages/MapeamentoCampos';
 import ParametrosConexao from './modules/Efetivo/pages/ParametrosConexao';
 import AreaDeTrabalho from './modules/AreaDeTrabalho/pages/AreaDeTrabalho';
+import TempoPage from './modules/Tempo/pages/TempoPage';
 
 function App() {
     return (
@@ -51,6 +52,7 @@ function App() {
                 <Route path="/efetivo/parametros" element={<ParametrosConexao />} />
                 
                 <Route path="/fleets" element={<Fleets />} />
+                <Route path="/tempo" element={<TempoPage />} />
                 <Route path="/templates" element={<Templates />} />
                 <Route path="/templates/dashboard" element={<TemplateDashboard />} />
                 <Route path="/templates/tables" element={<TemplateTables />} />
