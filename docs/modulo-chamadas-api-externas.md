@@ -12,53 +12,90 @@ O **módulo Tempo** é usado como exemplo prático, utilizando a API pública [O
 ## 1. Visão Geral da Arquitetura BFF
 
 ```text
-┌──────────────────────────────────────────────────────────────────┐
-│  NAVEGADOR                        SERVIDOR (Laravel BFF)         │
-│                                                                  │
-│  TempoPage.jsx                    routes/web.php                 │
-│     └─ useTempo.js                  └─ GET /api/tempo            │
-│          └─ tempoService.js               └─ Tempo/              │
-│               └─ fetch('/api/tempo')               TempoController │
-│                                                      └─ Http::get│
-└──────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│ 1. NAVEGADOR (FRONTEND SPA - REACT)                                                         │
+│    [Usuário Clica / Busca Cidade]                                                           │
+│           │                                                                                 │
+│           ▼                                                                                 │
+│    [TempoPage.jsx]  ──(1. Renderiza UI)──►  [useTempo.js]  ──(2. Dispara Busca)──►  [tempoService.js]
+│                                                                                       │     │
+└───────────────────────────────────────────────────────────────────────────────────────┼─────┼─┘
+                                                                                        │     │
+   3. Requisição HTTP Assíncrona (AJAX / JSON)                                          │     │
+   GET /api/tempo?cidade=Curitiba (com Cookies de Sessão Same-Origin)                     │     │
+                                                                                        │     │
+┌───────────────────────────────────────────────────────────────────────────────────────┼─────┼─┐
+│ 2. SERVIDOR (BACKEND FOR FRONTEND - LARAVEL 12)                                       ▼     │
+│    [routes/web.php] (Route::prefix('api'))                                                  │
+│           │                                                                                 │
+│           ▼                                                                                 │
+│    [TempoController.php @ previsao]                                                         │
+│           │ (Valida parâmetro 'cidade')                                                     │
+│           ├─────────────────────────(4. Http::get Geocoding)────────────────┐            │
+│           ├─────────────────────────(6. Http::get Forecast)─┐              │            │
+│           ▼                                               │              │            │
+└───────────┼───────────────────────────────────────────────┼──────────────┼────────────┼─┘
+            │                                               │              │            │
+            │  Requisições HTTP Externas (Server-to-Server) │              │            │
+            │                                               ▼              ▼            │
+┌───────────┼───────────────────────────────────────────────────────────────────────────┼─┐
+│ 3. API EXTERNA DE TERCEIROS (OPEN-METEO)                                              │ │
+│           │                                       [Geocoding API]    [Forecast API]   │ │
+│           │                                              │                  │         │ │
+│           │ (5. Retorna Coordenadas Lat/Lon)─────────────┴──────────────────┘         │ │
+│           │ (7. Retorna Clima Bruto JSON)───────────────────────────────────┐         │ │
+└───────────┼─────────────────────────────────────────────────────────────┼─────────┼─┘
+            │                                                             │         │
+   8. BFF formata a resposta consolidada { local, previsao }              │         │
+   HTTP 200 OK (JSON) ◄────────────────────────────────────────────────────┘         │
+            │                                                                       │
+   9. Service JS recebe a resposta ◄─────────────────────────────────────────────────┘
+      └─► transformaDados() (trata datas, ícones, WMO codes)
+           └─► 10. Atualiza Estados no React Hook (setPrevisao, setIsLoading(false))
+                └─► 11. Re-renderiza componentes da UI no React (Cards, Tabelas, Gráficos)
 ```
 
 O React **nunca sabe** qual API externa está sendo consultada. Ele apenas faz `fetch('/api/tempo')` para o próprio servidor.
 
-### Responsabilidade de cada camada
-
-| Camada | Arquivo | Responsabilidade |
-|---|---|---|
-| **Rota** | `routes/web.php` | Declara `GET /api/tempo` e aponta para o controller |
-| **Controller** | `app/Http/Controllers/Tempo/TempoController.php` | Valida entrada, chama API externa via `Http::`, retorna JSON |
-| **Service (JS)** | `tempoService.js` | `fetch('/api/tempo')`, trata erros HTTP, transforma dados |
-| **Hook** | `useTempo.js` | Gerencia `useState`, chama o service, expõe estado para UI |
-| **Menu** | `TempoMenu.jsx` | `ModuleHeader` + `navItems` (padrão `*Menu.jsx`) |
-| **Page** | `TempoPage.jsx` | Renderização pura — consome o hook, sem lógica de negócio |
-
 ---
 
-## 2. Fluxo de Dados Completo
+## 2. Fluxo de Dados Completo (Sequência de Execução)
 
 ```mermaid
 sequenceDiagram
-    participant UI as TempoPage.jsx
-    participant Hook as useTempo.js
-    participant Service as tempoService.js
+    autonumber
+    actor User as Usuário (Browser)
+    participant Page as TempoPage.jsx
+    participant Hook as useTempo.js (Hook)
+    participant Service as tempoService.js (Service)
     participant BFF as Laravel (TempoController)
-    participant API as Open-Meteo API
+    participant GeoAPI as Open-Meteo Geocoding API
+    participant WeatherAPI as Open-Meteo Forecast API
 
-    UI->>Hook: buscar() (via botão ou useEffect)
-    Hook->>Service: buscarTempo(cidade)
-    Service->>BFF: GET /api/tempo?cidade=Curitiba
-    BFF->>API: Http::get(geocoding-api.open-meteo.com/search)
-    API-->>BFF: { results: [{ latitude, longitude, ... }] }
-    BFF->>API: Http::get(api.open-meteo.com/forecast)
-    API-->>BFF: { current, hourly, daily }
-    BFF-->>Service: { local: {...}, previsao: {...} }
-    Service-->>Hook: { local, previsao } (dados transformados)
-    Hook-->>UI: { local, previsao, isLoading, erro }
-    UI->>UI: Renderiza cards, previsão horária e semanal
+    User->>Page: Digita "Curitiba" e clica em "Buscar"
+    Page->>Hook: buscar()
+    Hook->>Hook: setIsLoading(true), setErro(null)
+    Hook->>Service: buscarTempo('Curitiba')
+    Service->>BFF: GET /api/tempo?cidade=Curitiba (fetch)
+    
+    note over BFF: 1. Valida parâmetro 'cidade'<br/>2. Prepara requisições server-to-server
+    
+    BFF->>GeoAPI: Http::get('geocoding-api.open-meteo.com/v1/search?name=Curitiba')
+    GeoAPI-->>BFF: 200 OK (latitude: -25.42, longitude: -49.27)
+    
+    BFF->>WeatherAPI: Http::get('api.open-meteo.com/v1/forecast?lat=-25.42&lon=-49.27...')
+    WeatherAPI-->>BFF: 200 OK (dados brutos da previsão)
+    
+    note over BFF: Consolida { local, previsao }
+    
+    BFF-->>Service: 200 OK Response (JSON)
+    
+    note over Service: 1. Valida resposta (ok)<br/>2. Mapeia códigos WMO p/ textos e emojis<br/>3. Filtra previsão horária/diária
+    
+    Service-->>Hook: Retorna { local, previsao } formatado
+    Hook->>Hook: setLocal(local), setPrevisao(previsao), setIsLoading(false)
+    Hook-->>Page: Estado atualizado (re-render)
+    Page->>User: Exibe Cards de temperatura, tabelas e gráficos animadamente
 ```
 
 ---
