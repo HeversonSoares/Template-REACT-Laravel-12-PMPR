@@ -4,11 +4,18 @@ import { ChevronRight, MoreHorizontal } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * Breadcrumb — Navegação estrutural (trilha de migalhas).
+ * Container principal (<nav>).
+ */
 const Breadcrumb = React.forwardRef(({ ...props }, ref) => (
   <nav ref={ref} aria-label="breadcrumb" {...props} />
 ))
 Breadcrumb.displayName = "Breadcrumb"
 
+/**
+ * BreadcrumbList — Lista que agrupa os itens (<ol>).
+ */
 const BreadcrumbList = React.forwardRef(({ className, ...props }, ref) => (
   <ol
     ref={ref}
@@ -21,6 +28,9 @@ const BreadcrumbList = React.forwardRef(({ className, ...props }, ref) => (
 ))
 BreadcrumbList.displayName = "BreadcrumbList"
 
+/**
+ * BreadcrumbItem — Um item específico da trilha (<li>).
+ */
 const BreadcrumbItem = React.forwardRef(({ className, ...props }, ref) => (
   <li
     ref={ref}
@@ -30,6 +40,10 @@ const BreadcrumbItem = React.forwardRef(({ className, ...props }, ref) => (
 ))
 BreadcrumbItem.displayName = "BreadcrumbItem"
 
+/**
+ * BreadcrumbLink — O link/âncora para a navegação.
+ * Pode atuar como asChild para passar as props a outro componente (como Link do react-router).
+ */
 const BreadcrumbLink = React.forwardRef(({ asChild, className, ...props }, ref) => {
   const Comp = asChild ? Slot : "a"
 
@@ -43,6 +57,9 @@ const BreadcrumbLink = React.forwardRef(({ asChild, className, ...props }, ref) 
 })
 BreadcrumbLink.displayName = "BreadcrumbLink"
 
+/**
+ * BreadcrumbPage — Representa a página atual sendo visualizada.
+ */
 const BreadcrumbPage = React.forwardRef(({ className, ...props }, ref) => (
   <span
     ref={ref}
@@ -55,6 +72,10 @@ const BreadcrumbPage = React.forwardRef(({ className, ...props }, ref) => (
 ))
 BreadcrumbPage.displayName = "BreadcrumbPage"
 
+/**
+ * BreadcrumbSeparator — O separador visual entre os itens.
+ * Por padrão, exibe um ícone ChevronRight.
+ */
 const BreadcrumbSeparator = ({
   children,
   className,

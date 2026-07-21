@@ -23,6 +23,22 @@ const badgeVariants = cva(
   }
 )
 
+/**
+ * Badge — Componente visual para exibir pequenas tags, rótulos ou status.
+ *
+ * Utiliza o `class-variance-authority` (cva) para definir variantes visuais.
+ * 
+ * @param {string} [variant]   - Variante visual: "default" | "secondary" | "destructive" | "outline".
+ * @param {string} [className] - Classes CSS adicionais.
+ *
+ * @example
+ * // Badge padrão
+ * <Badge>Novo</Badge>
+ *
+ * @example
+ * // Badge de alerta/destrutivo
+ * <Badge variant="destructive">Erro</Badge>
+ */
 function Badge({
   className,
   variant,

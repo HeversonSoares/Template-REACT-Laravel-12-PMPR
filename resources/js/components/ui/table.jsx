@@ -2,6 +2,10 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * Table — Container base (<table>) para exibição de dados tabulares.
+ * @param {string} [className] - Classes CSS adicionais.
+ */
 const Table = React.forwardRef(({ className, ...props }, ref) => (
   <div className="relative w-full overflow-auto">
     <table
@@ -12,11 +16,19 @@ const Table = React.forwardRef(({ className, ...props }, ref) => (
 ))
 Table.displayName = "Table"
 
+/**
+ * TableHeader — Cabeçalho da tabela (<thead>).
+ * @param {string} [className] - Classes CSS adicionais.
+ */
 const TableHeader = React.forwardRef(({ className, ...props }, ref) => (
   <thead ref={ref} className={cn("[&_tr]:border-b", className)} {...props} />
 ))
 TableHeader.displayName = "TableHeader"
 
+/**
+ * TableBody — Corpo da tabela (<tbody>).
+ * @param {string} [className] - Classes CSS adicionais.
+ */
 const TableBody = React.forwardRef(({ className, ...props }, ref) => (
   <tbody
     ref={ref}
@@ -25,6 +37,10 @@ const TableBody = React.forwardRef(({ className, ...props }, ref) => (
 ))
 TableBody.displayName = "TableBody"
 
+/**
+ * TableFooter — Rodapé da tabela (<tfoot>).
+ * @param {string} [className] - Classes CSS adicionais.
+ */
 const TableFooter = React.forwardRef(({ className, ...props }, ref) => (
   <tfoot
     ref={ref}
@@ -33,6 +49,10 @@ const TableFooter = React.forwardRef(({ className, ...props }, ref) => (
 ))
 TableFooter.displayName = "TableFooter"
 
+/**
+ * TableRow — Linha da tabela (<tr>).
+ * @param {string} [className] - Classes CSS adicionais.
+ */
 const TableRow = React.forwardRef(({ className, ...props }, ref) => (
   <tr
     ref={ref}
@@ -44,6 +64,10 @@ const TableRow = React.forwardRef(({ className, ...props }, ref) => (
 ))
 TableRow.displayName = "TableRow"
 
+/**
+ * TableHead — Célula de cabeçalho (<th>).
+ * @param {string} [className] - Classes CSS adicionais.
+ */
 const TableHead = React.forwardRef(({ className, ...props }, ref) => (
   <th
     ref={ref}
@@ -55,6 +79,10 @@ const TableHead = React.forwardRef(({ className, ...props }, ref) => (
 ))
 TableHead.displayName = "TableHead"
 
+/**
+ * TableCell — Célula padrão (<td>).
+ * @param {string} [className] - Classes CSS adicionais.
+ */
 const TableCell = React.forwardRef(({ className, ...props }, ref) => (
   <td
     ref={ref}

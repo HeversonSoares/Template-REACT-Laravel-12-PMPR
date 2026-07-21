@@ -2,6 +2,12 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * Input — Componente de campo de texto padrão para formulários.
+ *
+ * @param {string} [type] - Tipo do input (ex: "text", "email", "password").
+ * @param {string} [className] - Classes CSS adicionais.
+ */
 const Input = React.forwardRef(({ className, type, ...props }, ref) => {
   return (
     <input

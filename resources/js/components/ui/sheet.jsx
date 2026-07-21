@@ -6,6 +6,17 @@ import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * Sheet — Modal/Painel lateral deslizante (Off-canvas).
+ *
+ * Baseado no Radix UI `@radix-ui/react-dialog`.
+ *
+ * Componentes disponíveis:
+ * - `Sheet`: Container raiz.
+ * - `SheetTrigger`: Botão/elemento disparador para abrir o painel.
+ * - `SheetContent`: Painel principal. A prop `side` define o lado ("top" | "bottom" | "left" | "right").
+ * - `SheetHeader`, `SheetFooter`, `SheetTitle`, `SheetDescription`.
+ */
 const Sheet = SheetPrimitive.Root
 
 const SheetTrigger = SheetPrimitive.Trigger

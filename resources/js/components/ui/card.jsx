@@ -2,6 +2,10 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * Card — Container base para agrupamento de conteúdo em formato de cartão.
+ * @param {string} [className] - Classes CSS adicionais.
+ */
 const Card = React.forwardRef(({ className, ...props }, ref) => (
   <div
     ref={ref}
@@ -10,6 +14,10 @@ const Card = React.forwardRef(({ className, ...props }, ref) => (
 ))
 Card.displayName = "Card"
 
+/**
+ * CardHeader — Cabeçalho do cartão, geralmente contendo Título e Descrição.
+ * @param {string} [className] - Classes CSS adicionais.
+ */
 const CardHeader = React.forwardRef(({ className, ...props }, ref) => (
   <div
     ref={ref}
@@ -18,6 +26,10 @@ const CardHeader = React.forwardRef(({ className, ...props }, ref) => (
 ))
 CardHeader.displayName = "CardHeader"
 
+/**
+ * CardTitle — Título principal do cartão.
+ * @param {string} [className] - Classes CSS adicionais.
+ */
 const CardTitle = React.forwardRef(({ className, ...props }, ref) => (
   <div
     ref={ref}
@@ -26,6 +38,10 @@ const CardTitle = React.forwardRef(({ className, ...props }, ref) => (
 ))
 CardTitle.displayName = "CardTitle"
 
+/**
+ * CardDescription — Texto de descrição secundária do cartão.
+ * @param {string} [className] - Classes CSS adicionais.
+ */
 const CardDescription = React.forwardRef(({ className, ...props }, ref) => (
   <div
     ref={ref}
@@ -34,11 +50,19 @@ const CardDescription = React.forwardRef(({ className, ...props }, ref) => (
 ))
 CardDescription.displayName = "CardDescription"
 
+/**
+ * CardContent — Container principal para o corpo/conteúdo do cartão.
+ * @param {string} [className] - Classes CSS adicionais.
+ */
 const CardContent = React.forwardRef(({ className, ...props }, ref) => (
   <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
 ))
 CardContent.displayName = "CardContent"
 
+/**
+ * CardFooter — Rodapé do cartão, geralmente usado para botões de ação.
+ * @param {string} [className] - Classes CSS adicionais.
+ */
 const CardFooter = React.forwardRef(({ className, ...props }, ref) => (
   <div
     ref={ref}

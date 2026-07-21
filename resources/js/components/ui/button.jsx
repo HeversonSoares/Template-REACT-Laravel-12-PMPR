@@ -34,6 +34,31 @@ const buttonVariants = cva(
   }
 )
 
+/**
+ * Button — Componente de botão base com suporte a múltiplas variantes e tamanhos.
+ *
+ * Utiliza o `class-variance-authority` (cva) para gerenciar as classes baseadas nas props `variant` e `size`.
+ * Pode atuar como um componente polimórfico usando a prop `asChild`, renderizando o seu filho direto no lugar da tag `<button>`.
+ *
+ * @param {string}   [variant]   - Variante visual: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | "success".
+ * @param {string}   [size]      - Tamanho do botão: "default" | "sm" | "lg" | "icon".
+ * @param {boolean}  [asChild]   - Se true, não renderiza a tag button, mas repassa as props para o elemento filho.
+ * @param {string}   [className] - Classes CSS adicionais.
+ *
+ * @example
+ * // Botão padrão
+ * <Button>Clique Aqui</Button>
+ *
+ * @example
+ * // Botão de sucesso pequeno
+ * <Button variant="success" size="sm">Salvar</Button>
+ *
+ * @example
+ * // Botão renderizado como link (usando asChild)
+ * <Button asChild variant="link">
+ *   <a href="/login">Fazer Login</a>
+ * </Button>
+ */
 const Button = React.forwardRef(({ className, variant, size, asChild = false, ...props }, ref) => {
   const Comp = asChild ? Slot : "button"
   return (

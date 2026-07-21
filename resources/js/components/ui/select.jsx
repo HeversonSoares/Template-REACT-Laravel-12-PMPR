@@ -4,6 +4,19 @@ import { Check, ChevronDown, ChevronUp } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * Select — Componente de seleção customizado (Dropdown).
+ *
+ * Baseado no Radix UI `@radix-ui/react-select`.
+ * 
+ * Componentes disponíveis:
+ * - `Select`: Container raiz.
+ * - `SelectTrigger`: Botão que abre o dropdown.
+ * - `SelectValue`: Exibe o valor selecionado no trigger.
+ * - `SelectContent`: Container com a lista de opções.
+ * - `SelectItem`: Uma opção clicável.
+ * - `SelectGroup`, `SelectLabel`, `SelectSeparator`: Para agrupar e organizar itens.
+ */
 const Select = SelectPrimitive.Root
 
 const SelectGroup = SelectPrimitive.Group

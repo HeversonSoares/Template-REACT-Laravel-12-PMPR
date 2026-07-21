@@ -5,8 +5,16 @@ import * as TabsPrimitive from "@radix-ui/react-tabs"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * Tabs — Container raiz para criar abas navegáveis.
+ * Utiliza o componente nativo do radix-ui para acessibilidade.
+ */
 const Tabs = TabsPrimitive.Root
 
+/**
+ * TabsList — Container que agrupa as abas (TabsTrigger).
+ * @param {string} [className] - Classes CSS adicionais.
+ */
 const TabsList = React.forwardRef(({ className, ...props }, ref) => (
   <TabsPrimitive.List
     ref={ref}
@@ -18,6 +26,11 @@ const TabsList = React.forwardRef(({ className, ...props }, ref) => (
 ))
 TabsList.displayName = TabsPrimitive.List.displayName
 
+/**
+ * TabsTrigger — O botão que ativa uma determinada aba.
+ * @param {string} [className] - Classes CSS adicionais.
+ * @param {string} value       - O valor da aba que este gatilho ativa.
+ */
 const TabsTrigger = React.forwardRef(({ className, ...props }, ref) => (
   <TabsPrimitive.Trigger
     ref={ref}
@@ -29,6 +42,11 @@ const TabsTrigger = React.forwardRef(({ className, ...props }, ref) => (
 ))
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName
 
+/**
+ * TabsContent — O conteúdo exibido quando uma aba está ativa.
+ * @param {string} [className] - Classes CSS adicionais.
+ * @param {string} value       - O valor da aba à qual este conteúdo pertence.
+ */
 const TabsContent = React.forwardRef(({ className, ...props }, ref) => (
   <TabsPrimitive.Content
     ref={ref}
