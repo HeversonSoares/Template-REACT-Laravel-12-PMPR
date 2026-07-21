@@ -477,7 +477,55 @@ resources/js/modules/Tempo/
 
 ---
 
-## 12. Arquivos de referência
+## 12. Orquestração de Múltiplos Microserviços (Padrão BFF Aggregator)
+
+Em cenários onde o frontend precisa exibir informações consolidadas vinda de múltiplos serviços (ex: Frotas, Efetivo, Romaneio, Notificações e Cautelas), o Laravel atua como **Agregador de APIs**.
+
+### Fluxo de Dados:
+```text
+React SPA (1 chamada)
+    │
+    ▼
+GET /api/dashboard/overview
+    │
+    ▼
+Rota Web Laravel (routes/web.php)
+    │
+    ▼
+Controller (DashboardController)
+    │
+    ▼
+Service Orquestrador (Http::pool em paralelo)
+    ├── API Frotas
+    ├── API Efetivo
+    ├── API Romaneio
+    ├── API Notificações
+    └── API Cautelas
+    │
+    ▼
+DTO Consolidador (Dados limpos + status)
+    │
+    ▼
+JSON único para o React SPA
+```
+
+### Exemplo em Laravel (`Http::pool()`):
+```php
+// Service Orquestrador disparando 5 chamadas em paralelo
+$responses = Http::pool(fn (Pool $pool) => [
+    $pool->as('frotas')->timeout(3)->get($urlFrotas),
+    $pool->as('efetivo')->timeout(3)->get($urlEfetivo),
+    $pool->as('romaneio')->timeout(3)->get($urlRomaneio),
+    $pool->as('notificacoes')->timeout(3)->get($urlNotificacoes),
+    $pool->as('cautelas')->timeout(3)->get($urlCautelas),
+]);
+
+return DashboardConsolidadoDTO::fromResponses($responses);
+```
+
+---
+
+## 13. Arquivos de referência
 
 | Arquivo | Camada | Link |
 |---|---|---|

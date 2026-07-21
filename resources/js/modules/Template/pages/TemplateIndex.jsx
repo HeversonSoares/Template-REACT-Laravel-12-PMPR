@@ -3,7 +3,7 @@ import Layout from '@/components/Layout';
 import TemplateMenu from '../components/TemplateMenu';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { LayoutTemplate, BookOpen, Layers, ShieldCheck } from 'lucide-react';
+import { LayoutTemplate, BookOpen, Layers, ShieldCheck, Network, ArrowDown, Code2, FileJson, Truck, Users, Package, Bell, ClipboardList, ArrowRight } from 'lucide-react';
 
 export default function Templates() {
     const [isLoading, setIsLoading] = useState(true);
@@ -98,7 +98,7 @@ export default function Templates() {
                                     </div>
                                     
                                     <div className="flex justify-center text-muted-foreground py-2 md:py-0">
-                                        <span className="text-sm font-mono font-bold">➜</span>
+                                        <ArrowRight className="h-4 w-4" />
                                     </div>
 
                                     <div className="p-4 bg-background border border-border rounded-lg text-center shadow-sm relative">
@@ -162,6 +162,186 @@ resources/js/modules/NovoModulo/pages/MinhaPagina.jsx`}
                                             Depois, registre a rota correspondente do frontend no arquivo <code>resources/js/app.jsx</code> usando o <code>&lt;Route /&gt;</code> do React Router.
                                         </p>
                                     </div>
+                                </div>
+                            </div>
+
+                        </CardContent>
+                    </Card>
+
+                    {/* Seção: Orquestração de Microserviços (BFF Aggregator / DTO) */}
+                    <Card className="border-border shadow-sm overflow-hidden bg-card">
+                        <div className="p-6 border-b border-border bg-muted/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div>
+                                <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+                                    <Network className="h-5 w-5 text-primary" />
+                                    Orquestração de Microserviços (BFF Aggregator / DTO)
+                                </h3>
+                                <p className="text-xs text-muted-foreground mt-1">
+                                    Como o Laravel consulta múltiplos microserviços em paralelo, consolida os dados através de um DTO e retorna um JSON único para o React SPA.
+                                </p>
+                            </div>
+                            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20 whitespace-nowrap self-start md:self-auto">
+                                Padrão API Aggregator
+                            </span>
+                        </div>
+                        <CardContent className="p-6 space-y-8">
+                            
+                            {/* Visual Pipeline / Diagrama de Fluxo */}
+                            <div className="space-y-4">
+                                <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">Fluxo de Consolidação de Dados</h4>
+                                
+                                <div className="space-y-3">
+                                    {/* Passo 1: React */}
+                                    <div className="flex items-center gap-3 p-3 bg-muted/30 border border-border rounded-lg">
+                                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/10 text-blue-500 font-bold text-xs">
+                                            1
+                                        </div>
+                                        <div className="flex-1">
+                                            <span className="text-xs font-bold text-foreground">React SPA (Navegador)</span>
+                                            <p className="text-[11px] text-muted-foreground">Dispara uma única requisição HTTP: <code className="text-primary bg-muted px-1.5 py-0.5 rounded font-mono">GET /api/dashboard/overview</code></p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex justify-center text-muted-foreground">
+                                        <ArrowDown className="h-4 w-4 text-primary animate-bounce" />
+                                    </div>
+
+                                    {/* Passo 2: Rota e Controller */}
+                                    <div className="flex items-center gap-3 p-3 bg-muted/30 border border-border rounded-lg">
+                                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-500/10 text-amber-500 font-bold text-xs">
+                                            2
+                                        </div>
+                                        <div className="flex-1">
+                                            <span className="text-xs font-bold text-foreground">Rota Web & Controller (Laravel BFF)</span>
+                                            <p className="text-[11px] text-muted-foreground">O <code className="bg-muted px-1 py-0.5 rounded font-mono">DashboardController</code> recebe a rota e aciona o Service Orquestrador.</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex justify-center text-muted-foreground">
+                                        <ArrowDown className="h-4 w-4 text-primary" />
+                                    </div>
+
+                                    {/* Passo 3: Service Orquestrador (APIs Paralelas) */}
+                                    <div className="p-4 bg-muted/20 border border-primary/20 rounded-xl space-y-3">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-2">
+                                                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/20 text-primary font-bold text-xs">
+                                                    3
+                                                </div>
+                                                <div>
+                                                    <span className="text-xs font-bold text-foreground">Service Orquestrador (Laravel <code className="text-primary font-mono">Http::pool()</code>)</span>
+                                                    <p className="text-[11px] text-muted-foreground">Executa 5 chamadas HTTP assíncronas concorrentes em paralelo (reduzindo latência ao mínimo)</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="grid grid-cols-2 md:grid-cols-5 gap-2 pt-2">
+                                            <div className="p-2.5 bg-background border border-border rounded-md text-center flex flex-col items-center gap-1">
+                                                <Truck className="h-4 w-4 text-primary" />
+                                                <div className="text-[11px] font-bold text-foreground">API Frotas</div>
+                                                <span className="text-[10px] text-muted-foreground">Resumo veículos</span>
+                                            </div>
+                                            <div className="p-2.5 bg-background border border-border rounded-md text-center flex flex-col items-center gap-1">
+                                                <Users className="h-4 w-4 text-primary" />
+                                                <div className="text-[11px] font-bold text-foreground">API Efetivo</div>
+                                                <span className="text-[10px] text-muted-foreground">Quadro de pessoal</span>
+                                            </div>
+                                            <div className="p-2.5 bg-background border border-border rounded-md text-center flex flex-col items-center gap-1">
+                                                <Package className="h-4 w-4 text-primary" />
+                                                <div className="text-[11px] font-bold text-foreground">API Romaneio</div>
+                                                <span className="text-[10px] text-muted-foreground">Cargas pendentes</span>
+                                            </div>
+                                            <div className="p-2.5 bg-background border border-border rounded-md text-center flex flex-col items-center gap-1">
+                                                <Bell className="h-4 w-4 text-primary" />
+                                                <div className="text-[11px] font-bold text-foreground">API Notificações</div>
+                                                <span className="text-[10px] text-muted-foreground">Alertas do usuário</span>
+                                            </div>
+                                            <div className="p-2.5 bg-background border border-border rounded-md text-center flex flex-col items-center gap-1">
+                                                <ClipboardList className="h-4 w-4 text-primary" />
+                                                <div className="text-[11px] font-bold text-foreground">API Cautelas</div>
+                                                <span className="text-[10px] text-muted-foreground">Equipamentos</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex justify-center text-muted-foreground">
+                                        <ArrowDown className="h-4 w-4 text-primary" />
+                                    </div>
+
+                                    {/* Passo 4: DTO Consolidador */}
+                                    <div className="flex items-center gap-3 p-3 bg-muted/30 border border-border rounded-lg">
+                                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500 font-bold text-xs">
+                                            4
+                                        </div>
+                                        <div className="flex-1">
+                                            <span className="text-xs font-bold text-foreground">DTO Consolidador (Data Transfer Object)</span>
+                                            <p className="text-[11px] text-muted-foreground">Higieniza as 5 respostas, aplica fallbacks seguros em caso de falha parcial em algum microserviço e formata o contrato final.</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex justify-center text-muted-foreground">
+                                        <ArrowDown className="h-4 w-4 text-primary" />
+                                    </div>
+
+                                    {/* Passo 5: JSON Consolidado para React */}
+                                    <div className="flex items-center gap-3 p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg">
+                                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500 text-white font-bold text-xs">
+                                            5
+                                        </div>
+                                        <div className="flex-1">
+                                            <span className="text-xs font-bold text-emerald-400 flex items-center gap-1">
+                                                JSON Único Consolidado <ArrowRight className="h-3.5 w-3.5 inline" /> React SPA
+                                            </span>
+                                            <p className="text-[11px] text-muted-foreground">Retorna 200 OK com payload estruturado contendo dados + status individual de cada serviço em <code className="font-mono text-emerald-400">meta.status</code>.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr className="border-border" />
+
+                            {/* Código de Exemplo Backend */}
+                            <div className="grid gap-6 md:grid-cols-2">
+                                <div className="space-y-3">
+                                    <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
+                                        <Code2 className="h-4 w-4 text-primary" />
+                                        1. Orquestração Paralela no Service (PHP)
+                                    </h4>
+                                    <pre className="bg-muted p-3.5 rounded-lg overflow-x-auto text-[11px] text-foreground font-mono leading-relaxed border border-border">
+{`// Laravel Http::pool dispara chamadas simultâneas
+$responses = Http::pool(fn (Pool $pool) => [
+    $pool->as('frotas')->timeout(3)->get($urlFrotas),
+    $pool->as('efetivo')->timeout(3)->get($urlEfetivo),
+    $pool->as('romaneio')->timeout(3)->get($urlRomaneio),
+    $pool->as('notificacoes')->timeout(3)->get($urlNotif),
+    $pool->as('cautelas')->timeout(3)->get($urlCautelas),
+]);
+
+// Retorna DTO consolidado com fallbacks seguros
+return DashboardConsolidadoDTO::fromResponses($responses);`}
+                                    </pre>
+                                </div>
+
+                                <div className="space-y-3">
+                                    <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
+                                        <FileJson className="h-4 w-4 text-emerald-400" />
+                                        2. JSON Único Entregue ao React SPA
+                                    </h4>
+                                    <pre className="bg-muted p-3.5 rounded-lg overflow-x-auto text-[11px] text-foreground font-mono leading-relaxed border border-border">
+{`{
+  "frotas": { "total": 45, "em_uso": 38 },
+  "efetivo": { "presentes": 120, "ausentes": 5 },
+  "romaneio": { "pendentes": 12 },
+  "notificacoes": { "nao_lidas": 3, "itens": [...] },
+  "cautelas": { "pendentes": 0, "indisponivel": true },
+  "meta": {
+    "status": {
+      "frotas_online": true,
+      "cautelas_online": false // Graceful Degradation
+    }
+  }
+}`}
+                                    </pre>
                                 </div>
                             </div>
 
