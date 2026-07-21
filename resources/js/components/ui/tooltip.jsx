@@ -3,6 +3,29 @@ import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * Tooltip — Balão Informativo exibido ao passar o mouse ou focar em um elemento.
+ *
+ * Baseado no Radix UI `@radix-ui/react-tooltip`.
+ *
+ * Componentes disponíveis:
+ * - `TooltipProvider`: Envolve a aplicação ou seção para gerenciar o delay dos tooltips.
+ * - `Tooltip`: Container raiz de um tooltip individual.
+ * - `TooltipTrigger`: Elemento gatilho (botão, ícone, etc.).
+ * - `TooltipContent`: Caixa com a mensagem explicativa.
+ *
+ * @example
+ * <TooltipProvider>
+ *   <Tooltip>
+ *     <TooltipTrigger asChild>
+ *       <Button variant="outline">Hover me</Button>
+ *     </TooltipTrigger>
+ *     <TooltipContent>
+ *       <p>Informação complementar aqui</p>
+ *     </TooltipContent>
+ *   </Tooltip>
+ * </TooltipProvider>
+ */
 const TooltipProvider = TooltipPrimitive.Provider
 
 const Tooltip = TooltipPrimitive.Root

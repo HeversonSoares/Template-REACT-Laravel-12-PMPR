@@ -4,6 +4,37 @@ import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * Dialog — Modal genérico para exibição de conteúdos customizados, formulários e painéis pop-up.
+ *
+ * Baseado no Radix UI `@radix-ui/react-dialog`. Diferente do `AlertDialog`, o `Dialog`
+ * pode ser fechado clicando fora, esc ou no botão de fechar (`X`), sendo ideal para formulários
+ * de edição/criação ou exibições de detalhes.
+ *
+ * Componentes disponíveis:
+ * - `Dialog`: Container raiz que gerencia o estado aberto/fechado.
+ * - `DialogTrigger`: Botão/elemento disparador.
+ * - `DialogContent`: Janela do modal com botão de fechar (X) incluso.
+ * - `DialogHeader`: Cabeçalho com título e descrição.
+ * - `DialogTitle`: Título do modal.
+ * - `DialogDescription`: Descrição ou subtítulo do modal.
+ * - `DialogFooter`: Rodapé para botões de ação.
+ * - `DialogClose`: Botão explícito para fechar o modal.
+ *
+ * @example
+ * // Exemplo de uso de Modal/Dialog:
+ * // <Dialog>
+ * //   <DialogTrigger asChild><Button>Editar</Button></DialogTrigger>
+ * //   <DialogContent>
+ * //     <DialogHeader>
+ * //       <DialogTitle>Editar Perfil</DialogTitle>
+ * //       <DialogDescription>Altere suas informações.</DialogDescription>
+ * //     </DialogHeader>
+ * //     <DialogFooter><Button>Salvar</Button></DialogFooter>
+ * //   </DialogContent>
+ * // </Dialog>
+ */
+
 const Dialog = DialogPrimitive.Root
 
 const DialogTrigger = DialogPrimitive.Trigger
@@ -92,3 +123,4 @@ export {
   DialogTitle,
   DialogDescription,
 }
+

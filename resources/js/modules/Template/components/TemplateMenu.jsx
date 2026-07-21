@@ -75,14 +75,12 @@ export default function TemplateMenu() {
             />
             <Dialog open={isOpenDialog} onOpenChange={setIsOpenDialog}>
                 <DialogTrigger asChild>
-                    <span>
-                        <ActionButton
-                            icon={Plus}
-                            label="Novo Template"
-                            variant="default"
-                            responsive
-                        />
-                    </span>
+                    <ActionButton
+                        icon={Plus}
+                        label="Novo Template"
+                        variant="default"
+                        responsive
+                    />
                 </DialogTrigger>
                 <DialogContent className="bg-background border border-border text-foreground sm:max-w-[425px]">
                     <DialogHeader>

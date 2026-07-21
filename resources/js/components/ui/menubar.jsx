@@ -4,6 +4,36 @@ import { Check, ChevronRight, Circle } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * Menubar — Barra de menus horizontal estilo desktop (ex: Arquivo, Editar, Exibir, Ajuda).
+ *
+ * Baseado no Radix UI `@radix-ui/react-menubar`. Suporta submenus, itens selecionáveis (checkbox e radio),
+ * atalhos de teclado e desativação de itens.
+ *
+ * Componentes disponíveis:
+ * - `Menubar`: Container principal da barra de menus.
+ * - `MenubarMenu`: Item raiz do menu.
+ * - `MenubarTrigger`: Botão que abre o menu suspenso.
+ * - `MenubarContent`: Conteúdo do menu suspenso.
+ * - `MenubarItem`: Item clicável do menu.
+ * - `MenubarSeparator`: Divisor horizontal entre itens.
+ * - `MenubarShortcut`: Renderiza texto/atalho de teclado alinhado à direita.
+ * - `MenubarCheckboxItem`: Item com estado de seleção de caixa de seleção.
+ * - `MenubarRadioGroup` / `MenubarRadioItem`: Grupo e item de seleção única.
+ * - `MenubarSub` / `MenubarSubTrigger` / `MenubarSubContent`: Submenus aninhados.
+ *
+ * @example
+ * <Menubar>
+ *   <MenubarMenu>
+ *     <MenubarTrigger>Arquivo</MenubarTrigger>
+ *     <MenubarContent>
+ *       <MenubarItem>Novo Tab <MenubarShortcut>⌘T</MenubarShortcut></MenubarItem>
+ *       <MenubarSeparator />
+ *       <MenubarItem>Sair</MenubarItem>
+ *     </MenubarContent>
+ *   </MenubarMenu>
+ * </Menubar>
+ */
 function MenubarMenu({
   ...props
 }) {

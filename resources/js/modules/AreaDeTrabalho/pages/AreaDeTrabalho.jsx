@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import PageHeader from '@/components/PageHeader';
@@ -10,16 +10,16 @@ import {
     BookOpen,
     Settings,
 } from 'lucide-react';
+import {
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 
 // Espelha exatamente os itens do sidebar (Layout.jsx navItems)
 const WORKSPACE_ITEMS = [
-    {
-        id: 'area-de-trabalho',
-        name: 'Área de Trabalho',
-        description: 'Área de trabalho do sistema',
-        path: '/area-de-trabalho',
-        icon: LayoutGrid,
-    },
+
     {
         id: 'hub',
         name: 'Hub',
@@ -57,46 +57,6 @@ const WORKSPACE_ITEMS = [
     },
 ];
 
-function WorkspaceIcon({ item, onClick }) {
-    const [hovered, setHovered] = useState(false);
-    const Icon = item.icon;
-
-    return (
-        <button
-            onClick={() => onClick(item.path)}
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-            className="flex flex-col items-center gap-2 focus:outline-none select-none"
-            title={item.description}
-            style={{ width: '90px' }}
-        >
-            <Icon
-                className={hovered ? 'text-foreground' : 'text-muted-foreground'}
-                style={{
-                    width: '52px',
-                    height: '52px',
-                    transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                    transform: hovered ? 'translateY(-3px) scale(1.1)' : 'translateY(0) scale(1)',
-                    strokeWidth: 1.5,
-                }}
-            />
-            <span
-                className={`text-center leading-tight ${hovered ? 'text-foreground' : 'text-muted-foreground'}`}
-                style={{
-                    fontSize: '11.5px',
-                    fontWeight: 600,
-                    maxWidth: '88px',
-                    wordBreak: 'break-word',
-                    lineHeight: '1.35',
-                    transition: 'color 0.2s ease',
-                }}
-            >
-                {item.name}
-            </span>
-        </button>
-    );
-}
-
 export default function AreaDeTrabalho() {
     const navigate = useNavigate();
 
@@ -110,21 +70,29 @@ export default function AreaDeTrabalho() {
                     separator
                 />
 
-                <div
-                    style={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        gap: '36px 24px',
-                        paddingTop: '4px',
-                    }}
-                >
-                    {WORKSPACE_ITEMS.map((item) => (
-                        <WorkspaceIcon
-                            key={item.id}
-                            item={item}
-                            onClick={(path) => navigate(path)}
-                        />
-                    ))}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {WORKSPACE_ITEMS.map((item) => {
+                        const Icon = item.icon;
+                        return (
+                            <Card 
+                                key={item.id}
+                                onClick={() => navigate(item.path)}
+                                className="bg-card border-border shadow-sm hover:shadow-md hover:border-primary/50 transition-all cursor-pointer group"
+                            >
+                                <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+                                    <CardTitle className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                                        {item.name}
+                                    </CardTitle>
+                                    <Icon className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-sm text-muted-foreground">
+                                        {item.description}
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        );
+                    })}
                 </div>
             </div>
         </Layout>

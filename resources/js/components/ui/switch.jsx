@@ -5,6 +5,25 @@ import * as SwitchPrimitives from "@radix-ui/react-switch"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * Switch — Botão de alternância (liga/desliga ou ativado/desativado).
+ *
+ * Baseado no Radix UI `@radix-ui/react-switch`. Funciona como um checkbox com estética de chave seletora.
+ *
+ * @param {Object} props - Propriedades do componente.
+ * @param {boolean} [props.checked] - Estado de seleção controlado.
+ * @param {boolean} [props.defaultChecked] - Estado de seleção inicial não controlado.
+ * @param {(checked: boolean) => void} [props.onCheckedChange] - Callback disparado quando o estado altera.
+ * @param {boolean} [props.disabled] - Se `true`, desativa a interação.
+ * @param {string} [props.className] - Classes CSS adicionais.
+ *
+ * @example
+ * // Com Label acessível:
+ * <div className="flex items-center space-x-2">
+ *   <Switch id="airplane-mode" checked={enabled} onCheckedChange={setEnabled} />
+ *   <Label htmlFor="airplane-mode">Modo Avião</Label>
+ * </div>
+ */
 const Switch = React.forwardRef(({ className, ...props }, ref) => (
   <SwitchPrimitives.Root
     className={cn(

@@ -2,6 +2,29 @@ import React from 'react';
 import { Search, ChevronDown, Check } from 'lucide-react';
 import { Badge } from './badge';
 
+/**
+ * MultiSelect — Seleção múltipla com busca integrada e badges dos itens selecionados.
+ *
+ * Permite selecionar múltiplos itens exibindo cada item escolhido como um Badge com opção de remoção individual.
+ *
+ * @param {Object[]} options - Array de opções `{ value: string|number, label: string }`.
+ * @param {string} [placeholder="Selecione..."] - Texto exibido quando nenhuma opção está selecionada.
+ * @param {Array<string|number>} [selectedValues=[]] - Array dos valores atualmente selecionados.
+ * @param {function(Array<string|number>): void} onChange - Callback disparado ao selecionar/deselecionar itens.
+ *
+ * @example
+ * const options = [
+ *   { value: 'react', label: 'React' },
+ *   { value: 'vue', label: 'Vue' },
+ * ];
+ *
+ * <MultiSelect
+ *   options={options}
+ *   selectedValues={selectedTags}
+ *   placeholder="Selecione as tecnologias..."
+ *   onChange={(values) => setSelectedTags(values)}
+ * />
+ */
 export function MultiSelect({ options, placeholder, selectedValues = [], onChange }) {
     const [open, setOpen] = React.useState(false);
     const [search, setSearch] = React.useState('');
@@ -86,3 +109,4 @@ export function MultiSelect({ options, placeholder, selectedValues = [], onChang
         </div>
     );
 }
+

@@ -5,6 +5,35 @@ import { ChevronDown } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * NavigationMenu — Componente de menu de navegação principal da aplicação.
+ *
+ * Baseado no Radix UI `@radix-ui/react-navigation-menu`. Suporta menus suspensos (dropdowns),
+ * links diretos e alinhamento automático de viewports em cabeçalhos/headers.
+ *
+ * Componentes disponíveis:
+ * - `NavigationMenu`: Container principal com viewport integrado.
+ * - `NavigationMenuList`: Lista (`<ul>`) de itens de menu.
+ * - `NavigationMenuItem`: Item de menu individual.
+ * - `NavigationMenuTrigger`: Botão que abre um painel/dropdown de conteúdo.
+ * - `NavigationMenuContent`: Conteúdo do painel suspenso.
+ * - `NavigationMenuLink`: Link navegável dentro do menu.
+ * - `NavigationMenuIndicator`: Indicador visual do item ativo.
+ * - `NavigationMenuViewport`: Viewport onde os painéis suspensos são renderizados.
+ *
+ * @example
+ * // Exemplo de navegação:
+ * // <NavigationMenu>
+ * //   <NavigationMenuList>
+ * //     <NavigationMenuItem>
+ * //       <NavigationMenuTrigger>Recursos</NavigationMenuTrigger>
+ * //       <NavigationMenuContent>
+ * //         <NavigationMenuLink href="/docs">Documentação</NavigationMenuLink>
+ * //       </NavigationMenuContent>
+ * //     </NavigationMenuItem>
+ * //   </NavigationMenuList>
+ * // </NavigationMenu>
+ */
 const NavigationMenu = React.forwardRef(({ className, children, ...props }, ref) => (
   <NavigationMenuPrimitive.Root
     ref={ref}
@@ -80,12 +109,11 @@ const NavigationMenuIndicator = React.forwardRef(({ className, ...props }, ref) 
   <NavigationMenuPrimitive.Indicator
     ref={ref}
     className={cn(
-      "top-full z-[1] flex h-1.5 items-end justify-center overflow-hidden data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in",
+      "top-full z-[1] flex h-2.5 items-end justify-center overflow-hidden data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in",
       className
     )}
     {...props}>
-    <div
-      className="relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm bg-border shadow-md" />
+    <div className="relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm bg-border shadow-md" />
   </NavigationMenuPrimitive.Indicator>
 ))
 NavigationMenuIndicator.displayName =

@@ -251,14 +251,12 @@ export default function TemplateBlank() {
                                 {/* ── Dialog (Modal) ─────────────────────────── */}
                                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                                     <DialogTrigger asChild>
-                                        <span>
-                                            <ActionButton
-                                                icon={Plus}
-                                                label="Novo Registro"
-                                                variant="default"
-                                                responsive
-                                            />
-                                        </span>
+                                        <ActionButton
+                                            icon={Plus}
+                                            label="Novo Registro"
+                                            variant="default"
+                                            responsive
+                                        />
                                     </DialogTrigger>
 
                                     <DialogContent className="bg-background border border-border text-foreground sm:max-w-[460px]">

@@ -1,6 +1,29 @@
 import React from 'react';
 import { Search, ChevronDown, Check } from 'lucide-react';
 
+/**
+ * SearchableSelect — Componente de seleção dropdown com busca integrada.
+ *
+ * Permite que o usuário filtre as opções digitando um termo no campo de pesquisa.
+ *
+ * @param {Object[]} options - Array de opções `{ value: string|number, label: string }`.
+ * @param {string} [placeholder="Selecione..."] - Texto exibido quando nenhuma opção está selecionada.
+ * @param {string|number} value - Valor atualmente selecionado.
+ * @param {function(string|number): void} onChange - Callback disparado ao selecionar uma opção.
+ *
+ * @example
+ * const options = [
+ *   { value: '1', label: 'Opção 1' },
+ *   { value: '2', label: 'Opção 2' },
+ * ];
+ *
+ * <SearchableSelect
+ *   options={options}
+ *   value={selectedVal}
+ *   placeholder="Selecione um item..."
+ *   onChange={(val) => setSelectedVal(val)}
+ * />
+ */
 export function SearchableSelect({ options, placeholder, value, onChange }) {
     const [open, setOpen] = React.useState(false);
     const [search, setSearch] = React.useState('');
@@ -61,3 +84,4 @@ export function SearchableSelect({ options, placeholder, value, onChange }) {
         </div>
     );
 }
+

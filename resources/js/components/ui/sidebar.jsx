@@ -30,6 +30,39 @@ const SIDEBAR_WIDTH_MOBILE = "18rem"
 const SIDEBAR_WIDTH_ICON = "3rem"
 const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 
+/**
+ * Sidebar — Sistema completo de navegação lateral expansível/retrátil.
+ *
+ * Suporta estado colapsável (ícone ou oculto), persistência de estado em Cookies,
+ * responsividade com Sheet mobile e atalho de teclado (`Ctrl+B` / `⌘B`).
+ *
+ * Componentes principais:
+ * - `SidebarProvider`: Provider de contexto obrigatório que gerencia estado e cookies.
+ * - `Sidebar`: Container principal da barra lateral.
+ * - `SidebarHeader` / `SidebarContent` / `SidebarFooter`: Seções estruturais da barra.
+ * - `SidebarGroup` / `SidebarGroupLabel` / `SidebarGroupContent`: Agrupamentos de itens.
+ * - `SidebarMenu` / `SidebarMenuItem` / `SidebarMenuButton`: Itens de menu navegáveis.
+ * - `SidebarTrigger`: Botão para alternar a exibição da sidebar.
+ * - `useSidebar`: Hook para acessar/alternar o estado da barra lateral.
+ *
+ * @example
+ * <SidebarProvider>
+ *   <Sidebar>
+ *     <SidebarHeader>Logo</SidebarHeader>
+ *     <SidebarContent>
+ *       <SidebarGroup>
+ *         <SidebarGroupLabel>Aplicação</SidebarGroupLabel>
+ *         <SidebarMenu>
+ *           <SidebarMenuItem>
+ *             <SidebarMenuButton>Dashboard</SidebarMenuButton>
+ *           </SidebarMenuItem>
+ *         </SidebarMenu>
+ *       </SidebarGroup>
+ *     </SidebarContent>
+ *   </Sidebar>
+ *   <main><SidebarTrigger />Conteúdo Principal</main>
+ * </SidebarProvider>
+ */
 const SidebarContext = React.createContext(null)
 
 function useSidebar() {
