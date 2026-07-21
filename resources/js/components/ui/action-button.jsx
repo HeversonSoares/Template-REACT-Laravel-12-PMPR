@@ -36,7 +36,7 @@ import { cn } from '@/lib/utils';
  * // Responsivo — colapsa para ícone + label abaixo em telas < md
  * <ActionButton icon={Plus} label="Novo" variant="default" responsive />
  */
-export default function ActionButton({
+const ActionButton = React.forwardRef(({
     icon: Icon,
     label,
     variant = 'default',
@@ -47,18 +47,17 @@ export default function ActionButton({
     disabled,
     onClick,
     ...props
-}) {
+}, ref) => {
     // Modo compacto: ícone centrado + label pequeno abaixo
     if (compact) {
         return (
-            <div className="flex flex-col items-center gap-0.5">
+            <div className="inline-flex flex-col items-center gap-0.5" ref={ref} {...props}>
                 <Button
                     variant={variant}
                     size="icon"
                     disabled={disabled}
                     onClick={onClick}
                     className={cn('h-8 w-8', className)}
-                    {...props}
                 >
                     {Icon && <Icon className="h-4 w-4" />}
                 </Button>
@@ -72,7 +71,7 @@ export default function ActionButton({
     // Modo responsivo: normal em md+, compacto abaixo de md
     if (responsive) {
         return (
-            <>
+            <span className="inline-flex items-center" ref={ref} {...props}>
                 {/* Versão normal — visível em md+ */}
                 <Button
                     variant={variant}
@@ -80,7 +79,6 @@ export default function ActionButton({
                     disabled={disabled}
                     onClick={onClick}
                     className={cn('hidden md:inline-flex', className)}
-                    {...props}
                 >
                     {Icon && <Icon className="h-4 w-4" />}
                     {label}
@@ -97,7 +95,6 @@ export default function ActionButton({
                                     disabled={disabled}
                                     onClick={onClick}
                                     className={cn('h-8 w-8', className)}
-                                    {...props}
                                 >
                                     {Icon && <Icon className="h-4 w-4" />}
                                 </Button>
@@ -111,13 +108,14 @@ export default function ActionButton({
                         </TooltipContent>
                     </Tooltip>
                 </TooltipProvider>
-            </>
+            </span>
         );
     }
 
     // Modo padrão: ícone à esquerda + label
     return (
         <Button
+            ref={ref}
             variant={variant}
             size={size}
             disabled={disabled}
@@ -129,4 +127,8 @@ export default function ActionButton({
             {label}
         </Button>
     );
-}
+});
+
+ActionButton.displayName = 'ActionButton';
+
+export default ActionButton;

@@ -4,6 +4,40 @@ import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 
+/**
+ * AlertDialog — Modal de confirmação/alerta para ações críticas.
+ *
+ * Baseado no Radix UI `@radix-ui/react-alert-dialog`. Interrompe a navegação do usuário
+ * exigindo uma confirmação explícita ou cancelamento (ex: exclusão de dados, alterações irreversíveis).
+ *
+ * Componentes disponíveis:
+ * - `AlertDialog`: Container raiz que gerencia o estado aberto/fechado.
+ * - `AlertDialogTrigger`: Botão ou elemento que dispara a abertura do dialog.
+ * - `AlertDialogContent`: Conteúdo do modal em overlay (renderizado via portal).
+ * - `AlertDialogHeader`: Cabeçalho contendo o título e a descrição.
+ * - `AlertDialogTitle`: Título do alerta.
+ * - `AlertDialogDescription`: Descrição explicativa da ação/consequência.
+ * - `AlertDialogFooter`: Rodapé contendo as ações (botões).
+ * - `AlertDialogAction`: Botão de ação principal/confirmação.
+ * - `AlertDialogCancel`: Botão de cancelamento.
+ *
+ * @example
+ * // Exemplo de uso de AlertDialog:
+ * // <AlertDialog>
+ * //   <AlertDialogTrigger asChild><Button variant="destructive">Excluir</Button></AlertDialogTrigger>
+ * //   <AlertDialogContent>
+ * //     <AlertDialogHeader>
+ * //       <AlertDialogTitle>Tem certeza que deseja excluir?</AlertDialogTitle>
+ * //       <AlertDialogDescription>Esta ação não pode ser desfeita.</AlertDialogDescription>
+ * //     </AlertDialogHeader>
+ * //     <AlertDialogFooter>
+ * //       <AlertDialogCancel>Cancelar</AlertDialogCancel>
+ * //       <AlertDialogAction onClick={handleDelete}>Confirmar</AlertDialogAction>
+ * //     </AlertDialogFooter>
+ * //   </AlertDialogContent>
+ * // </AlertDialog>
+ */
+
 const AlertDialog = AlertDialogPrimitive.Root
 
 const AlertDialogTrigger = AlertDialogPrimitive.Trigger
@@ -95,3 +129,4 @@ export {
   AlertDialogAction,
   AlertDialogCancel,
 }
+
