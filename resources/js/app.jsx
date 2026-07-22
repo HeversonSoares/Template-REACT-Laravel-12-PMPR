@@ -22,6 +22,12 @@ import TemplateForms from './modules/Template/pages/TemplateForms';
 import TemplateDesign from './modules/Template/pages/TemplateDesign';
 import TemplateBlank from './modules/Template/pages/TemplateBlank';
 import TemplateKanban from './modules/Template/pages/TemplateKanban';
+import TemplateGrid2 from './modules/Template/pages/TemplateGrid2';
+import TemplateGrid3 from './modules/Template/pages/TemplateGrid3';
+import TemplateGrid4 from './modules/Template/pages/TemplateGrid4';
+import TemplateGridAsymmetric from './modules/Template/pages/TemplateGridAsymmetric';
+import TemplateGridMasonry from './modules/Template/pages/TemplateGridMasonry';
+import TemplateGridSplit from './modules/Template/pages/TemplateGridSplit';
 import PesquisaEfetivo from './modules/Efetivo/pages/PesquisaEfetivo';
 import EfetivoSincronizado from './modules/Efetivo/pages/EfetivoSincronizado';
 import MapeamentoCampos from './modules/Efetivo/pages/MapeamentoCampos';
@@ -61,6 +67,13 @@ function App() {
                 <Route path="/templates/design" element={<TemplateDesign />} />
                 <Route path="/templates/blank" element={<TemplateBlank />} />
                 <Route path="/templates/kanban" element={<TemplateKanban />} />
+                {/* Grid Templates */}
+                <Route path="/templates/grid-2"          element={<TemplateGrid2 />} />
+                <Route path="/templates/grid-3"          element={<TemplateGrid3 />} />
+                <Route path="/templates/grid-4"          element={<TemplateGrid4 />} />
+                <Route path="/templates/grid-asymmetric" element={<TemplateGridAsymmetric />} />
+                <Route path="/templates/grid-masonry"    element={<TemplateGridMasonry />} />
+                <Route path="/templates/grid-split"      element={<TemplateGridSplit />} />
                 <Route path="/settings" element={<Settings />} />
             </Routes>
         </BrowserRouter>

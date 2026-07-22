@@ -37,7 +37,13 @@ import {
     TableProperties,
     ClipboardList,
     FileCode,
-    KanbanSquare
+    KanbanSquare,
+    LayoutGrid,
+    Grid2X2,
+    Grid3X3,
+    PanelLeft,
+    Layers,
+    Columns2,
 } from 'lucide-react';
 
 export default function TemplateMenu() {
@@ -49,14 +55,33 @@ export default function TemplateMenu() {
         {
             label: 'Templates',
             items: [
-                { to: '/templates/blank',         label: 'Template em Branco',           icon: FileCode },
-                { to: '/templates/dashboard',     label: 'Dashboard',                    icon: LayoutDashboard },
-                { to: '/templates/kanban',        label: 'Kanban Board',                 icon: KanbanSquare },
-                { to: '/templates/tables',        label: 'Tabela 1: Gestão de Frotas',   icon: Table },
-                { to: '/templates/tables-resumo', label: 'Tabela 2: Resumo de Chamados', icon: TableProperties },
-                { to: '/templates/forms',         label: 'Formulários',                  icon: ClipboardList },
+                { to: '/templates/blank',     label: 'Template em Branco', icon: FileCode },
+                { to: '/templates/dashboard', label: 'Dashboard',          icon: LayoutDashboard },
+                { to: '/templates/kanban',    label: 'Kanban Board',       icon: KanbanSquare },
+                {
+                    label: 'Tabelas',
+                    icon: Table,
+                    items: [
+                        { to: '/templates/tables',        label: 'Tabela 1: Gestão de Frotas',   icon: Table },
+                        { to: '/templates/tables-resumo', label: 'Tabela 2: Resumo de Chamados', icon: TableProperties },
+                    ]
+                },
+                { to: '/templates/forms', label: 'Formulários', icon: ClipboardList },
+                { separator: true },
+                {
+                    label: 'Grid',
+                    icon: LayoutGrid,
+                    items: [
+                        { to: '/templates/grid-2',          label: 'Grid 2 Colunas',   icon: Grid2X2 },
+                        { to: '/templates/grid-3',          label: 'Grid 3 Colunas',   icon: Grid3X3 },
+                        { to: '/templates/grid-4',          label: 'Grid 4 Colunas',   icon: LayoutGrid },
+                        { to: '/templates/grid-asymmetric', label: 'Grid Assimétrico', icon: PanelLeft },
+                        { to: '/templates/grid-masonry',    label: 'Grid Masonry',     icon: Layers },
+                        { to: '/templates/grid-split',      label: 'Split Layout',     icon: Columns2 },
+                    ]
+                },
             ]
-        }
+        },
     ];
 
     return (
