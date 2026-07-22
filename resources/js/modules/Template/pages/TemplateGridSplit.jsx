@@ -92,7 +92,7 @@ export default function TemplateGridSplit() {
                             <main className="flex-1 overflow-y-auto">Conteúdo</main>
                         </div>
                     */}
-                    <div className="flex gap-6 rounded-lg border border-border overflow-hidden" style={{ height: '520px' }}>
+                    <div className="flex gap-6 rounded-lg border border-border overflow-hidden h-[520px]">
                         {/* ── Sidebar ─────────────────────────────────────────── */}
                         <aside className="w-60 shrink-0 border-r border-border bg-muted/20 flex flex-col overflow-y-auto">
                             <div className="p-4 border-b border-border">
@@ -183,7 +183,7 @@ export default function TemplateGridSplit() {
                             <main className="flex-1 overflow-y-auto">Conteúdo com scroll</main>
                         </div>
                     */}
-                    <div className="flex flex-col rounded-lg border border-border overflow-hidden" style={{ height: '280px' }}>
+                    <div className="flex flex-col rounded-lg border border-border overflow-hidden h-[280px]">
                         <header className="shrink-0 p-4 border-b border-border bg-muted/20">
                             <div className="flex items-center justify-between">
                                 <p className="text-sm font-semibold text-foreground">Cabeçalho Fixo</p>

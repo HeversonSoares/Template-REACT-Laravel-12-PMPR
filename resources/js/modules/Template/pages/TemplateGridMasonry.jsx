@@ -126,16 +126,13 @@ export default function TemplateGridMasonry() {
                             </div>
                         </div>
                     */}
-                    <div
-                        style={{ columnCount: 1, columnGap: '1.5rem' }}
-                        className="sm:[column-count:2] lg:[column-count:3]"
-                    >
+                    <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
                         {masonryCards.map((card) => {
                             const Icon = card.icon;
                             return (
                                 <div
                                     key={card.id}
-                                    style={{ breakInside: 'avoid', marginBottom: '1.5rem' }}
+                                    className="break-inside-avoid"
                                 >
                                     <Card className="border border-border shadow-sm hover:shadow-md transition-shadow">
                                         <CardHeader className="flex flex-row items-center justify-between pb-3">
