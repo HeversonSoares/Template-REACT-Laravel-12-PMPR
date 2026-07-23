@@ -85,26 +85,133 @@ O BFF utiliza o **Laravel Sanctum** configurado para autenticação SPA baseada 
 
 ---
 
-## 4. Comunicação BFF -> APIs Downstream (SIA)
+## 4. Comunicação BFF -> APIs Downstream
 
-Uma vez que o usuário está autenticado no BFF:
+Uma vez que o usuário está autenticado, o BFF atua como intermediário para sistemas externos. Existem dois padrões de chamada: **síncrono** (sequencial) e **assíncrono/paralelo**.
 
-1. O React solicita dados ao BFF (Ex: `GET /api/documentos`).
-2. O BFF captura a requisição e busca na sessão do servidor o token JWT de microsserviços associado ao usuário.
-3. Se o token não existir ou expirar, o BFF executa a função de renovação preventiva:
-   ```php
-   // Busca um novo token de microsserviço no Sia-Auth
-   $tokenApi = SiaAPI::buscaToken();
-   ```
-4. O BFF injeta o token final e os dados de auditoria do usuário logado (`Session::get('user')`) na requisição final para as APIs downstream utilizando a Facade HTTP:
-   ```php
-   $resposta = Http::withHeaders([
-       'Authorization' => 'Bearer ' . $tokenApi
-   ])->post('http://api-servico/v1/documentos', [
-       'token' => $tokenApi,
-       'user_id' => session('user.id'),
-       'rg' => session('user.rg'),
-       // ... outros dados contextuais
-   ]);
-   ```
-5. O BFF devolve os dados brutos ou tratados no formato JSON diretamente para o React SPA.
+---
+
+### 4.1 Padrão Síncrono (chamadas dependentes)
+
+Use quando a chamada 2 depende do resultado da chamada 1 (ex: buscar token de autenticação antes de chamar a API seguinte).
+
+```php
+// PASSO 1 — Chama o Sistema A para obter um token
+$respostaA = Http::timeout(5)->get('https://api.sistema-a.exemplo.com/v1/dados', [
+    'id' => $id,
+]);
+
+if ($respostaA->failed()) {
+    return response()->json(['message' => 'Sistema A indisponível.'], 502);
+}
+
+$tokenDoSistemaA = $respostaA->json('token');
+
+// PASSO 2 — Usa o token para chamar o Sistema B
+$respostaB = Http::timeout(5)
+    ->withToken($tokenDoSistemaA)   // Authorization: Bearer ...
+    ->get('https://api.sistema-b.exemplo.com/v1/dados', ['id' => $id]);
+```
+
+> **Desvantagem**: cada chamada aguarda a anterior terminar. 3 APIs de 1s cada = ~3s de espera.
+
+---
+
+### 4.2 Padrão Assíncrono/Paralelo com `Http::pool` + `Cache::remember`
+
+Use quando as chamadas são **independentes** entre si (ex: buscar frotas, efetivo e cautelas ao mesmo tempo). Todas as requisições saem simultaneamente.
+
+```php
+$dadosConsolidados = Cache::remember("dashboard.{$unidade}", 60, function () use ($unidade) {
+
+    // Dispara TODAS as chamadas ao mesmo tempo
+    $responses = Http::pool(fn ($pool) => [
+
+        $pool->as('sistema_a')
+            ->timeout(5)
+            ->get('https://api.sistema-a.exemplo.com/v1/dados', ['unidade' => $unidade]),
+
+        $pool->as('sistema_b')
+            ->timeout(5)
+            ->get('https://api.sistema-b.exemplo.com/v1/dados', ['unidade' => $unidade]),
+
+        $pool->as('sistema_c')
+            ->timeout(5)
+            ->get('https://api.sistema-c.exemplo.com/v1/dados', ['unidade' => $unidade]),
+    ]);
+
+    // Monta o DTO com fallbacks: se um sistema falhou, usa valor padrão seguro
+    return [
+        'sistema_a' => $responses['sistema_a']->successful()
+            ? ['total' => $responses['sistema_a']->json('total') ?? 0,
+               'ativos' => $responses['sistema_a']->json('ativos') ?? 0]
+            : ['total' => 0, 'ativos' => 0],
+
+        'sistema_b' => $responses['sistema_b']->successful()
+            ? ($responses['sistema_b']->json('itens') ?? [])
+            : [],
+
+        'sistema_c' => $responses['sistema_c']->successful()
+            ? $responses['sistema_c']->json()
+            : null,
+
+        // meta.status informa o React quais sistemas estão online.
+        // O React exibe badge "Indisponível" apenas no card afetado.
+        'meta' => [
+            'status' => [
+                'sistema_a_online' => $responses['sistema_a']->successful(),
+                'sistema_b_online' => $responses['sistema_b']->successful(),
+                'sistema_c_online' => $responses['sistema_c']->successful(),
+            ],
+            'cache_gerado_em' => now()->toIso8601String(),
+        ],
+    ];
+});
+
+return response()->json($dadosConsolidados);
+```
+
+> **Vantagem**: 5 APIs de 1s cada em paralelo = ainda ~1s de espera total.
+
+> **Cache**: `Cache::remember` garante que, se 100 usuários acessarem ao mesmo tempo, os sistemas externos são chamados apenas **1 vez** por janela de 60 segundos.
+
+---
+
+### 4.3 Invalidação de Cache (endpoint de atualização forçada)
+
+Para forçar a atualização antes do TTL expirar (ex: botão "Atualizar dados" no React):
+
+```
+DELETE /api/exemplo/cache?unidade=BPM01
+```
+
+```php
+$chaveCache = "dashboard.{$validated['unidade']}";
+Cache::forget($chaveCache); // Remove a chave; próxima requisição buscará dados frescos
+
+return response()->json(['message' => 'Cache limpo. Próxima requisição buscará dados atualizados.']);
+```
+
+---
+
+### 4.4 Contrato de resposta (DTO)
+
+O BFF **nunca** retorna o JSON bruto das APIs externas diretamente ao React. Sempre estruture o contrato esperado pelo frontend — assim, se a API externa mudar, apenas o controller precisa ser ajustado:
+
+```php
+// ✅ Correto — contrato explícito mapeado pelo BFF
+return response()->json([
+    'dados_a' => [
+        'id'   => $dadosA['id']   ?? null,
+        'nome' => $dadosA['nome'] ?? 'Desconhecido',
+    ],
+    'dados_b' => [
+        'total' => $respostaB->json('total') ?? 0,
+        'itens' => $respostaB->json('itens') ?? [],
+    ],
+    'meta' => [
+        'sistema_a_online' => true,
+        'sistema_b_online' => true,
+    ],
+]);
+```
