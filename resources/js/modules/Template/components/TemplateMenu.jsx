@@ -44,6 +44,7 @@ import {
     PanelLeft,
     Layers,
     Columns2,
+    CodeXml,
 } from 'lucide-react';
 
 export default function TemplateMenu() {
@@ -86,9 +87,9 @@ export default function TemplateMenu() {
 
     return (
         <ModuleHeader
-            title="Padrões de Desenvolvimento"
+            title="Desenvolvimento"
             description="Diretrizes, componentes padronizados e exemplos práticos de interface usando a biblioteca shadcn/ui."
-            icon={LayoutTemplate}
+            icon={CodeXml}
             navItems={navItems}
         >
             <ActionButton
