@@ -32,6 +32,9 @@ import {
     LayoutTemplate,
     ExternalLink,
     Plus,
+    Save,
+    Trash2,
+    Download,
     LayoutDashboard,
     Table,
     TableProperties,
@@ -100,20 +103,13 @@ export default function TemplateMenu() {
             icon={CodeXml}
             navItems={navItems}
         >
-            <ActionButton
-                icon={ExternalLink}
-                label="Shadcn Docs"
-                variant="outline"
-                onClick={() => window.open('https://ui.shadcn.com/', '_blank')}
-                responsive
-            />
             <Dialog open={isOpenDialog} onOpenChange={setIsOpenDialog}>
                 <DialogTrigger asChild>
                     <ActionButton
                         icon={Plus}
-                        label="Novo Template"
+                        label="Novo"
                         variant="default"
-                        responsive
+                        compact
                     />
                 </DialogTrigger>
                 <DialogContent className="bg-background border border-border text-foreground sm:max-w-[425px]">
@@ -150,6 +146,24 @@ export default function TemplateMenu() {
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
+            <ActionButton
+                icon={Save}
+                label="Salvar"
+                variant="success"
+                compact
+            />
+            <ActionButton
+                icon={Trash2}
+                label="Excluir"
+                variant="destructive"
+                compact
+            />
+            <ActionButton
+                icon={Download}
+                label="Exportar"
+                variant="outline"
+                compact
+            />
         </ModuleHeader>
     );
 }

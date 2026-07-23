@@ -81,7 +81,7 @@ export default function PageHeader({
 
                 {/* Lado direito: ações/children */}
                 {children && (
-                    <div className="flex items-center gap-2 shrink-0 flex-wrap">
+                    <div className="flex items-center justify-end md:justify-start gap-2 shrink-0 flex-wrap w-full md:w-auto">
                         {children}
                     </div>
                 )}
