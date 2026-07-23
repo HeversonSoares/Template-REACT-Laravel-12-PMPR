@@ -68,7 +68,16 @@ export default function TemplateMenu({ children }) {
 
     const navItems = [
         { to: '/templates', label: 'Visão Geral', end: true },
-        { to: '/templates/design', label: 'Design UI UX' },
+        {
+            label: 'Design UI UX',
+            items: [
+                { to: '/templates/design/headers', label: 'Cabeçalhos (Headers)' },
+                { to: '/templates/design/typography', label: 'Tipografia & Cards' },
+                { to: '/templates/design/navigation', label: 'Navegação & Menus' },
+                { to: '/templates/design/buttons', label: 'Botões & Ações' },
+                { to: '/templates/design/interactive', label: 'Componentes Interativos' },
+            ]
+        },
         {
             label: 'Templates',
             items: [

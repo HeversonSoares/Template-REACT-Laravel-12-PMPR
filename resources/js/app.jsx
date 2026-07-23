@@ -20,7 +20,11 @@ import TemplateCharts from './modules/Template/pages/TemplateCharts';
 import TemplateTables from './modules/Template/pages/TemplateTables';
 import TemplateTablesResumo from './modules/Template/pages/TemplateTablesResumo';
 import TemplateForms from './modules/Template/pages/TemplateForms';
-import TemplateDesign from './modules/Template/pages/TemplateDesign';
+import TemplateDesignHeaders from './modules/Template/pages/TemplateDesignHeaders';
+import TemplateDesignTypography from './modules/Template/pages/TemplateDesignTypography';
+import TemplateDesignNavigation from './modules/Template/pages/TemplateDesignNavigation';
+import TemplateDesignButtons from './modules/Template/pages/TemplateDesignButtons';
+import TemplateDesignInteractive from './modules/Template/pages/TemplateDesignInteractive';
 import TemplateBlank from './modules/Template/pages/TemplateBlank';
 import TemplateKanban from './modules/Template/pages/TemplateKanban';
 import TemplateGrid2 from './modules/Template/pages/TemplateGrid2';
@@ -67,7 +71,11 @@ function App() {
                 <Route path="/templates/tables" element={<TemplateTables />} />
                 <Route path="/templates/tables-resumo" element={<TemplateTablesResumo />} />
                 <Route path="/templates/forms" element={<TemplateForms />} />
-                <Route path="/templates/design" element={<TemplateDesign />} />
+                <Route path="/templates/design/headers" element={<TemplateDesignHeaders />} />
+                <Route path="/templates/design/typography" element={<TemplateDesignTypography />} />
+                <Route path="/templates/design/navigation" element={<TemplateDesignNavigation />} />
+                <Route path="/templates/design/buttons" element={<TemplateDesignButtons />} />
+                <Route path="/templates/design/interactive" element={<TemplateDesignInteractive />} />
                 <Route path="/templates/blank" element={<TemplateBlank />} />
                 <Route path="/templates/kanban" element={<TemplateKanban />} />
                 {/* Grid Templates */}
