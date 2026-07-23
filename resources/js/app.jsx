@@ -35,6 +35,7 @@ import MapeamentoCampos from './modules/Efetivo/pages/MapeamentoCampos';
 import ParametrosConexao from './modules/Efetivo/pages/ParametrosConexao';
 import AreaDeTrabalho from './modules/AreaDeTrabalho/pages/AreaDeTrabalho';
 import TempoPage from './modules/Tempo/pages/TempoPage';
+import TemplateDocs from './modules/Template/pages/TemplateDocs';
 
 function App() {
     return (
@@ -76,6 +77,10 @@ function App() {
                 <Route path="/templates/grid-asymmetric" element={<TemplateGridAsymmetric />} />
                 <Route path="/templates/grid-masonry"    element={<TemplateGridMasonry />} />
                 <Route path="/templates/grid-split"      element={<TemplateGridSplit />} />
+                
+                {/* Docs Template */}
+                <Route path="/templates/docs"            element={<TemplateDocs />} />
+                
                 <Route path="/settings" element={<Settings />} />
             </Routes>
         </BrowserRouter>

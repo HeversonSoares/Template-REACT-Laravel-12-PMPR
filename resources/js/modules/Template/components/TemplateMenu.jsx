@@ -49,10 +49,22 @@ import {
     Columns2,
     CodeXml,
     Radar,
+    FileText,
 } from 'lucide-react';
 
-export default function TemplateMenu() {
+export default function TemplateMenu({ children }) {
     const [isOpenDialog, setIsOpenDialog] = useState(false);
+
+    const docsGlob = import.meta.glob('../../../../../docs/*.md');
+    const docsItems = Object.keys(docsGlob).map((path) => {
+        const fileName = path.split('/').pop();
+        const name = fileName.replace('.md', '').split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        return {
+            to: `/templates/docs?file=${fileName}`,
+            label: name,
+            icon: FileText
+        };
+    });
 
     const navItems = [
         { to: '/templates', label: 'Visão Geral', end: true },
@@ -94,6 +106,10 @@ export default function TemplateMenu() {
                 },
             ]
         },
+        { 
+            label: 'Docs',
+            items: docsItems
+        },
     ];
 
     return (
@@ -103,67 +119,71 @@ export default function TemplateMenu() {
             icon={CodeXml}
             navItems={navItems}
         >
-            <Dialog open={isOpenDialog} onOpenChange={setIsOpenDialog}>
-                <DialogTrigger asChild>
+            {children !== undefined ? children : (
+                <>
+                    <Dialog open={isOpenDialog} onOpenChange={setIsOpenDialog}>
+                        <DialogTrigger asChild>
+                            <ActionButton
+                                icon={Plus}
+                                label="Novo"
+                                variant="default"
+                                compact
+                            />
+                        </DialogTrigger>
+                        <DialogContent className="bg-background border border-border text-foreground sm:max-w-[425px]">
+                            <DialogHeader>
+                                <DialogTitle className="text-xl font-bold text-foreground">Adicionar Componente</DialogTitle>
+                                <DialogDescription className="text-muted-foreground">
+                                    Preencha as informações básicas para adicionar um novo componente à lista.
+                                </DialogDescription>
+                            </DialogHeader>
+                            <div className="grid gap-4 py-4">
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <label htmlFor="name" className="text-right text-sm font-medium">Nome</label>
+                                    <Input id="name" defaultValue="Minha Tabela Personalizada" className="col-span-3" />
+                                </div>
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                    <label htmlFor="category" className="text-right text-sm font-medium">Categoria</label>
+                                    <div className="col-span-3">
+                                        <Select defaultValue="tables">
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Selecione..." />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="dashboards">Dashboards</SelectItem>
+                                                <SelectItem value="tables">Tabelas</SelectItem>
+                                                <SelectItem value="forms">Formulários</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                </div>
+                            </div>
+                            <DialogFooter>
+                                <Button variant="outline" onClick={() => setIsOpenDialog(false)}>Cancelar</Button>
+                                <Button variant="success" onClick={() => setIsOpenDialog(false)}>Salvar</Button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
                     <ActionButton
-                        icon={Plus}
-                        label="Novo"
-                        variant="default"
+                        icon={Save}
+                        label="Salvar"
+                        variant="success"
                         compact
                     />
-                </DialogTrigger>
-                <DialogContent className="bg-background border border-border text-foreground sm:max-w-[425px]">
-                    <DialogHeader>
-                        <DialogTitle className="text-xl font-bold text-foreground">Adicionar Componente</DialogTitle>
-                        <DialogDescription className="text-muted-foreground">
-                            Preencha as informações básicas para adicionar um novo componente à lista.
-                        </DialogDescription>
-                    </DialogHeader>
-                    <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <label htmlFor="name" className="text-right text-sm font-medium">Nome</label>
-                            <Input id="name" defaultValue="Minha Tabela Personalizada" className="col-span-3" />
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <label htmlFor="category" className="text-right text-sm font-medium">Categoria</label>
-                            <div className="col-span-3">
-                                <Select defaultValue="tables">
-                                    <SelectTrigger>
-                                        <SelectValue placeholder="Selecione..." />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="dashboards">Dashboards</SelectItem>
-                                        <SelectItem value="tables">Tabelas</SelectItem>
-                                        <SelectItem value="forms">Formulários</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                            </div>
-                        </div>
-                    </div>
-                    <DialogFooter>
-                        <Button variant="outline" onClick={() => setIsOpenDialog(false)}>Cancelar</Button>
-                        <Button variant="success" onClick={() => setIsOpenDialog(false)}>Salvar</Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
-            <ActionButton
-                icon={Save}
-                label="Salvar"
-                variant="success"
-                compact
-            />
-            <ActionButton
-                icon={Trash2}
-                label="Excluir"
-                variant="destructive"
-                compact
-            />
-            <ActionButton
-                icon={Download}
-                label="Exportar"
-                variant="outline"
-                compact
-            />
+                    <ActionButton
+                        icon={Trash2}
+                        label="Excluir"
+                        variant="destructive"
+                        compact
+                    />
+                    <ActionButton
+                        icon={Download}
+                        label="Exportar"
+                        variant="outline"
+                        compact
+                    />
+                </>
+            )}
         </ModuleHeader>
     );
 }

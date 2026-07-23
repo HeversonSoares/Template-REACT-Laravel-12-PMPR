@@ -28,11 +28,14 @@ function DropdownItem({ item, onCloseAll }) {
     // Detecta se algum filho (recursivo) está ativo
     const isDeepActive = useCallback((subItems) => {
         return subItems.some((sub) => {
-            if (sub.to) return location.pathname === sub.to;
+            if (sub.to) {
+                if (sub.to.includes('?')) return location.pathname + location.search === sub.to;
+                return location.pathname === sub.to;
+            }
             if (sub.items) return isDeepActive(sub.items);
             return false;
         });
-    }, [location.pathname]);
+    }, [location.pathname, location.search]);
 
     const active = isDeepActive(item.items);
 
@@ -92,12 +95,15 @@ function DropdownItem({ item, onCloseAll }) {
                                 to={subItem.to}
                                 end={subItem.end}
                                 onClick={handleClose}
-                                className={({ isActive }) =>
-                                    cn(
+                                className={({ isActive }) => {
+                                    const active = subItem.to.includes('?') 
+                                        ? location.pathname + location.search === subItem.to 
+                                        : isActive;
+                                    return cn(
                                         'w-full text-left px-3 py-2 text-xs sm:text-sm rounded-lg transition-colors font-medium text-muted-foreground hover:bg-muted hover:text-foreground flex items-center gap-2',
-                                        isActive && 'bg-primary/10 text-primary font-bold hover:bg-primary/15'
-                                    )
-                                }
+                                        active && 'bg-primary/10 text-primary font-bold hover:bg-primary/15'
+                                    );
+                                }}
                             >
                                 {subItem.icon && <subItem.icon className="h-4 w-4 shrink-0" />}
                                 {subItem.label}
@@ -116,7 +122,10 @@ function SubMenuItem({ item, onClose }) {
     const [isOpen, setIsOpen] = useState(false);
     const ref = useRef(null);
 
-    const isActive = item.items?.some((sub) => location.pathname === sub.to);
+    const isActive = item.items?.some((sub) => {
+        if (sub.to?.includes('?')) return location.pathname + location.search === sub.to;
+        return location.pathname === sub.to;
+    });
 
     // Fecha ao sair com o mouse de toda a área (trigger + conteúdo)
     const handleMouseLeave = (e) => {
@@ -164,12 +173,15 @@ function SubMenuItem({ item, onClose }) {
                                 to={subItem.to}
                                 end={subItem.end}
                                 onClick={onClose}
-                                className={({ isActive }) =>
-                                    cn(
+                                className={({ isActive }) => {
+                                    const active = subItem.to.includes('?') 
+                                        ? location.pathname + location.search === subItem.to 
+                                        : isActive;
+                                    return cn(
                                         'w-full text-left px-3 py-2 text-xs sm:text-sm rounded-lg transition-colors font-medium text-muted-foreground hover:bg-muted hover:text-foreground flex items-center gap-2',
-                                        isActive && 'bg-primary/10 text-primary font-bold hover:bg-primary/15'
-                                    )
-                                }
+                                        active && 'bg-primary/10 text-primary font-bold hover:bg-primary/15'
+                                    );
+                                }}
                             >
                                 {subItem.icon && <subItem.icon className="h-4 w-4 shrink-0" />}
                                 {subItem.label}
@@ -196,13 +208,16 @@ export default function ModuleNavigation({ items, className }) {
                                     <NavLink
                                         to={item.to}
                                         end={item.end}
-                                        className={({ isActive }) =>
-                                            cn(
+                                        className={({ isActive }) => {
+                                            const active = item.to.includes('?') 
+                                                ? location.pathname + location.search === item.to 
+                                                : isActive;
+                                            return cn(
                                                 navigationMenuTriggerStyle(),
                                                 'bg-transparent text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all rounded-md h-9 text-xs sm:text-sm flex items-center gap-2',
-                                                isActive && 'bg-slate-100 dark:bg-slate-800 text-foreground font-semibold'
-                                            )
-                                        }
+                                                active && 'bg-slate-100 dark:bg-slate-800 text-foreground font-semibold'
+                                            );
+                                        }}
                                     >
                                         {item.icon && <item.icon className="h-4 w-4 shrink-0" />}
                                         {item.label}
