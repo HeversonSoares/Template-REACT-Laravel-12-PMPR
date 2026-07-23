@@ -6,6 +6,8 @@ import ModuleHeader from '@/components/ModuleHeader';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import ActionButton from '@/components/ui/action-button';
+import PrintButton from '@/components/ui/print-button';
+import ExpandableSearch from '@/components/ui/expandable-search';
 import { LayoutTemplate, ChevronDown, Users, FileText, Plus, Trash2, Settings, Download, Save, RefreshCw, Filter, Eye, Pencil } from 'lucide-react';
 import {
     NavigationMenu,
@@ -35,6 +37,8 @@ export default function TemplateDesign() {
         title: '',
         message: ''
     });
+
+    const [demoSearchQuery, setDemoSearchQuery] = useState('');
 
     const showAlert = (type, title, message) => {
         setAlertState({ open: true, type, title, message });
@@ -954,6 +958,131 @@ import { Plus, Save, Trash2, RefreshCw, Filter } from 'lucide-react';
                                 Esse formato responsivo adapta-se automaticamente à tela (exibindo ícone + texto lado a lado em desktops e colapsando para ícone e texto menor abaixo em dispositivos móveis).
                                 O ícone deve ser sempre a prop (<code className="font-mono">icon</code>) — nunca adicione o ícone dentro de <code className="font-mono">children</code> manualmente.
                             </div>
+                        </CardContent>
+                    </Card>
+
+                    {/* ── PrintButton ─────────────────────────────── */}
+                    <Card className="p-6 space-y-4 md:col-span-2 mt-6">
+                        <CardHeader className="p-0">
+                            <CardTitle className="text-lg font-semibold">PrintButton — Botão de Impressão</CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-0 space-y-4">
+                            <p className="text-muted-foreground text-sm">
+                                O <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">PrintButton</code> é um wrapper padronizado em cima do <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">ActionButton</code> que já traz o ícone <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">Printer</code>, label padrão e a funcionalidade <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">window.print()</code> pré-configurada.
+                            </p>
+
+                            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                                <div className="space-y-2">
+                                    <span className="text-xs font-semibold text-foreground">Uso Básico:</span>
+                                    <div className="bg-muted p-4 rounded-xl border border-border flex flex-wrap gap-2">
+                                        <PrintButton />
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <span className="text-xs font-semibold text-foreground">Modo Compacto:</span>
+                                    <div className="bg-muted p-4 rounded-xl border border-border flex flex-wrap gap-4 items-end">
+                                        <PrintButton compact />
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <span className="text-xs font-semibold text-foreground">Label Customizada:</span>
+                                    <div className="bg-muted p-4 rounded-xl border border-border flex flex-wrap gap-2">
+                                        <PrintButton label="Imprimir Relatório" variant="default" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <pre className="bg-slate-900 text-slate-100 text-xs p-3 rounded-lg overflow-x-auto">
+{`import PrintButton from '@/components/ui/print-button';
+
+{/* Padrão (variant="outline", label="Imprimir") */}
+<PrintButton />
+
+{/* Modo Compacto (ideal para headers) */}
+<PrintButton compact />
+
+{/* Totalmente personalizável (repassa props pro ActionButton) */}
+<PrintButton label="Imprimir Tabela" variant="secondary" />
+`}
+                            </pre>
+                        </CardContent>
+                    </Card>
+
+                    {/* ── ExpandableSearch ─────────────────────────────── */}
+                    <Card className="p-6 space-y-4 md:col-span-2 mt-6">
+                        <CardHeader className="p-0">
+                            <CardTitle className="text-lg font-semibold">ExpandableSearch — Campo de Pesquisa Expansível</CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-0 space-y-4">
+                            <p className="text-muted-foreground text-sm">
+                                O <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">ExpandableSearch</code> inicia como um botão (ActionButton) compacto de Pesquisa e se expande suavemente para um campo de input quando clicado. Ele suporta injetar os resultados da pesquisa nativamente através de um dropdown.
+                            </p>
+
+                            <div className="space-y-2">
+                                <span className="text-xs font-semibold text-foreground">Exemplo Interativo:</span>
+                                <div className="bg-muted p-4 rounded-xl border border-border flex justify-end h-40">
+                                    <ExpandableSearch 
+                                        value={demoSearchQuery}
+                                        onChange={(e) => setDemoSearchQuery(e.target.value)}
+                                        onClear={() => setDemoSearchQuery('')}
+                                        placeholder="Pesquisar frutas..."
+                                        renderResults={(closeSearch) => {
+                                            const frutas = ['Maçã', 'Banana', 'Laranja', 'Uva', 'Morango', 'Abacaxi'];
+                                            const filtradas = frutas.filter(f => f.toLowerCase().includes(demoSearchQuery.toLowerCase()));
+                                            
+                                            return demoSearchQuery.length > 0 ? (
+                                                <div className="flex flex-col gap-1">
+                                                    {filtradas.map(fruta => (
+                                                        <button 
+                                                            key={fruta}
+                                                            onClick={() => {
+                                                                showAlert('success', 'Resultado clicado', `Você selecionou: ${fruta}`);
+                                                                closeSearch();
+                                                                setDemoSearchQuery('');
+                                                            }}
+                                                            className="flex flex-col text-left px-3 py-2 hover:bg-accent hover:text-accent-foreground rounded-sm text-sm transition-colors"
+                                                        >
+                                                            {fruta}
+                                                        </button>
+                                                    ))}
+                                                    {filtradas.length === 0 && (
+                                                        <div className="text-muted-foreground p-3 text-sm text-center">Nenhuma fruta encontrada.</div>
+                                                    )}
+                                                </div>
+                                            ) : null;
+                                        }}
+                                    />
+                                </div>
+                            </div>
+
+                            <pre className="bg-slate-900 text-slate-100 text-xs p-3 rounded-lg overflow-x-auto">
+{`import ExpandableSearch from '@/components/ui/expandable-search';
+import { useState } from 'react';
+
+const [busca, setBusca] = useState('');
+
+{/* Uso Básico */}
+<ExpandableSearch 
+    value={busca}
+    onChange={(e) => setBusca(e.target.value)}
+    onClear={() => setBusca('')}
+    placeholder="Pesquisar..."
+    
+    // Opcional: renderizar dropdown com resultados
+    renderResults={(closeSearch) => (
+        busca.length > 0 ? (
+            <div className="flex flex-col gap-2">
+                <button onClick={() => { /* navega */; closeSearch(); }}>
+                    Resultado para "{busca}"
+                </button>
+            </div>
+        ) : (
+            <div className="text-muted-foreground">Nenhum resultado.</div>
+        )
+    )}
+/>
+`}
+                            </pre>
                         </CardContent>
                     </Card>
 

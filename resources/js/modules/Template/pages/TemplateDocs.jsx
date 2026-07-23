@@ -1,14 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Layout from '@/components/Layout';
 import TemplateMenu from '../components/TemplateMenu';
 import { Card } from '@/components/ui/card';
-import { FileText, Printer, Search, X } from 'lucide-react';
+import { FileText } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
-import ActionButton from '@/components/ui/action-button';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import PrintButton from '@/components/ui/print-button';
+import ExpandableSearch from '@/components/ui/expandable-search';
 
 // Importa todos os arquivos markdown da pasta docs na raiz do projeto
 const docsGlob = import.meta.glob('../../../../../docs/*.md', { query: '?raw', import: 'default', eager: true });
@@ -17,16 +16,7 @@ export default function TemplateDocs() {
     const [searchParams, setSearchParams] = useSearchParams();
     const fileParam = searchParams.get('file');
 
-    const [isSearchExpanded, setIsSearchExpanded] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
-    const searchInputRef = useRef(null);
-
-    // Foca o input quando expande
-    useEffect(() => {
-        if (isSearchExpanded && searchInputRef.current) {
-            searchInputRef.current.focus();
-        }
-    }, [isSearchExpanded]);
 
     // Formata a lista de documentos
     const docs = Object.keys(docsGlob).map((path) => {
@@ -74,68 +64,41 @@ export default function TemplateDocs() {
             <div className="p-6 space-y-6 w-full h-[calc(100vh-3.5rem)] flex flex-col">
                 <TemplateMenu>
                     <div className="relative flex items-center gap-2">
-                        {isSearchExpanded ? (
-                            <div className="flex items-center bg-background border rounded-md px-2 shadow-sm w-64 md:w-80 transition-all">
-                                <Search className="w-4 h-4 text-muted-foreground shrink-0" />
-                                <Input 
-                                    ref={searchInputRef}
-                                    placeholder="Pesquisar nos documentos..." 
-                                    value={searchQuery}
-                                    onChange={e => setSearchQuery(e.target.value)}
-                                    className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-9"
-                                />
-                                <Button variant="ghost" size="icon" className="h-6 w-6 shrink-0" onClick={() => { setIsSearchExpanded(false); setSearchQuery(''); }}>
-                                    <X className="w-4 h-4" />
-                                </Button>
-                                
-                                {/* Dropdown de resultados */}
-                                {searchQuery && (
-                                    <div className="absolute top-[calc(100%+0.5rem)] right-0 w-[400px] max-h-[60vh] overflow-y-auto bg-popover border text-popover-foreground rounded-md shadow-md z-50 p-2">
-                                        {searchResults.length > 0 ? (
-                                            <div className="flex flex-col gap-1">
-                                                {searchResults.map((res, i) => (
-                                                    <button 
-                                                        key={`${res.doc.fileName}-${i}`}
-                                                        onClick={() => {
-                                                            setSearchParams({ file: res.doc.fileName });
-                                                            setIsSearchExpanded(false);
-                                                            setSearchQuery('');
-                                                        }}
-                                                        className="flex flex-col text-left px-3 py-2 hover:bg-accent hover:text-accent-foreground rounded-sm text-sm"
-                                                    >
-                                                        <span className="font-medium flex items-center gap-2 text-primary">
-                                                            <FileText className="w-3 h-3" />
-                                                            {res.doc.name}
-                                                        </span>
-                                                        <span className="text-xs text-muted-foreground w-full mt-1 line-clamp-2 leading-relaxed text-left whitespace-pre-wrap">
-                                                            ...{res.snippet}...
-                                                        </span>
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        ) : (
-                                            <div className="p-4 text-center text-sm text-muted-foreground">Nenhum resultado encontrado.</div>
-                                        )}
+                        <ExpandableSearch 
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onClear={() => setSearchQuery('')}
+                            placeholder="Pesquisar nos documentos..."
+                            renderResults={(closeSearch) => (
+                                searchResults.length > 0 ? (
+                                    <div className="flex flex-col gap-1">
+                                        {searchResults.map((res, i) => (
+                                            <button 
+                                                key={`${res.doc.fileName}-${i}`}
+                                                onClick={() => {
+                                                    setSearchParams({ file: res.doc.fileName });
+                                                    closeSearch();
+                                                    setSearchQuery('');
+                                                }}
+                                                className="flex flex-col text-left px-3 py-2 hover:bg-accent hover:text-accent-foreground rounded-sm text-sm"
+                                            >
+                                                <span className="font-medium flex items-center gap-2 text-primary">
+                                                    <FileText className="w-3 h-3" />
+                                                    {res.doc.name}
+                                                </span>
+                                                <span className="text-xs text-muted-foreground w-full mt-1 line-clamp-2 leading-relaxed text-left whitespace-pre-wrap">
+                                                    ...{res.snippet}...
+                                                </span>
+                                            </button>
+                                        ))}
                                     </div>
-                                )}
-                            </div>
-                        ) : (
-                            <ActionButton
-                                icon={Search}
-                                label="Pesquisar"
-                                variant="outline"
-                                onClick={() => setIsSearchExpanded(true)}
-                                compact
-                            />
-                        )}
-
-                        <ActionButton
-                            icon={Printer}
-                            label="Imprimir"
-                            variant="outline"
-                            onClick={() => window.print()}
-                            compact
+                                ) : (
+                                    <div className="p-4 text-center text-sm text-muted-foreground">Nenhum resultado encontrado.</div>
+                                )
+                            )}
                         />
+
+                        <PrintButton compact />
                     </div>
                 </TemplateMenu>
             
