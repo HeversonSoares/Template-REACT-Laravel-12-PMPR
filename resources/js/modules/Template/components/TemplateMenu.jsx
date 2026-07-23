@@ -45,6 +45,7 @@ import {
     Layers,
     Columns2,
     CodeXml,
+    Radar,
 } from 'lucide-react';
 
 export default function TemplateMenu() {
@@ -57,7 +58,14 @@ export default function TemplateMenu() {
             label: 'Templates',
             items: [
                 { to: '/templates/blank',     label: 'Template em Branco', icon: FileCode },
-                { to: '/templates/dashboard', label: 'Dashboard',          icon: LayoutDashboard },
+                {
+                    label: 'Dashboards',
+                    icon: LayoutDashboard,
+                    items: [
+                        { to: '/templates/dashboard', label: 'Dashboard Clássico',     icon: LayoutDashboard },
+                        { to: '/templates/charts',    label: 'Gráficos & Radar Chart', icon: Radar },
+                    ]
+                },
                 { to: '/templates/kanban',    label: 'Kanban Board',       icon: KanbanSquare },
                 {
                     label: 'Tabelas',
@@ -97,7 +105,7 @@ export default function TemplateMenu() {
                 label="Shadcn Docs"
                 variant="outline"
                 onClick={() => window.open('https://ui.shadcn.com/', '_blank')}
-                responsive
+                compact
             />
             <Dialog open={isOpenDialog} onOpenChange={setIsOpenDialog}>
                 <DialogTrigger asChild>
@@ -105,7 +113,7 @@ export default function TemplateMenu() {
                         icon={Plus}
                         label="Novo Template"
                         variant="default"
-                        responsive
+                        compact
                     />
                 </DialogTrigger>
                 <DialogContent className="bg-background border border-border text-foreground sm:max-w-[425px]">

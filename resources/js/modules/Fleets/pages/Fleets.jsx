@@ -10,6 +10,7 @@ import {
     CardFooter 
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import ActionButton from '@/components/ui/action-button';
 import { Badge } from '@/components/ui/badge';
 import { 
     Table, 
@@ -151,14 +152,15 @@ export default function Fleets() {
                         description="Gerenciamento de veículos, telemetria em tempo real e agendamento de manutenções via webhook."
                         icon={Truck}
                     >
-                        <Button 
-                            onClick={triggerRefresh}
+                        <ActionButton
+                            icon={RefreshCw}
+                            label={isRefreshing ? 'Atualizando...' : 'Atualizar'}
+                            variant="success"
                             disabled={isRefreshing}
-                            className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl gap-2 shadow"
-                        >
-                            <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} /> 
-                            {isRefreshing ? 'Atualizando...' : 'Atualizar Telemetria'}
-                        </Button>
+                            onClick={triggerRefresh}
+                            compact
+                            className={isRefreshing ? '[&_svg]:animate-spin' : ''}
+                        />
                     </PageHeader>
 
                     <hr className="border" />

@@ -16,6 +16,7 @@ import Fleets from './modules/Fleets/pages/Fleets';
 import Settings from './modules/Settings/pages/Settings';
 import Templates from './modules/Template/pages/TemplateIndex';
 import TemplateDashboard from './modules/Template/pages/TemplateDashboard';
+import TemplateCharts from './modules/Template/pages/TemplateCharts';
 import TemplateTables from './modules/Template/pages/TemplateTables';
 import TemplateTablesResumo from './modules/Template/pages/TemplateTablesResumo';
 import TemplateForms from './modules/Template/pages/TemplateForms';
@@ -61,6 +62,7 @@ function App() {
                 <Route path="/tempo" element={<TempoPage />} />
                 <Route path="/templates" element={<Templates />} />
                 <Route path="/templates/dashboard" element={<TemplateDashboard />} />
+                <Route path="/templates/charts" element={<TemplateCharts />} />
                 <Route path="/templates/tables" element={<TemplateTables />} />
                 <Route path="/templates/tables-resumo" element={<TemplateTablesResumo />} />
                 <Route path="/templates/forms" element={<TemplateForms />} />

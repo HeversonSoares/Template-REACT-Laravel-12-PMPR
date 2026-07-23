@@ -32,24 +32,33 @@ const Tooltip = TooltipPrimitive.Root
 
 const TooltipTrigger = TooltipPrimitive.Trigger
 
-const TooltipContent = React.forwardRef(({ className, sideOffset = 8, children, showArrow = true, ...props }, ref) => (
+const TooltipArrow = React.forwardRef(({ className, ...props }, ref) => (
+  <TooltipPrimitive.Arrow
+    ref={ref}
+    className={cn("fill-sidebar z-50 size-2.5", className)}
+    {...props}
+  />
+))
+TooltipArrow.displayName = TooltipPrimitive.Arrow.displayName
+
+const TooltipContent = React.forwardRef(({ className, sideOffset = 4, children, showArrow = true, ...props }, ref) => (
   <TooltipPrimitive.Portal>
     <TooltipPrimitive.Content
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        "z-[9999] overflow-visible rounded-lg bg-sidebar border border-sidebar-border px-3.5 py-2 text-[14px] font-medium text-sidebar-foreground shadow-xl animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-tooltip-content-transform-origin]",
+        "z-50 rounded-md bg-sidebar px-3 py-1.5 text-sm font-medium text-sidebar-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
         className
       )}
       {...props}
     >
       {children}
       {showArrow && (
-        <TooltipPrimitive.Arrow className="fill-[hsl(var(--sidebar-background))]" width={10} height={6} />
+        <TooltipPrimitive.Arrow className="fill-sidebar z-50 size-2.5" />
       )}
     </TooltipPrimitive.Content>
   </TooltipPrimitive.Portal>
 ))
 TooltipContent.displayName = TooltipPrimitive.Content.displayName
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider, TooltipArrow }

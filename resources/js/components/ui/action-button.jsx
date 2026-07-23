@@ -51,19 +51,26 @@ const ActionButton = React.forwardRef(({
     // Modo compacto: ícone centrado + label pequeno abaixo
     if (compact) {
         return (
-            <div className="inline-flex flex-col items-center gap-0.5" ref={ref} {...props}>
+            <div
+                ref={ref}
+                onClick={disabled ? undefined : onClick}
+                className={cn('inline-flex flex-col items-center gap-0.5 group cursor-pointer select-none', disabled && 'opacity-50 pointer-events-none', className)}
+                {...props}
+            >
                 <Button
                     variant={variant}
                     size="icon"
                     disabled={disabled}
-                    onClick={onClick}
-                    className={cn('h-8 w-8', className)}
+                    tabIndex={-1}
+                    className="h-8 w-8 pointer-events-none"
                 >
                     {Icon && <Icon className="h-4 w-4" />}
                 </Button>
-                <span className="text-[10px] text-muted-foreground font-medium leading-none">
-                    {label}
-                </span>
+                {label && (
+                    <span className="text-[10px] text-muted-foreground group-hover:text-foreground font-medium leading-none transition-colors">
+                        {label}
+                    </span>
+                )}
             </div>
         );
     }

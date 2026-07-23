@@ -15,6 +15,7 @@ import {
     X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import {
     Sidebar,
     SidebarContent,
@@ -190,36 +191,56 @@ export default function Layout({ children }) {
 
                     {/* Topbar Right Actions */}
                     <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                        <Button
-                            variant="outline"
-                            size="icon"
-                            onClick={toggleTheme}
-                            title={isDark ? 'Modo claro' : 'Modo escuro'}
-                            className="h-9 w-9 rounded-full border border-border hover:bg-accent hover:text-accent-foreground text-muted-foreground shadow-none"
-                        >
-                            {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-                        </Button>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    onClick={toggleTheme}
+                                    className="h-9 w-9 rounded-full border border-border hover:bg-accent hover:text-accent-foreground text-muted-foreground shadow-none"
+                                >
+                                    {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent side="bottom">
+                                {isDark ? 'Modo claro' : 'Modo escuro'}
+                            </TooltipContent>
+                        </Tooltip>
 
-                        <div className="relative">
-                            <Button
-                                variant="outline"
-                                size="icon"
-                                className="h-9 w-9 rounded-full border border-border hover:bg-accent hover:text-accent-foreground text-muted-foreground shadow-none"
-                            >
-                                <Bell className="h-4 w-4" />
-                                <span className="absolute bottom-1 right-1 h-4 w-4 rounded-full bg-primary text-[9px] font-bold text-primary-foreground flex items-center justify-center border border-background">
-                                    1
-                                </span>
-                            </Button>
-                        </div>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <div className="relative">
+                                    <Button
+                                        variant="outline"
+                                        size="icon"
+                                        className="h-9 w-9 rounded-full border border-border hover:bg-accent hover:text-accent-foreground text-muted-foreground shadow-none"
+                                    >
+                                        <Bell className="h-4 w-4" />
+                                        <span className="absolute bottom-1 right-1 h-4 w-4 rounded-full bg-primary text-[9px] font-bold text-primary-foreground flex items-center justify-center border border-background">
+                                            1
+                                        </span>
+                                    </Button>
+                                </div>
+                            </TooltipTrigger>
+                            <TooltipContent side="bottom">
+                                Notificações
+                            </TooltipContent>
+                        </Tooltip>
 
-                        <Button
-                            variant="outline"
-                            size="icon"
-                            className="h-9 w-9 rounded-full border border-border hover:bg-accent hover:text-accent-foreground text-muted-foreground shadow-none"
-                        >
-                            <Mail className="h-4 w-4" />
-                        </Button>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    className="h-9 w-9 rounded-full border border-border hover:bg-accent hover:text-accent-foreground text-muted-foreground shadow-none"
+                                >
+                                    <Mail className="h-4 w-4" />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent side="bottom">
+                                Mensagens
+                            </TooltipContent>
+                        </Tooltip>
 
                         {/* Desktop Profile Avatar */}
                         <div className="hidden md:flex h-8 w-8 rounded-full bg-primary text-primary-foreground font-bold items-center justify-center text-sm shadow ml-1.5 cursor-pointer border border-background hover:opacity-90">

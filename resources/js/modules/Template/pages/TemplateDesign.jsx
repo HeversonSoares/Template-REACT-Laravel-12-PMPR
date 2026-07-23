@@ -26,6 +26,7 @@ import {
     MenubarSubTrigger,
 } from '@/components/ui/menubar';
 import { SwitchAlert } from '@/components/SwitchAlert';
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@/components/ui/tooltip';
 
 export default function TemplateDesign() {
     const [alertState, setAlertState] = useState({
@@ -80,7 +81,7 @@ import { LayoutTemplate } from 'lucide-react';
 
 // Com ações (botões) à direita:
 <PageHeader title="Título" icon={LayoutTemplate}>
-  <Button>Nova Ação</Button>
+  <ActionButton icon={Plus} label="Nova Ação" variant="default" compact />
 </PageHeader>`}
                                 </pre>
                             </div>
@@ -269,8 +270,8 @@ export default function MeuModuloMenu() {
       badge="Novo"
       navItems={navItems}
     >
-      {/* Botões de ação à direita: */}
-      <Button>Nova Ação</Button>
+      {/* Botões de ação à direita (modo compacto): */}
+      <ActionButton icon={Plus} label="Nova Ação" variant="default" compact />
     </ModuleHeader>
   );
 }`}
@@ -927,17 +928,17 @@ import { Plus, Save, Trash2, RefreshCw } from 'lucide-react';
 {/* Modo responsivo — normal em md+, compacto em telas menores */}
 <ActionButton icon={RefreshCw} label="Sincronizar" variant="success" responsive />
 
-{/* No *Menu.jsx — use sempre responsive para os botões do cabeçalho */}
+{/* No *Menu.jsx — use sempre compact para os botões do cabeçalho */}
 <ModuleHeader title="Meu Módulo" icon={Users} navItems={navItems}>
-  <ActionButton icon={Plus} label="Novo" variant="default" responsive />
-  <ActionButton icon={Download} label="Exportar" variant="outline" responsive />
+  <ActionButton icon={Plus} label="Novo" variant="default" compact />
+  <ActionButton icon={Download} label="Exportar" variant="outline" compact />
 </ModuleHeader>`}
                             </pre>
 
                             <div className="p-3 rounded-lg bg-primary/5 border border-primary/20 text-xs text-primary">
-                                <strong>Padrão do projeto:</strong> use <code className="font-mono">ActionButton</code> em vez de <code className="font-mono">Button</code> nos <code className="font-mono">*Menu.jsx</code>.
-                                Sempre passe <code className="font-mono">responsive</code> para que os botões do cabeçalho se adaptem automaticamente ao espaço disponível.
-                                O ícone deve ser sempre o primeiro argumento (<code className="font-mono">icon</code>) — nunca adicione o ícone dentro de <code className="font-mono">children</code> manualmente.
+                                <strong>Padrão do projeto:</strong> use <code className="font-mono">ActionButton</code> com o modo <code className="font-mono">compact</code> nos <code className="font-mono">*Menu.jsx</code>.
+                                Esse formato compacto (ícone + texto menor abaixo) é o padrão visual estabelecido para os cabeçalhos de módulo.
+                                O ícone deve ser sempre a prop (<code className="font-mono">icon</code>) — nunca adicione o ícone dentro de <code className="font-mono">children</code> manualmente.
                             </div>
                         </CardContent>
                     </Card>
@@ -1024,6 +1025,93 @@ export default function MeuComponente() {
       />
     </>
   );
+}`}
+                                </pre>
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    {/* Tooltip Documentation */}
+                    <Card className="p-6 space-y-4 md:col-span-2">
+                        <CardHeader className="p-0">
+                            <CardTitle className="text-lg font-semibold">Balão Informativo (Tooltip)</CardTitle>
+                        </CardHeader>
+                        <CardContent className="p-0 space-y-4">
+                            <p className="text-muted-foreground text-sm">
+                                O componente <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">Tooltip</code> exibe uma mensagem informativa quando o usuário passa o mouse ou foca em um elemento. Utilize a prop <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">side</code> para definir a posição do balão (<code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">top</code>, <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">right</code>, <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">bottom</code>, <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">left</code>).
+                            </p>
+
+                            <div className="bg-muted p-6 rounded-xl border border-border space-y-4">
+                                <div>
+                                    <h4 className="text-sm font-semibold text-foreground">Posicionamento (Side)</h4>
+                                    <p className="text-xs text-muted-foreground">Use a prop <code className="font-mono text-primary">side</code> para alterar a posição do tooltip.</p>
+                                </div>
+
+                                <div className="flex flex-wrap items-center justify-center gap-3 py-6 bg-card rounded-lg border border-border/60">
+                                    <TooltipProvider>
+                                        <Tooltip>
+                                            <TooltipTrigger asChild>
+                                                <Button variant="outline" size="sm">Left</Button>
+                                            </TooltipTrigger>
+                                            <TooltipContent side="left">
+                                                <p>Add to library</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+
+                                        <Tooltip>
+                                            <TooltipTrigger asChild>
+                                                <Button variant="outline" size="sm">Top</Button>
+                                            </TooltipTrigger>
+                                            <TooltipContent side="top">
+                                                <p>Add to library</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+
+                                        <Tooltip>
+                                            <TooltipTrigger asChild>
+                                                <Button variant="outline" size="sm">Bottom</Button>
+                                            </TooltipTrigger>
+                                            <TooltipContent side="bottom">
+                                                <p>Add to library</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+
+                                        <Tooltip>
+                                            <TooltipTrigger asChild>
+                                                <Button variant="outline" size="sm">Right</Button>
+                                            </TooltipTrigger>
+                                            <TooltipContent side="right">
+                                                <p>Add to library</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    </TooltipProvider>
+                                </div>
+                            </div>
+
+                            <div className="space-y-1.5">
+                                <span className="text-xs font-semibold text-foreground">Estrutura de Código:</span>
+                                <pre className="bg-slate-900 text-slate-100 text-xs p-3 rounded-lg overflow-x-auto">
+{`import { Button } from "@/components/ui/button"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+
+export function TooltipDemo() {
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button variant="outline">Right</Button>
+        </TooltipTrigger>
+        <TooltipContent side="right">
+          <p>Add to library</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  )
 }`}
                                 </pre>
                             </div>

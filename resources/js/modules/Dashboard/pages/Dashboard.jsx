@@ -11,6 +11,7 @@ import {
     CardTitle 
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import ActionButton from '@/components/ui/action-button';
 import { Badge } from '@/components/ui/badge';
 import { 
     Table, 
@@ -224,9 +225,7 @@ export default function Dashboard() {
                     >
                         <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
                             <DialogTrigger asChild>
-                                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl gap-2 shadow">
-                                    <Plus className="h-4 w-4" /> Novo Módulo
-                                </Button>
+                                <ActionButton icon={Plus} label="Novo Módulo" variant="default" compact />
                             </DialogTrigger>
                             <DialogContent className="bg-background border border-border text-foreground sm:max-w-[425px]">
                                 <form onSubmit={handleAddModule}>
