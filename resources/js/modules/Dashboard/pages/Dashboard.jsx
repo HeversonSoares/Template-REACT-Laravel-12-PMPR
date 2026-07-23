@@ -225,7 +225,7 @@ export default function Dashboard() {
                     >
                         <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
                             <DialogTrigger asChild>
-                                <ActionButton icon={Plus} label="Novo Módulo" variant="default" compact />
+                                <ActionButton icon={Plus} label="Novo Módulo" variant="default" responsive />
                             </DialogTrigger>
                             <DialogContent className="bg-background border border-border text-foreground sm:max-w-[425px]">
                                 <form onSubmit={handleAddModule}>

@@ -25,7 +25,7 @@ export default function EfetivoMenu({ onSyncAll, isSyncing }) {
                     variant="success"
                     disabled={isSyncing}
                     onClick={onSyncAll}
-                    compact
+                    responsive
                     className={isSyncing ? '[&_svg]:animate-spin' : ''}
                 />
             )}

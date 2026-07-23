@@ -47,7 +47,7 @@ export default function TempoMenu({ onAtualizar, isLoading }) {
                     variant="outline"
                     disabled={isLoading}
                     onClick={onAtualizar}
-                    compact
+                    responsive
                     className={isLoading ? '[&_svg]:animate-spin' : ''}
                 />
             )}

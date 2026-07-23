@@ -105,7 +105,7 @@ export default function TemplateMenu() {
                 label="Shadcn Docs"
                 variant="outline"
                 onClick={() => window.open('https://ui.shadcn.com/', '_blank')}
-                compact
+                responsive
             />
             <Dialog open={isOpenDialog} onOpenChange={setIsOpenDialog}>
                 <DialogTrigger asChild>
@@ -113,7 +113,7 @@ export default function TemplateMenu() {
                         icon={Plus}
                         label="Novo Template"
                         variant="default"
-                        compact
+                        responsive
                     />
                 </DialogTrigger>
                 <DialogContent className="bg-background border border-border text-foreground sm:max-w-[425px]">

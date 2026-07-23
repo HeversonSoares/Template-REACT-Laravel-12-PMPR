@@ -158,7 +158,7 @@ export default function Fleets() {
                             variant="success"
                             disabled={isRefreshing}
                             onClick={triggerRefresh}
-                            compact
+                            responsive
                             className={isRefreshing ? '[&_svg]:animate-spin' : ''}
                         />
                     </PageHeader>

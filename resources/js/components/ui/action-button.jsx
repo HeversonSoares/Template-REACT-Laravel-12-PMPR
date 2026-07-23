@@ -3,8 +3,18 @@ import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 
+const roundedMap = {
+    none: 'rounded-none',
+    sm: 'rounded-sm',
+    md: 'rounded-md',
+    lg: 'rounded-lg',
+    xl: 'rounded-xl',
+    '2xl': 'rounded-2xl',
+    full: 'rounded-full',
+};
+
 /**
- * ActionButton — Botão de ação padronizado com suporte a modo responsivo/compacto.
+ * ActionButton — Botão de ação padronizado com suporte a modo responsivo/compacto e bordas arredondadas.
  *
  * Em modo normal: exibe ícone à esquerda + label horizontal (padrão do projeto).
  * Em modo compacto (`compact`): exibe apenas o ícone com o label em texto pequeno abaixo.
@@ -16,25 +26,22 @@ import { cn } from '@/lib/utils';
  * @param {string}          [size]      - Tamanho: "default" | "sm" | "lg".
  * @param {boolean}         [compact]   - Força modo compacto (ícone + label abaixo).
  * @param {boolean}         [responsive]- Se true, colapsa automaticamente em telas pequenas (< md).
+ * @param {string|boolean}  [rounded]   - Curvatura das bordas: "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "full" (padrão: "md").
  * @param {string}          [className] - Classes CSS extras.
  * @param {boolean}         [disabled]  - Desabilita o botão.
  * @param {function}        [onClick]   - Handler de clique.
  *
  * @example
- * // Ação principal (salvar) — verde
+ * // Ação principal (salvar) — verde com bordas suaves (rounded-md por padrão)
  * <ActionButton icon={Save} label="Salvar" variant="success" />
- *
- * @example
- * // Ação destrutiva — vermelho
- * <ActionButton icon={Trash2} label="Excluir" variant="destructive" />
- *
- * @example
- * // Ação secundária — outline
- * <ActionButton icon={Download} label="Exportar" variant="outline" />
  *
  * @example
  * // Responsivo — colapsa para ícone + label abaixo em telas < md
  * <ActionButton icon={Plus} label="Novo" variant="default" responsive />
+ *
+ * @example
+ * // Modo compacto arredondado
+ * <ActionButton icon={Plus} label="Novo" variant="default" compact rounded="md" />
  */
 const ActionButton = React.forwardRef(({
     icon: Icon,
@@ -42,19 +49,29 @@ const ActionButton = React.forwardRef(({
     variant = 'default',
     size = 'sm',
     compact = false,
-    responsive = false,
+    responsive = true,
+    rounded = 'md',
     className,
     disabled,
     onClick,
     ...props
 }, ref) => {
+    const getRoundedClass = () => {
+        if (!rounded) return '';
+        if (typeof rounded === 'string') return roundedMap[rounded] || rounded;
+        if (rounded === true) return 'rounded-md';
+        return '';
+    };
+
+    const roundedClass = getRoundedClass();
+
     // Modo compacto: ícone centrado + label pequeno abaixo
     if (compact) {
         return (
             <div
                 ref={ref}
                 onClick={disabled ? undefined : onClick}
-                className={cn('inline-flex flex-col items-center gap-0.5 group cursor-pointer select-none', disabled && 'opacity-50 pointer-events-none', className)}
+                className={cn('inline-flex flex-col items-center gap-0.5 group cursor-pointer select-none', disabled && 'opacity-50 pointer-events-none')}
                 {...props}
             >
                 <Button
@@ -62,7 +79,7 @@ const ActionButton = React.forwardRef(({
                     size="icon"
                     disabled={disabled}
                     tabIndex={-1}
-                    className="h-8 w-8 pointer-events-none"
+                    className={cn('h-8 w-8 pointer-events-none', roundedClass, className)}
                 >
                     {Icon && <Icon className="h-4 w-4" />}
                 </Button>
@@ -85,7 +102,7 @@ const ActionButton = React.forwardRef(({
                     size={size}
                     disabled={disabled}
                     onClick={onClick}
-                    className={cn('hidden md:inline-flex', className)}
+                    className={cn('hidden md:inline-flex gap-1.5', roundedClass, className)}
                 >
                     {Icon && <Icon className="h-4 w-4" />}
                     {label}
@@ -95,19 +112,24 @@ const ActionButton = React.forwardRef(({
                 <TooltipProvider delayDuration={300}>
                     <Tooltip>
                         <TooltipTrigger asChild>
-                            <div className="flex flex-col items-center gap-0.5 md:hidden">
+                            <div
+                                onClick={disabled ? undefined : onClick}
+                                className={cn('flex flex-col items-center gap-0.5 md:hidden group cursor-pointer select-none', disabled && 'opacity-50 pointer-events-none')}
+                            >
                                 <Button
                                     variant={variant}
                                     size="icon"
                                     disabled={disabled}
-                                    onClick={onClick}
-                                    className={cn('h-8 w-8', className)}
+                                    tabIndex={-1}
+                                    className={cn('h-8 w-8 pointer-events-none', roundedClass, className)}
                                 >
                                     {Icon && <Icon className="h-4 w-4" />}
                                 </Button>
-                                <span className="text-[10px] text-muted-foreground font-medium leading-none">
-                                    {label}
-                                </span>
+                                {label && (
+                                    <span className="text-[10px] text-muted-foreground group-hover:text-foreground font-medium leading-none transition-colors">
+                                        {label}
+                                    </span>
+                                )}
                             </div>
                         </TooltipTrigger>
                         <TooltipContent side="bottom">
@@ -127,7 +149,7 @@ const ActionButton = React.forwardRef(({
             size={size}
             disabled={disabled}
             onClick={onClick}
-            className={cn(className)}
+            className={cn('gap-1.5', roundedClass, className)}
             {...props}
         >
             {Icon && <Icon className="h-4 w-4" />}
