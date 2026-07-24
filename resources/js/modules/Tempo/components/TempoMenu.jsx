@@ -35,7 +35,7 @@ export default function TempoMenu({ onAtualizar, isLoading, children, localNome 
             icon={CloudSun}
             badge="Open-Meteo"
         >
-            <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+            <div className="flex flex-row gap-3 items-center">
                 {children}
                 {onAtualizar && (
                     <ActionButton

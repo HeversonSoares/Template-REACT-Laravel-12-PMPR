@@ -35,44 +35,55 @@ export default function Templates() {
 
                 <div className="space-y-6 mt-6">
                     <Card className="border-border shadow-sm overflow-hidden bg-card">
-                        <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-6 border-b border-border">
-                            <div className="flex items-center gap-3">
-                                <LayoutTemplate className="h-8 w-8 text-primary" />
-                                <div>
-                                    <h2 className="text-xl font-bold text-foreground">Bem-vindo à Biblioteca de Templates</h2>
-                                    <p className="text-sm text-muted-foreground mt-0.5">Explore as views de exemplo pré-construídas e os padrões de UI/UX do projeto.</p>
-                                </div>
-                            </div>
+                        <div className="p-6 border-b border-border bg-muted/20">
+                            <h2 className="text-xl font-bold text-foreground">Guia de Módulos</h2>
+                            <p className="text-sm text-muted-foreground mt-0.5">Entenda como estruturar novos módulos, organizar componentes, layouts e páginas.</p>
                         </div>
                         <CardContent className="p-6 space-y-6">
-                            <p className="text-sm text-muted-foreground leading-relaxed">
-                                Este módulo serve como um guia vivo e repositório de componentes funcionais. 
-                                Ele demonstra a integração entre a biblioteca **shadcn/ui**, ícones do **Lucide React** e estilizações personalizadas sob a identidade visual do **SGA PMPR**.
-                            </p>
+                            <div className="space-y-4">
+                                <p className="text-sm text-muted-foreground leading-relaxed">
+                                    O frontend da aplicação segue uma arquitetura baseada em módulos independentes. 
+                                    Cada domínio do sistema deve possuir sua própria pasta dentro de <code>resources/js/modules/</code>.
+                                </p>
+                            </div>
 
-                            <div className="grid gap-4 md:grid-cols-3">
-                                <div className="p-4 border border-border rounded-xl space-y-2 bg-muted/30">
-                                    <div className="flex items-center gap-2 text-foreground font-semibold text-sm">
+                            <div className="grid gap-6 md:grid-cols-2">
+                                <div className="space-y-3">
+                                    <div className="flex items-center gap-2 text-foreground font-semibold text-xs uppercase tracking-wide">
                                         <Layers className="h-4 w-4 text-primary" />
-                                        Dashboard de Exemplo
+                                        1. Como Criar um Módulo
                                     </div>
-                                    <p className="text-xs text-muted-foreground">Métricas, painéis informativos e layouts de gráficos integrados.</p>
+                                    <p className="text-xs text-muted-foreground leading-relaxed">
+                                        Crie uma pasta com o nome do módulo (ex: <code>Efetivo</code>) e estruture as pastas internas conforme a necessidade.
+                                    </p>
+                                    <pre className="bg-muted p-3.5 rounded-lg overflow-x-auto text-[11px] text-foreground font-mono leading-relaxed border border-border">
+{`NomeDoModulo/
+├── components/   # Componentes únicos do módulo
+├── pages/        # Telas (views)
+├── hooks/        # Lógica React (opcional)
+└── services/     # Chamadas de API (opcional)`}
+                                    </pre>
                                 </div>
 
-                                <div className="p-4 border border-border rounded-xl space-y-2 bg-muted/30">
-                                    <div className="flex items-center gap-2 text-foreground font-semibold text-sm">
-                                        <BookOpen className="h-4 w-4 text-primary" />
-                                        Tabelas e Formulários
+                                <div className="space-y-6">
+                                    <div className="space-y-3">
+                                        <div className="flex items-center gap-2 text-foreground font-semibold text-xs uppercase tracking-wide">
+                                            <LayoutTemplate className="h-4 w-4 text-primary" />
+                                            2. Páginas e Layouts
+                                        </div>
+                                        <p className="text-xs text-muted-foreground leading-relaxed">
+                                            As páginas exportadas na pasta <code>pages/</code> devem sempre usar o componente genérico <code>&lt;Layout&gt;</code> como raiz. Isso garante que a barra lateral de navegação e o cabeçalho superior sejam renderizados, mantendo o padrão visual.
+                                        </p>
                                     </div>
-                                    <p className="text-xs text-muted-foreground">Padrões para listagem de dados, filtros de busca e inputs interativos avançados.</p>
-                                </div>
-
-                                <div className="p-4 border border-border rounded-xl space-y-2 bg-muted/30">
-                                    <div className="flex items-center gap-2 text-foreground font-semibold text-sm">
-                                        <LayoutTemplate className="h-4 w-4 text-primary" />
-                                        Diretrizes de Design
+                                    <div className="space-y-3">
+                                        <div className="flex items-center gap-2 text-foreground font-semibold text-xs uppercase tracking-wide">
+                                            <BookOpen className="h-4 w-4 text-primary" />
+                                            3. Componentes Globais vs Locais
+                                        </div>
+                                        <p className="text-xs text-muted-foreground leading-relaxed">
+                                            Itens de UI reutilizáveis (como os gerados pelo <strong>shadcn/ui</strong> na raiz <code>components/ui/</code>) ficam disponíveis para todos os módulos. Já os componentes que só fazem sentido para uma tela específica devem ficar restritos dentro de <code>modules/NomeDoModulo/components/</code>.
+                                        </p>
                                     </div>
-                                    <p className="text-xs text-muted-foreground">Padronização tipográfica e guia visual para títulos, cards e elementos do sistema.</p>
                                 </div>
                             </div>
                         </CardContent>
