@@ -27,30 +27,28 @@ import { CloudSun, RefreshCw } from 'lucide-react';
  * @example
  * <TempoMenu onAtualizar={buscar} isLoading={isLoading} />
  */
-export default function TempoMenu({ onAtualizar, isLoading }) {
-    const navItems = [
-        { to: '/tempo', label: 'Previsão do Tempo', end: true },
-    ];
-
+export default function TempoMenu({ onAtualizar, isLoading, children, localNome }) {
     return (
         <ModuleHeader
-            title="Previsão do Tempo"
-            description="Consulta de previsão meteorológica via API pública Open-Meteo (sem necessidade de token)."
+            title={localNome ? `Previsão do Tempo em ${localNome}` : "Previsão do Tempo"}
+            description="Consulta de previsão meteorológica via API pública Open-Meteo."
             icon={CloudSun}
             badge="Open-Meteo"
-            navItems={navItems}
         >
-            {onAtualizar && (
-                <ActionButton
-                    icon={RefreshCw}
-                    label={isLoading ? 'Buscando...' : 'Atualizar'}
-                    variant="outline"
-                    disabled={isLoading}
-                    onClick={onAtualizar}
-                    responsive
-                    className={isLoading ? '[&_svg]:animate-spin' : ''}
-                />
-            )}
+            <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                {children}
+                {onAtualizar && (
+                    <ActionButton
+                        icon={RefreshCw}
+                        label={isLoading ? 'Buscando...' : 'Atualizar'}
+                        variant="outline"
+                        disabled={isLoading}
+                        onClick={onAtualizar}
+                        compact
+                        className={isLoading ? '[&_svg]:animate-spin' : ''}
+                    />
+                )}
+            </div>
         </ModuleHeader>
     );
 }

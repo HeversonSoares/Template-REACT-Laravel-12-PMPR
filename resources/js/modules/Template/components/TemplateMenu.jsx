@@ -55,7 +55,7 @@ import {
 export default function TemplateMenu({ children }) {
     const [isOpenDialog, setIsOpenDialog] = useState(false);
 
-    const docsGlob = import.meta.glob('../../../../../docs/*.md');
+    const docsGlob = import.meta.glob('../../../../../docs/*.md', { query: '?raw' });
     const docsItems = Object.keys(docsGlob).map((path) => {
         const fileName = path.split('/').pop();
         const name = fileName.replace('.md', '').split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');

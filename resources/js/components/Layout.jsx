@@ -13,6 +13,7 @@ import {
     Moon,
     Sun,
     X,
+    CloudSun,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
@@ -39,6 +40,7 @@ const navItems = [
     { path: '/efetivo',          name: 'Efetivo',          icon: Users },
     { path: '/fleets',           name: 'Frotas',           icon: Truck },
     { path: '/templates',        name: 'Desenvolvimento',  icon: CodeXml },
+    { path: '/tempo',            name: 'Previsão do Tempo', icon: CloudSun },
     { path: '/settings',         name: 'Configurações',    icon: Settings },
 ];
 

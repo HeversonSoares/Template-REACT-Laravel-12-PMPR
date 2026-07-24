@@ -179,19 +179,19 @@ function descreverClima(codigo) {
 }
 
 /**
- * Mapeia o WMO Weather Interpretation Code para um emoji representativo.
+ * Mapeia o WMO Weather Interpretation Code para o nome de um ícone Lucide.
  * @param {number} codigo - Código WMO do clima.
  * @returns {string}
  */
 function iconeClima(codigo) {
-    if (codigo === 0)  return '☀️';
-    if (codigo <= 2)   return '🌤️';
-    if (codigo === 3)  return '☁️';
-    if (codigo <= 48)  return '🌫️';
-    if (codigo <= 55)  return '🌦️';
-    if (codigo <= 65)  return '🌧️';
-    if (codigo <= 77)  return '❄️';
-    if (codigo <= 82)  return '🌧️';
-    if (codigo <= 86)  return '🌨️';
-    return '⛈️';
+    if (codigo === 0)  return 'Sun';
+    if (codigo <= 2)   return 'CloudSun';
+    if (codigo === 3)  return 'Cloud';
+    if (codigo <= 48)  return 'CloudFog';
+    if (codigo <= 55)  return 'CloudDrizzle';
+    if (codigo <= 65)  return 'CloudRain';
+    if (codigo <= 77)  return 'Snowflake';
+    if (codigo <= 82)  return 'CloudRain';
+    if (codigo <= 86)  return 'CloudSnow';
+    return 'CloudLightning';
 }

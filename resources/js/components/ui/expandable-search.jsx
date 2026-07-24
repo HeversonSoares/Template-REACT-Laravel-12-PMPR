@@ -16,11 +16,14 @@ export default function ExpandableSearch({
     value,
     onChange,
     onClear,
+    onKeyDown,
+    onSearch,
     placeholder = "Pesquisar...",
     renderResults,
-    className
+    className,
+    defaultExpanded = false
 }) {
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(defaultExpanded);
     const inputRef = useRef(null);
 
     useEffect(() => {
@@ -49,12 +52,19 @@ export default function ExpandableSearch({
     return (
         <div className="relative z-50">
             <div className={cn("flex items-center bg-background border rounded-md px-2 shadow-sm w-64 md:w-80 transition-all", className)}>
-                <Search className="w-4 h-4 text-muted-foreground shrink-0" />
+                <button 
+                    onClick={onSearch}
+                    className="flex items-center justify-center h-6 w-6 shrink-0 rounded-sm hover:bg-accent hover:text-accent-foreground text-muted-foreground transition-colors cursor-pointer"
+                    aria-label="Pesquisar"
+                >
+                    <Search className="w-4 h-4" />
+                </button>
                 <Input 
                     ref={inputRef}
                     placeholder={placeholder} 
                     value={value}
                     onChange={onChange}
+                    onKeyDown={onKeyDown}
                     className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-9"
                 />
                 <Button 
