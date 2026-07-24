@@ -5,7 +5,7 @@ import {
     Layers,
     Users,
     Truck,
-    CodeXml,
+    LayoutTemplate,
     Settings,
     LogOut,
     Bell,
@@ -39,7 +39,7 @@ const navItems = [
     { path: '/',                 name: 'Hub',              icon: Layers },
     { path: '/efetivo',          name: 'Efetivo',          icon: Users },
     { path: '/fleets',           name: 'Frotas',           icon: Truck },
-    { path: '/templates',        name: 'Desenvolvimento',  icon: CodeXml },
+    { path: '/templates',        name: 'Template',         icon: LayoutTemplate },
     { path: '/tempo',            name: 'Previsão do Tempo', icon: CloudSun },
     { path: '/settings',         name: 'Configurações',    icon: Settings },
 ];

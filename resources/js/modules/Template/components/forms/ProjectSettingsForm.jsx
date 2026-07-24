@@ -62,7 +62,7 @@ export default function ProjectSettingsForm() {
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectItem value="design">Design & UI</SelectItem>
-                                    <SelectItem value="development">Desenvolvimento</SelectItem>
+                                    <SelectItem value="development">Template</SelectItem>
                                     <SelectItem value="security">Segurança</SelectItem>
                                 </SelectContent>
                             </Select>

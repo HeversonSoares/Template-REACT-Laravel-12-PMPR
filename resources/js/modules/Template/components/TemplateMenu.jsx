@@ -6,6 +6,8 @@ import ModuleHeader from '@/components/ModuleHeader';
 
 // ActionButton — botão de ação padronizado do projeto (ícone à esquerda, com modo compacto/responsivo)
 import ActionButton from '@/components/ui/action-button';
+import ExpandableSearch from '@/components/ui/expandable-search';
+import PrintButton from '@/components/ui/print-button';
 
 // Componente Button customizado do Shadcn UI para botões estilizados de ações e gatilhos
 import { Button } from '@/components/ui/button';
@@ -47,7 +49,6 @@ import {
     PanelLeft,
     Layers,
     Columns2,
-    CodeXml,
     Radar,
     FileText,
 } from 'lucide-react';
@@ -124,75 +125,16 @@ export default function TemplateMenu({ children }) {
 
     return (
         <ModuleHeader
-            title="Desenvolvimento"
+            title="Template"
             description="Diretrizes, componentes padronizados e exemplos práticos de interface usando a biblioteca shadcn/ui."
-            icon={CodeXml}
+            icon={LayoutTemplate}
             navItems={navItems}
         >
             {children !== undefined ? children : (
-                <>
-                    <Dialog open={isOpenDialog} onOpenChange={setIsOpenDialog}>
-                        <DialogTrigger asChild>
-                            <ActionButton
-                                icon={Plus}
-                                label="Novo"
-                                variant="default"
-                                compact
-                            />
-                        </DialogTrigger>
-                        <DialogContent className="bg-background border border-border text-foreground sm:max-w-[425px]">
-                            <DialogHeader>
-                                <DialogTitle className="text-xl font-bold text-foreground">Adicionar Componente</DialogTitle>
-                                <DialogDescription className="text-muted-foreground">
-                                    Preencha as informações básicas para adicionar um novo componente à lista.
-                                </DialogDescription>
-                            </DialogHeader>
-                            <div className="grid gap-4 py-4">
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <label htmlFor="name" className="text-right text-sm font-medium">Nome</label>
-                                    <Input id="name" defaultValue="Minha Tabela Personalizada" className="col-span-3" />
-                                </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <label htmlFor="category" className="text-right text-sm font-medium">Categoria</label>
-                                    <div className="col-span-3">
-                                        <Select defaultValue="tables">
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Selecione..." />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectItem value="dashboards">Dashboards</SelectItem>
-                                                <SelectItem value="tables">Tabelas</SelectItem>
-                                                <SelectItem value="forms">Formulários</SelectItem>
-                                            </SelectContent>
-                                        </Select>
-                                    </div>
-                                </div>
-                            </div>
-                            <DialogFooter>
-                                <Button variant="outline" onClick={() => setIsOpenDialog(false)}>Cancelar</Button>
-                                <Button variant="success" onClick={() => setIsOpenDialog(false)}>Salvar</Button>
-                            </DialogFooter>
-                        </DialogContent>
-                    </Dialog>
-                    <ActionButton
-                        icon={Save}
-                        label="Salvar"
-                        variant="success"
-                        compact
-                    />
-                    <ActionButton
-                        icon={Trash2}
-                        label="Excluir"
-                        variant="destructive"
-                        compact
-                    />
-                    <ActionButton
-                        icon={Download}
-                        label="Exportar"
-                        variant="outline"
-                        compact
-                    />
-                </>
+                <div className="flex items-center gap-2">
+                    <ExpandableSearch />
+                    <PrintButton compact />
+                </div>
             )}
         </ModuleHeader>
     );

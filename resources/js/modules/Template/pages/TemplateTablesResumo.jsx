@@ -35,7 +35,7 @@ export default function TemplateTablesResumo() {
         {
             id: "CHM-3825",
             assunto: "Instabilidade na API de integração externa",
-            solicitante: "João Souza (Desenvolvimento)",
+            solicitante: "João Souza (Template)",
             prioridade: "Alta",
             status: "Em Atendimento",
             data: "20/07/2026 07:15"
