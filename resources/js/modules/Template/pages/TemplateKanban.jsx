@@ -1,11 +1,18 @@
 import React, { useState, useRef, useCallback } from 'react';
 import Layout from '@/components/Layout';
 import TemplateMenu from '../components/TemplateMenu';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import ActionButton from '@/components/ui/action-button';
+import ExpandableSearch from '@/components/ui/expandable-search';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
+} from '@/components/ui/sheet';
 import {
     Dialog,
     DialogContent,
@@ -13,25 +20,19 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from '@/components/ui/dialog';
-import { Separator } from '@/components/ui/separator';
 import {
     Plus,
-    MoreHorizontal,
-    User,
     Calendar,
-    Flag,
-    GripVertical,
     Trash2,
     Pencil,
     CheckCircle2,
     Clock,
     CircleDashed,
     AlertCircle,
-    Search,
-    X,
-    Tag,
+    Kanban,
+    TrendingUp,
+    BarChart2,
 } from 'lucide-react';
 
 // ─── Dados iniciais do Kanban ─────────────────────────────────────────────────
@@ -39,9 +40,7 @@ const INITIAL_COLUMNS = {
     backlog: {
         id: 'backlog',
         title: 'Backlog',
-        color: 'bg-slate-500',
-        lightColor: 'bg-slate-500/10',
-        borderColor: 'border-slate-500/30',
+        accent: '#94a3b8',
         icon: CircleDashed,
         cards: [
             {
@@ -64,9 +63,7 @@ const INITIAL_COLUMNS = {
     todo: {
         id: 'todo',
         title: 'A Fazer',
-        color: 'bg-blue-500',
-        lightColor: 'bg-blue-500/10',
-        borderColor: 'border-blue-500/30',
+        accent: '#3b82f6',
         icon: Clock,
         cards: [
             {
@@ -84,9 +81,7 @@ const INITIAL_COLUMNS = {
     inProgress: {
         id: 'inProgress',
         title: 'Em Progresso',
-        color: 'bg-amber-500',
-        lightColor: 'bg-amber-500/10',
-        borderColor: 'border-amber-500/30',
+        accent: '#f59e0b',
         icon: AlertCircle,
         cards: [
             {
@@ -104,9 +99,7 @@ const INITIAL_COLUMNS = {
     done: {
         id: 'done',
         title: 'Concluído',
-        color: 'bg-emerald-500',
-        lightColor: 'bg-emerald-500/10',
-        borderColor: 'border-emerald-500/30',
+        accent: '#10b981',
         icon: CheckCircle2,
         cards: [
             {
@@ -127,93 +120,116 @@ const COLUMN_ORDER = ['backlog', 'todo', 'inProgress', 'done'];
 
 // ─── Prioridade config ────────────────────────────────────────────────────────
 const PRIORITY_CONFIG = {
-    high:   { label: 'Alta',   class: 'text-red-500',    bg: 'bg-red-500/10',    border: 'border-red-500/20' },
-    medium: { label: 'Média',  class: 'text-amber-500',  bg: 'bg-amber-500/10',  border: 'border-amber-500/20' },
-    low:    { label: 'Baixa',  class: 'text-emerald-500',bg: 'bg-emerald-500/10',border: 'border-emerald-500/20' },
+    high:   { label: 'Alta',   dot: '#ef4444', borderColor: '#ef4444' },
+    medium: { label: 'Média',  dot: '#f59e0b', borderColor: '#f59e0b' },
+    low:    { label: 'Baixa',  dot: '#10b981', borderColor: '#10b981' },
+};
+
+// ─── Tag colors ───────────────────────────────────────────────────────────────
+const TAG_COLORS = {
+    Frontend: 'bg-blue-100 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300',
+    Backend:  'bg-purple-100 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300',
+    Database: 'bg-orange-100 text-orange-700 dark:bg-orange-950/60 dark:text-orange-300',
+    DevOps:   'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300',
+    Docs:     'bg-teal-100 text-teal-700 dark:bg-teal-950/60 dark:text-teal-300',
+    Design:   'bg-pink-100 text-pink-700 dark:bg-pink-950/60 dark:text-pink-300',
 };
 
 // ─── Avatares coloridos por sigla ─────────────────────────────────────────────
-const AVATAR_COLORS = {
-    HS: 'bg-blue-500',
-    CS: 'bg-purple-500',
-    MR: 'bg-emerald-500',
-    JL: 'bg-amber-500',
+const AVATAR_META = {
+    HS: { bg: '#3b82f6', label: 'Heverson S.' },
+    CS: { bg: '#8b5cf6', label: 'Carlos S.' },
+    MR: { bg: '#10b981', label: 'Marina R.' },
+    JL: { bg: '#f59e0b', label: 'João L.' },
 };
 
 function Avatar({ initials }) {
-    const color = AVATAR_COLORS[initials] || 'bg-slate-500';
+    const meta = AVATAR_META[initials] || { bg: '#64748b', label: initials };
     return (
-        <div className={`h-6 w-6 rounded-full ${color} text-white text-[10px] font-bold flex items-center justify-center shrink-0`}>
+        <div
+            title={meta.label}
+            className="h-7 w-7 rounded-full text-white text-[10px] font-bold flex items-center justify-center shrink-0 ring-2 ring-background"
+            style={{ backgroundColor: meta.bg }}
+        >
             {initials}
         </div>
     );
 }
 
-function PriorityBadge({ priority }) {
+function PriorityDot({ priority }) {
     const cfg = PRIORITY_CONFIG[priority];
     if (!cfg) return null;
     return (
-        <span className={`inline-flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded-md border ${cfg.bg} ${cfg.border} ${cfg.class}`}>
-            <Flag className="h-2.5 w-2.5" />
+        <span className="inline-flex items-center gap-1.5 text-[11px] font-medium" style={{ color: cfg.dot }}>
+            <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: cfg.dot }} />
             {cfg.label}
+        </span>
+    );
+}
+
+function TagBadge({ tag }) {
+    const colorClass = TAG_COLORS[tag] || 'bg-muted text-muted-foreground';
+    return (
+        <span className={`inline-flex items-center text-[10px] font-semibold px-2 py-0.5 rounded-full ${colorClass}`}>
+            {tag}
         </span>
     );
 }
 
 // ─── Card Kanban ──────────────────────────────────────────────────────────────
 function KanbanCard({ card, columnId, onDragStart, onDelete, onEdit, isDragging }) {
+    const priorityCfg = PRIORITY_CONFIG[card.priority] || {};
+
     return (
         <div
             draggable
             onDragStart={(e) => onDragStart(e, card.id, columnId)}
-            className={`group bg-card border border-border rounded-xl p-3.5 space-y-2.5 cursor-grab active:cursor-grabbing
-                transition-all duration-200 hover:shadow-md hover:border-primary/30
-                ${isDragging ? 'opacity-40 scale-95' : 'opacity-100'}
+            className={`group relative bg-card border border-border/60 border-l-[3px] rounded-lg p-4 cursor-grab active:cursor-grabbing
+                transition-all duration-150 hover:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] hover:border-border
+                ${isDragging ? 'opacity-30 scale-[0.97]' : 'opacity-100'}
             `}
+            style={{ borderLeftColor: priorityCfg.borderColor }}
         >
-            {/* Top row: tag + actions */}
-            <div className="flex items-center justify-between gap-2">
-                <span className="inline-flex items-center gap-1 text-[10px] font-medium px-1.5 py-0.5 rounded-md bg-primary/10 text-primary border border-primary/20">
-                    <Tag className="h-2.5 w-2.5" />
-                    {card.tag}
-                </span>
-                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button
-                        onClick={() => onEdit(card, columnId)}
-                        className="h-5 w-5 flex items-center justify-center rounded text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
-                    >
-                        <Pencil className="h-3 w-3" />
-                    </button>
-                    <button
-                        onClick={() => onDelete(card.id, columnId)}
-                        className="h-5 w-5 flex items-center justify-center rounded text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
-                    >
-                        <Trash2 className="h-3 w-3" />
-                    </button>
-                </div>
+            {/* Actions (hover) */}
+            <div className="absolute top-3 right-3 flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                <button
+                    onClick={() => onEdit(card, columnId)}
+                    className="h-6 w-6 flex items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+                >
+                    <Pencil className="h-3 w-3" />
+                </button>
+                <button
+                    onClick={() => onDelete(card.id, columnId)}
+                    className="h-6 w-6 flex items-center justify-center rounded-md text-muted-foreground hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors"
+                >
+                    <Trash2 className="h-3 w-3" />
+                </button>
+            </div>
+
+            {/* Tag */}
+            <div className="mb-2.5">
+                <TagBadge tag={card.tag} />
             </div>
 
             {/* Title */}
-            <p className="text-sm font-semibold text-foreground leading-snug line-clamp-2">
+            <p className="text-[13px] font-semibold text-foreground leading-snug line-clamp-2 pr-10 mb-1">
                 {card.title}
             </p>
 
             {/* Description */}
             {card.description && (
-                <p className="text-[11px] text-muted-foreground leading-relaxed line-clamp-2">
+                <p className="text-[11px] text-muted-foreground leading-relaxed line-clamp-2 mb-3">
                     {card.description}
                 </p>
             )}
 
-            <Separator className="opacity-50" />
-
-            {/* Bottom: priority + due date + avatar */}
-            <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-1.5 flex-wrap">
-                    <PriorityBadge priority={card.priority} />
+            {/* Footer: priority + date + avatar */}
+            <div className="flex items-center justify-between gap-2 mt-3 pt-3 border-t border-border/40">
+                <div className="flex items-center gap-3">
+                    <PriorityDot priority={card.priority} />
                     {card.dueDate && (
-                        <span className="inline-flex items-center gap-1 text-[10px] text-muted-foreground">
-                            <Calendar className="h-2.5 w-2.5" />
+                        <span className="inline-flex items-center gap-1 text-[10px] text-muted-foreground font-medium">
+                            <Calendar className="h-3 w-3" />
                             {new Date(card.dueDate).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' })}
                         </span>
                     )}
@@ -230,21 +246,28 @@ function KanbanColumn({ column, onDragStart, onDragOver, onDrop, onDelete, onEdi
     const isOver = dragOverCol === column.id;
 
     return (
-        <div className="flex flex-col min-w-[280px] max-w-[320px] flex-shrink-0 h-full">
+        <div className="flex flex-col w-[300px] flex-shrink-0">
             {/* Column header */}
-            <div className={`flex items-center justify-between mb-3 px-1`}>
-                <div className="flex items-center gap-2">
-                    <div className={`h-6 w-6 rounded-md ${column.lightColor} border ${column.borderColor} flex items-center justify-center`}>
-                        <Icon className={`h-3.5 w-3.5 ${column.color.replace('bg-', 'text-')}`} />
-                    </div>
-                    <span className="text-sm font-bold text-foreground">{column.title}</span>
-                    <span className={`h-5 min-w-5 px-1.5 rounded-full ${column.lightColor} border ${column.borderColor} text-[10px] font-bold flex items-center justify-center ${column.color.replace('bg-', 'text-')}`}>
+            <div className="flex items-center justify-between mb-3 px-0.5">
+                <div className="flex items-center gap-2.5">
+                    <span
+                        className="h-2 w-2 rounded-full"
+                        style={{ backgroundColor: column.accent }}
+                    />
+                    <span className="text-[13px] font-semibold text-foreground tracking-tight">
+                        {column.title}
+                    </span>
+                    <span
+                        className="min-w-[20px] h-5 px-1.5 rounded-full text-[10px] font-bold flex items-center justify-center text-white"
+                        style={{ backgroundColor: column.accent }}
+                    >
                         {column.cards.length}
                     </span>
                 </div>
                 <button
                     onClick={() => onAddCard(column.id)}
-                    className="h-6 w-6 flex items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
+                    className="h-7 w-7 flex items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+                    title="Adicionar card"
                 >
                     <Plus className="h-4 w-4" />
                 </button>
@@ -254,8 +277,8 @@ function KanbanColumn({ column, onDragStart, onDragOver, onDrop, onDelete, onEdi
             <div
                 onDragOver={(e) => onDragOver(e, column.id)}
                 onDrop={(e) => onDrop(e, column.id)}
-                className={`flex flex-col gap-2.5 flex-1 rounded-xl p-2 min-h-[200px] transition-colors duration-200
-                    ${isOver ? `${column.lightColor} border-2 border-dashed ${column.borderColor}` : 'border-2 border-dashed border-transparent'}
+                className={`flex flex-col gap-2 flex-1 rounded-xl min-h-[200px] transition-all duration-200
+                    ${isOver ? 'bg-accent/40 ring-2 ring-dashed ring-border p-2' : 'p-0'}
                 `}
             >
                 {column.cards.map((card) => (
@@ -271,9 +294,9 @@ function KanbanColumn({ column, onDragStart, onDragOver, onDrop, onDelete, onEdi
                 ))}
 
                 {column.cards.length === 0 && !isOver && (
-                    <div className="flex-1 flex flex-col items-center justify-center gap-2 py-8 text-muted-foreground/40">
-                        <Icon className="h-8 w-8" />
-                        <p className="text-xs">Sem cartões</p>
+                    <div className="flex-1 flex flex-col items-center justify-center gap-2 py-10 rounded-xl border-2 border-dashed border-border/40">
+                        <Icon className="h-6 w-6 text-muted-foreground/30" />
+                        <p className="text-xs text-muted-foreground/40 font-medium">Sem cartões</p>
                     </div>
                 )}
             </div>
@@ -290,7 +313,8 @@ export default function TemplateKanban() {
     const [search, setSearch]           = useState('');
     const [filterPriority, setFilterPriority] = useState('all');
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const [dialogMode, setDialogMode]   = useState('add'); // 'add' | 'edit'
+    const [isSheetOpen, setIsSheetOpen]   = useState(false);
+    const [dialogMode, setDialogMode]     = useState('add'); // 'add' | 'edit'
     const [targetCol, setTargetCol]     = useState('backlog');
     const [editingCard, setEditingCard] = useState(null);
 
@@ -409,77 +433,44 @@ export default function TemplateKanban() {
 
     return (
         <Layout>
-            <div className="p-6 space-y-6 w-full">
-                <TemplateMenu />
+            <div className="p-6 space-y-5 w-full">
+                <TemplateMenu>
+                    {/* Search */}
+                    <ExpandableSearch
+                        value={search}
+                        onChange={e => setSearch(e.target.value)}
+                        onClear={() => setSearch('')}
+                        placeholder="Buscar cards..."
+                    />
 
-                {/* ── Barra de status + filtros ─────────────────────────────── */}
-                <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
-                    {/* Progress */}
-                    <div className="flex items-center gap-4">
-                        <div className="space-y-1">
-                            <div className="flex items-center gap-2">
-                                <span className="text-sm font-semibold text-foreground">Progresso geral</span>
-                                <span className="text-xs font-bold text-primary">{progress}%</span>
-                            </div>
-                            <div className="w-48 h-2 bg-muted rounded-full overflow-hidden">
-                                <div
-                                    className="h-full bg-primary rounded-full transition-all duration-700"
-                                    style={{ width: `${progress}%` }}
-                                />
-                            </div>
-                        </div>
-                        <div className="flex gap-3">
-                            {COLUMN_ORDER.map(id => {
-                                const col = columns[id];
-                                const Icon = col.icon;
-                                return (
-                                    <div key={id} className="flex items-center gap-1 text-xs text-muted-foreground">
-                                        <Icon className={`h-3 w-3 ${col.color.replace('bg-', 'text-')}`} />
-                                        <span className="font-semibold text-foreground">{col.cards.length}</span>
-                                        <span className="hidden sm:inline">{col.title}</span>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
 
-                    {/* Filters */}
-                    <div className="flex items-center gap-2 flex-wrap">
-                        <div className="relative">
-                            <Search className="absolute left-2.5 top-2 h-3.5 w-3.5 text-muted-foreground" />
-                            <Input
-                                placeholder="Buscar cards..."
-                                value={search}
-                                onChange={e => setSearch(e.target.value)}
-                                className="pl-7 h-8 text-xs w-44"
-                            />
-                            {search && (
-                                <button onClick={() => setSearch('')} className="absolute right-2 top-2 text-muted-foreground hover:text-foreground">
-                                    <X className="h-3.5 w-3.5" />
-                                </button>
-                            )}
-                        </div>
-                        <Select value={filterPriority} onValueChange={setFilterPriority}>
-                            <SelectTrigger className="h-8 text-xs w-36">
-                                <SelectValue placeholder="Prioridade" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="all">Todas</SelectItem>
-                                <SelectItem value="high">🔴 Alta</SelectItem>
-                                <SelectItem value="medium">🟡 Média</SelectItem>
-                                <SelectItem value="low">🟢 Baixa</SelectItem>
-                            </SelectContent>
-                        </Select>
-                        <Button size="sm" className="h-8 text-xs gap-1.5" onClick={() => openAddDialog('backlog')}>
-                            <Plus className="h-3.5 w-3.5" />
-                            Novo Card
-                        </Button>
-                    </div>
-                </div>
+
+                    {/* Progresso */}
+                    <ActionButton
+                        icon={BarChart2}
+                        label="Progresso"
+                        tooltip="Ver progresso"
+                        variant="outline"
+                        compact
+                        onClick={() => setIsSheetOpen(true)}
+                    />
+
+                    {/* Novo Card — mesmo estilo do ActionButton padrão */}
+                    <ActionButton
+                        icon={Plus}
+                        label="Novo"
+                        title="Novo Card"
+                        variant="default"
+                        compact
+                        onClick={() => openAddDialog('backlog')}
+                    />
+                </TemplateMenu>
+
+
 
                 {/* ── Board ─────────────────────────────────────────────────── */}
                 <div
-                    className="flex gap-5 overflow-x-auto pb-6"
+                    className="flex gap-5 overflow-x-auto pb-4"
                     onDragLeave={() => setDragOverCol(null)}
                 >
                     {COLUMN_ORDER.map(colId => (
@@ -500,32 +491,33 @@ export default function TemplateKanban() {
 
                 {/* ── Dialog Add/Edit ───────────────────────────────────────── */}
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                    <DialogContent className="bg-background border border-border text-foreground sm:max-w-[500px]">
+                    <DialogContent className="bg-background border border-border text-foreground sm:max-w-[480px]">
                         <DialogHeader>
-                            <DialogTitle className="text-lg font-bold text-foreground">
+                            <DialogTitle className="text-base font-semibold text-foreground">
                                 {dialogMode === 'add' ? 'Novo Card' : 'Editar Card'}
                             </DialogTitle>
                             <DialogDescription className="text-muted-foreground text-xs">
                                 {dialogMode === 'add'
-                                    ? `Adicionando ao: ${columns[targetCol]?.title}`
+                                    ? `Adicionando à coluna: ${columns[targetCol]?.title}`
                                     : 'Atualize as informações do card.'}
                             </DialogDescription>
                         </DialogHeader>
 
-                        <div className="space-y-4 py-2">
+                        <div className="space-y-4 py-1">
                             {/* Título */}
                             <div className="space-y-1.5">
-                                <label className="text-xs font-semibold text-foreground">Título *</label>
+                                <label className="text-xs font-medium text-muted-foreground">Título *</label>
                                 <Input
                                     value={form.title}
                                     onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
                                     placeholder="O que precisa ser feito?"
+                                    className="text-sm"
                                 />
                             </div>
 
                             {/* Descrição */}
                             <div className="space-y-1.5">
-                                <label className="text-xs font-semibold text-foreground">Descrição</label>
+                                <label className="text-xs font-medium text-muted-foreground">Descrição</label>
                                 <textarea
                                     value={form.description}
                                     onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
@@ -538,9 +530,9 @@ export default function TemplateKanban() {
                             <div className="grid grid-cols-2 gap-3">
                                 {/* Prioridade */}
                                 <div className="space-y-1.5">
-                                    <label className="text-xs font-semibold text-foreground">Prioridade</label>
+                                    <label className="text-xs font-medium text-muted-foreground">Prioridade</label>
                                     <Select value={form.priority} onValueChange={v => setForm(f => ({ ...f, priority: v }))}>
-                                        <SelectTrigger className="text-xs">
+                                        <SelectTrigger className="text-xs h-9">
                                             <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -553,9 +545,9 @@ export default function TemplateKanban() {
 
                                 {/* Tag */}
                                 <div className="space-y-1.5">
-                                    <label className="text-xs font-semibold text-foreground">Tag</label>
+                                    <label className="text-xs font-medium text-muted-foreground">Tag</label>
                                     <Select value={form.tag} onValueChange={v => setForm(f => ({ ...f, tag: v }))}>
-                                        <SelectTrigger className="text-xs">
+                                        <SelectTrigger className="text-xs h-9">
                                             <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -571,9 +563,9 @@ export default function TemplateKanban() {
 
                                 {/* Responsável */}
                                 <div className="space-y-1.5">
-                                    <label className="text-xs font-semibold text-foreground">Responsável</label>
+                                    <label className="text-xs font-medium text-muted-foreground">Responsável</label>
                                     <Select value={form.assignee} onValueChange={v => setForm(f => ({ ...f, assignee: v }))}>
-                                        <SelectTrigger className="text-xs">
+                                        <SelectTrigger className="text-xs h-9">
                                             <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -587,12 +579,12 @@ export default function TemplateKanban() {
 
                                 {/* Data limite */}
                                 <div className="space-y-1.5">
-                                    <label className="text-xs font-semibold text-foreground">Data limite</label>
+                                    <label className="text-xs font-medium text-muted-foreground">Data limite</label>
                                     <Input
                                         type="date"
                                         value={form.dueDate}
                                         onChange={e => setForm(f => ({ ...f, dueDate: e.target.value }))}
-                                        className="text-xs"
+                                        className="text-xs h-9"
                                     />
                                 </div>
                             </div>
@@ -615,16 +607,113 @@ export default function TemplateKanban() {
                             )}
                         </div>
 
-                        <DialogFooter className="gap-2">
+                        <DialogFooter className="gap-2 pt-1">
                             <Button variant="outline" size="sm" onClick={() => setIsDialogOpen(false)}>
                                 Cancelar
                             </Button>
                             <Button size="sm" variant="success" onClick={handleSave} disabled={!form.title.trim()}>
-                                {dialogMode === 'add' ? 'Criar Card' : 'Salvar Alterações'}
+                                {dialogMode === 'add' ? 'Criar Card' : 'Salvar'}
                             </Button>
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
+
+                {/* ── Sheet Progresso ───────────────────────────────────────── */}
+                <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+                    <SheetContent side="right" className="w-[380px] sm:w-[420px]">
+                        <SheetHeader className="mb-6">
+                            <SheetTitle className="flex items-center gap-2 text-base font-semibold">
+                                <BarChart2 className="h-4 w-4 text-muted-foreground" />
+                                Progresso do Board
+                            </SheetTitle>
+                            <SheetDescription className="text-xs text-muted-foreground">
+                                Visão geral do andamento das tarefas por coluna.
+                            </SheetDescription>
+                        </SheetHeader>
+
+                        {/* Overall progress */}
+                        <div className="mb-6 p-4 rounded-xl bg-muted/40 border border-border/50 space-y-3">
+                            <div className="flex items-center justify-between">
+                                <span className="text-sm font-semibold text-foreground">Progresso geral</span>
+                                <span
+                                    className="text-sm font-bold"
+                                    style={{ color: '#10b981' }}
+                                >
+                                    {progress}%
+                                </span>
+                            </div>
+                            <div className="h-2.5 bg-background rounded-full overflow-hidden">
+                                <div
+                                    className="h-full rounded-full transition-all duration-700"
+                                    style={{ width: `${progress}%`, backgroundColor: '#10b981' }}
+                                />
+                            </div>
+                            <p className="text-xs text-muted-foreground">
+                                {doneCards} de {totalCards} tarefas concluídas
+                            </p>
+                        </div>
+
+                        {/* Per-column breakdown */}
+                        <div className="space-y-3">
+                            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Por coluna</p>
+                            {COLUMN_ORDER.map(colId => {
+                                const col = columns[colId];
+                                const Icon = col.icon;
+                                const colPct = totalCards > 0 ? Math.round((col.cards.length / totalCards) * 100) : 0;
+                                return (
+                                    <div key={colId} className="space-y-1.5">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-2">
+                                                <span
+                                                    className="h-2 w-2 rounded-full"
+                                                    style={{ backgroundColor: col.accent }}
+                                                />
+                                                <span className="text-sm font-medium text-foreground">{col.title}</span>
+                                            </div>
+                                            <span className="text-xs text-muted-foreground font-medium">
+                                                {col.cards.length} tarefa{col.cards.length !== 1 ? 's' : ''}
+                                            </span>
+                                        </div>
+                                        <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+                                            <div
+                                                className="h-full rounded-full transition-all duration-500"
+                                                style={{ width: `${colPct}%`, backgroundColor: col.accent }}
+                                            />
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                        {/* Priority breakdown */}
+                        <div className="mt-6 space-y-3">
+                            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Por prioridade</p>
+                            {[
+                                { key: 'high',   label: 'Alta',   color: '#ef4444' },
+                                { key: 'medium', label: 'Média',  color: '#f59e0b' },
+                                { key: 'low',    label: 'Baixa',  color: '#10b981' },
+                            ].map(({ key, label, color }) => {
+                                const count = Object.values(columns).flatMap(c => c.cards).filter(c => c.priority === key).length;
+                                const pct = totalCards > 0 ? Math.round((count / totalCards) * 100) : 0;
+                                return (
+                                    <div key={key} className="flex items-center gap-3">
+                                        <span className="flex items-center gap-1.5 w-16 text-xs font-medium" style={{ color }}>
+                                            <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: color }} />
+                                            {label}
+                                        </span>
+                                        <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
+                                            <div
+                                                className="h-full rounded-full transition-all duration-500"
+                                                style={{ width: `${pct}%`, backgroundColor: color }}
+                                            />
+                                        </div>
+                                        <span className="text-xs text-muted-foreground w-6 text-right">{count}</span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </SheetContent>
+                </Sheet>
             </div>
         </Layout>
     );

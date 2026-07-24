@@ -67,12 +67,12 @@ const ActionButton = React.forwardRef(({
 
     // Modo compacto: ícone centrado + label pequeno abaixo
     if (compact) {
-        return (
+        const inner = (
             <div
-                ref={ref}
+                ref={!props.tooltip ? ref : undefined}
                 onClick={disabled ? undefined : onClick}
                 className={cn('inline-flex flex-col items-center gap-0.5 group cursor-pointer select-none', disabled && 'opacity-50 pointer-events-none')}
-                {...props}
+                {...(props.tooltip ? {} : props)}
             >
                 <Button
                     variant={variant}
@@ -90,6 +90,23 @@ const ActionButton = React.forwardRef(({
                 )}
             </div>
         );
+
+        if (props.tooltip) {
+            return (
+                <TooltipProvider delayDuration={300}>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            {inner}
+                        </TooltipTrigger>
+                        <TooltipContent side="bottom">
+                            <p>{props.tooltip}</p>
+                        </TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
+            );
+        }
+
+        return inner;
     }
 
     // Modo responsivo: normal em md+, compacto abaixo de md
