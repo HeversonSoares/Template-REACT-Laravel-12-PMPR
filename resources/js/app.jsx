@@ -6,7 +6,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // ==============================================================================
 // IMPORTAÇÃO DE MÓDULOS (ARQUITETURA MODULAR)
-// Aqui nós importamos as páginas (componentes) de dentro dos seus respectivos módulos.
+// Aqui importamos as páginas (componentes) de dentro dos seus respectivos módulos.
 // Sempre que criar um novo módulo em "resources/js/modules/", importe a página principal dele aqui.
 // ==============================================================================
 import Dashboard from './modules/Dashboard/pages/Dashboard';
@@ -25,6 +25,7 @@ import TemplateDesignTypography from './modules/Template/pages/TemplateDesignTyp
 import TemplateDesignNavigation from './modules/Template/pages/TemplateDesignNavigation';
 import TemplateDesignButtons from './modules/Template/pages/TemplateDesignButtons';
 import TemplateDesignInteractive from './modules/Template/pages/TemplateDesignInteractive';
+import TemplateDesignIcons from './modules/Template/pages/TemplateDesignIcons';
 import TemplateBlank from './modules/Template/pages/TemplateBlank';
 import TemplateKanban from './modules/Template/pages/TemplateKanban';
 import TemplateGrid2 from './modules/Template/pages/TemplateGrid2';
@@ -56,13 +57,13 @@ function App() {
                 <Route path="/area-de-trabalho" element={<AreaDeTrabalho />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                
+
                 {/* Módulos do Sistema */}
                 <Route path="/efetivo" element={<PesquisaEfetivo />} />
                 <Route path="/efetivo/sincronizado" element={<EfetivoSincronizado />} />
                 <Route path="/efetivo/mapeamento" element={<MapeamentoCampos />} />
                 <Route path="/efetivo/parametros" element={<ParametrosConexao />} />
-                
+
                 <Route path="/fleets" element={<Fleets />} />
                 <Route path="/tempo" element={<TempoPage />} />
                 <Route path="/templates" element={<Templates />} />
@@ -71,6 +72,7 @@ function App() {
                 <Route path="/templates/tables" element={<TemplateTables />} />
                 <Route path="/templates/tables-resumo" element={<TemplateTablesResumo />} />
                 <Route path="/templates/forms" element={<TemplateForms />} />
+                <Route path="/templates/design" element={<TemplateDesignIcons />} />
                 <Route path="/templates/design/headers" element={<TemplateDesignHeaders />} />
                 <Route path="/templates/design/typography" element={<TemplateDesignTypography />} />
                 <Route path="/templates/design/navigation" element={<TemplateDesignNavigation />} />
@@ -79,16 +81,16 @@ function App() {
                 <Route path="/templates/blank" element={<TemplateBlank />} />
                 <Route path="/templates/kanban" element={<TemplateKanban />} />
                 {/* Grid Templates */}
-                <Route path="/templates/grid-2"          element={<TemplateGrid2 />} />
-                <Route path="/templates/grid-3"          element={<TemplateGrid3 />} />
-                <Route path="/templates/grid-4"          element={<TemplateGrid4 />} />
+                <Route path="/templates/grid-2" element={<TemplateGrid2 />} />
+                <Route path="/templates/grid-3" element={<TemplateGrid3 />} />
+                <Route path="/templates/grid-4" element={<TemplateGrid4 />} />
                 <Route path="/templates/grid-asymmetric" element={<TemplateGridAsymmetric />} />
-                <Route path="/templates/grid-masonry"    element={<TemplateGridMasonry />} />
-                <Route path="/templates/grid-split"      element={<TemplateGridSplit />} />
-                
+                <Route path="/templates/grid-masonry" element={<TemplateGridMasonry />} />
+                <Route path="/templates/grid-split" element={<TemplateGridSplit />} />
+
                 {/* Docs Template */}
-                <Route path="/templates/docs"            element={<TemplateDocs />} />
-                
+                <Route path="/templates/docs" element={<TemplateDocs />} />
+
                 <Route path="/settings" element={<Settings />} />
             </Routes>
         </BrowserRouter>

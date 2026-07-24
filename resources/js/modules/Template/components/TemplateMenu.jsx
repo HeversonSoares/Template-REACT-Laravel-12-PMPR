@@ -71,6 +71,7 @@ export default function TemplateMenu({ children }) {
         {
             label: 'Design UI UX',
             items: [
+                { to: '/templates/design', label: 'Ícones (Icons)', end: true },
                 { to: '/templates/design/headers', label: 'Cabeçalhos (Headers)' },
                 { to: '/templates/design/typography', label: 'Tipografia & Cards' },
                 { to: '/templates/design/navigation', label: 'Navegação & Menus' },
