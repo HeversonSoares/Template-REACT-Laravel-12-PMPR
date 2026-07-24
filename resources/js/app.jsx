@@ -19,7 +19,12 @@ import TemplateDashboard from './modules/Template/pages/TemplateDashboard';
 import TemplateCharts from './modules/Template/pages/TemplateCharts';
 import TemplateTables from './modules/Template/pages/TemplateTables';
 import TemplateTablesResumo from './modules/Template/pages/TemplateTablesResumo';
-import TemplateForms from './modules/Template/pages/TemplateForms';
+import TemplateForms from './modules/Template/pages/TemplateFormsOverview';
+import TemplateFormsCadastro from './modules/Template/pages/TemplateFormsCadastro';
+import TemplateFormsAuth from './modules/Template/pages/TemplateFormsAuth';
+import TemplateFormsWizard from './modules/Template/pages/TemplateFormsWizard';
+import TemplateFormsFiltros from './modules/Template/pages/TemplateFormsFiltros';
+import TemplateFormsAvancado from './modules/Template/pages/TemplateFormsAvancado';
 import TemplateDesignHeaders from './modules/Template/pages/TemplateDesignHeaders';
 import TemplateDesignTypography from './modules/Template/pages/TemplateDesignTypography';
 import TemplateDesignNavigation from './modules/Template/pages/TemplateDesignNavigation';
@@ -72,6 +77,11 @@ function App() {
                 <Route path="/templates/tables" element={<TemplateTables />} />
                 <Route path="/templates/tables-resumo" element={<TemplateTablesResumo />} />
                 <Route path="/templates/forms" element={<TemplateForms />} />
+                <Route path="/templates/forms/cadastro" element={<TemplateFormsCadastro />} />
+                <Route path="/templates/forms/auth" element={<TemplateFormsAuth />} />
+                <Route path="/templates/forms/wizard" element={<TemplateFormsWizard />} />
+                <Route path="/templates/forms/filtros" element={<TemplateFormsFiltros />} />
+                <Route path="/templates/forms/avancado" element={<TemplateFormsAvancado />} />
                 <Route path="/templates/design" element={<TemplateDesignIcons />} />
                 <Route path="/templates/design/headers" element={<TemplateDesignHeaders />} />
                 <Route path="/templates/design/typography" element={<TemplateDesignTypography />} />

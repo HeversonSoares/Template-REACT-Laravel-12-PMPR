@@ -51,6 +51,11 @@ import {
     Columns2,
     Radar,
     FileText,
+    UserPlus,
+    LogIn,
+    Layers3,
+    SlidersHorizontal,
+    Braces,
 } from 'lucide-react';
 
 export default function TemplateMenu({ children }) {
@@ -101,7 +106,18 @@ export default function TemplateMenu({ children }) {
                         { to: '/templates/tables-resumo', label: 'Tabela 2: Resumo de Chamados', icon: TableProperties },
                     ]
                 },
-                { to: '/templates/forms', label: 'Formulários', icon: ClipboardList },
+                {
+                    label: 'Formulários',
+                    icon: ClipboardList,
+                    items: [
+                        { to: '/templates/forms',          label: 'Visão Geral',            icon: ClipboardList, end: true },
+                        { to: '/templates/forms/cadastro', label: 'Cadastro Completo',       icon: UserPlus },
+                        { to: '/templates/forms/auth',     label: 'Login & Autenticação',    icon: LogIn },
+                        { to: '/templates/forms/wizard',   label: 'Wizard (Passo a Passo)', icon: Layers3 },
+                        { to: '/templates/forms/filtros',  label: 'Filtros & Busca',         icon: SlidersHorizontal },
+                        { to: '/templates/forms/avancado', label: 'Componentes Avançados',   icon: Braces },
+                    ]
+                },
                 { separator: true },
                 {
                     label: 'Grid',
