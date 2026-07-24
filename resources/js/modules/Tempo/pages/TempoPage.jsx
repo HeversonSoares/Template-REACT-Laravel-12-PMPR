@@ -4,7 +4,7 @@
 // Caminho: resources/js/modules/Tempo/pages/TempoPage.jsx
 // =============================================================================
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // ─── Layout principal da aplicação ───────────────────────────────────────────
 import Layout from '@/components/Layout';
@@ -23,6 +23,13 @@ import {
     CardTitle,
     CardDescription,
 } from '@/components/ui/card';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { Skeleton } from '@/components/ui/skeleton';
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 import {
@@ -34,7 +41,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { MapPin, Search, Globe, Thermometer, Droplets, Droplet, Wind, Sun, Activity, Gauge, CloudFog, Glasses, Clock, CalendarDays, ArrowDown, ArrowUp, Satellite, CloudSun, Cloud, CloudDrizzle, CloudRain, Snowflake, CloudSnow, CloudLightning } from 'lucide-react';
+import { MapPin, Search, Globe, Thermometer, Droplets, Droplet, Wind, Sun, Activity, Gauge, CloudFog, Glasses, Clock, CalendarDays, ArrowDown, ArrowUp, Satellite, CloudSun, Cloud, CloudDrizzle, CloudRain, Snowflake, CloudSnow, CloudLightning, MapPinOff } from 'lucide-react';
 
 const WeatherIcon = ({ name, className }) => {
     const icons = {
@@ -49,6 +56,18 @@ const chartConfig = {
         label: "Temperatura (°C)",
         color: "hsl(var(--primary))",
     },
+    vento: {
+        label: "Vento (km/h)",
+        color: "#94a3b8", // slate-400
+    },
+    umidade: {
+        label: "Umidade (%)",
+        color: "#3b82f6", // blue-500
+    },
+    probabilidadeChuva: {
+        label: "Chuva (%)",
+        color: "#60a5fa", // blue-400
+    }
 };
 
 // =============================================================================
@@ -70,6 +89,8 @@ export default function TempoPage() {
         erro,
         buscar,
     } = useTempo();
+
+    const [metricaHoraria, setMetricaHoraria] = useState('temperatura');
 
     useEffect(() => {
         buscar();
@@ -125,17 +146,15 @@ export default function TempoPage() {
 
                 {/* ── Mensagem de erro ────────────────────────────────────── */}
                 {erro && (
-                    <Card className="border-destructive/50 bg-destructive/5 rounded-2xl">
-                        <CardContent className="pt-5">
-                            <div className="flex items-center gap-3 text-destructive">
-                                <span className="text-2xl">⚠️</span>
-                                <div>
-                                    <p className="font-medium text-sm">Erro ao buscar dados</p>
-                                    <p className="text-xs mt-0.5 text-destructive/80">{erro}</p>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                    <div className="flex flex-col items-center justify-center p-12 text-center border border-dashed rounded-3xl bg-muted/20 mt-6 shadow-sm">
+                        <div className="w-20 h-20 rounded-full bg-destructive/10 flex items-center justify-center mb-6">
+                            <MapPinOff className="h-10 w-10 text-destructive/70" />
+                        </div>
+                        <h3 className="text-xl font-bold text-foreground mb-2">Ops, algo deu errado!</h3>
+                        <p className="text-sm text-muted-foreground max-w-[420px] mx-auto">
+                            {erro}
+                        </p>
+                    </div>
                 )}
 
                 {/* ── Conteúdo principal ──────────────────────────────────── */}
@@ -250,11 +269,26 @@ export default function TempoPage() {
 
                         {/* ── 3. Previsão horária (próximas 12h) ──────────── */}
                         <Card className="rounded-2xl">
-                            <CardHeader className="pb-3">
-                                <CardTitle className="text-base text-foreground flex items-center gap-2">
-                                    <Clock className="h-5 w-5 text-muted-foreground" /> Previsão Horária
-                                </CardTitle>
-                                <CardDescription>Próximas {Math.min(previsao.horas.length, 12)} horas</CardDescription>
+                            <CardHeader className="pb-3 flex flex-row items-center justify-between">
+                                <div>
+                                    <CardTitle className="text-base text-foreground flex items-center gap-2">
+                                        <Clock className="h-5 w-5 text-muted-foreground" /> Previsão Horária
+                                    </CardTitle>
+                                    <CardDescription>Próximas {Math.min(previsao.horas.length, 12)} horas</CardDescription>
+                                </div>
+                                <div>
+                                    <Select value={metricaHoraria} onValueChange={setMetricaHoraria}>
+                                        <SelectTrigger className="w-[180px] h-8 text-xs">
+                                            <SelectValue placeholder="Selecione..." />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="temperatura">Temperatura (°C)</SelectItem>
+                                            <SelectItem value="vento">Vento (km/h)</SelectItem>
+                                            <SelectItem value="umidade">Umidade (%)</SelectItem>
+                                            <SelectItem value="probabilidadeChuva">Probabilidade de Chuva (%)</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
                             </CardHeader>
                             <Separator className="opacity-30" />
                             <CardContent className="pt-4">
@@ -279,11 +313,11 @@ export default function TempoPage() {
                                             content={<ChartTooltipContent indicator="line" labelFormatter={(value) => formatarHora(value)} />}
                                         />
                                         <Line
-                                            dataKey="temperatura"
+                                            dataKey={metricaHoraria}
                                             type="natural"
-                                            stroke="var(--color-temperatura)"
+                                            stroke={chartConfig[metricaHoraria]?.color || "var(--color-temperatura)"}
                                             strokeWidth={3}
-                                            dot={{ r: 4, fill: "var(--color-temperatura)" }}
+                                            dot={{ r: 4, fill: chartConfig[metricaHoraria]?.color || "var(--color-temperatura)" }}
                                             activeDot={{ r: 6 }}
                                         />
                                     </LineChart>

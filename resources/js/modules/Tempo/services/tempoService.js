@@ -106,6 +106,8 @@ function transformarPrevisao(dados) {
         .map((hora, i) => ({
             hora:               hora,
             temperatura:        Math.round(hourly.temperature_2m[i]),
+            vento:              Math.round(hourly.wind_speed_10m[i]),
+            umidade:            Math.round(hourly.relative_humidity_2m[i]),
             probabilidadeChuva: hourly.precipitation_probability[i] ?? 0,
             codigoClima:        hourly.weather_code[i],
             icone:              iconeClima(hourly.weather_code[i]),

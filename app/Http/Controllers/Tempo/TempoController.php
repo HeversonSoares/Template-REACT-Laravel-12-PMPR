@@ -97,6 +97,8 @@ class TempoController extends Controller
                 'temperature_2m',
                 'weather_code',
                 'precipitation_probability',
+                'wind_speed_10m',
+                'relative_humidity_2m',
             ]),
             'daily'           => implode(',', [
                 'weather_code',
