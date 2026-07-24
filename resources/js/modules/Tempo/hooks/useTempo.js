@@ -37,7 +37,9 @@ import { buscarTempo } from '../services/tempoService';
  */
 export function useTempo() {
     // ── Estado: campo de busca ────────────────────────────────────────────────
-    const [cidade, setCidade]   = useState('Curitiba');
+    const [cidade, setCidade] = useState(() => {
+        return localStorage.getItem('tempo_cidade_padrao') || 'Curitiba';
+    });
 
     // ── Estado: localização encontrada (retornada pelo BFF) ───────────────────
     const [local, setLocal]     = useState(null);
@@ -71,6 +73,8 @@ export function useTempo() {
 
             setLocal(resultado.local);
             setPrevisao(resultado.previsao);
+            
+            localStorage.setItem('tempo_cidade_padrao', cidade.trim());
         } catch (e) {
             setErro(e.message ?? 'Erro inesperado ao buscar dados do tempo.');
         } finally {
